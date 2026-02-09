@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Casa di Nonna Iolanda — Ritiro Privato, Umbria</title>
+<meta name="description" content="Tennis privato e cielo aperto. Un ritiro di lusso nella natura nel cuore dell'Umbria, Italia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #F4EFE8; --bg-deep: #EDE6DB; --bg-dark: #2C2821;
+    --text: #2C2821; --text-light: #6B6358; --text-muted: #9A9083;
+    --accent: #7B8B6F; --accent-light: #A3B396;
+    --stone-beige: #D4C5B2; --stone-pink: #C9AFA0; --stone-yellow: #D4C8A8;
+    --white: #FDFBF8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', 'Helvetica Neue', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+
+  body {
+    font-family: var(--sans); font-weight: 300; color: var(--text);
+    background-color: var(--bg); line-height: 1.7; letter-spacing: 0.01em;
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--stone-beige); color: var(--text); }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    padding: 1.8rem 3rem; display: flex; justify-content: space-between;
+    align-items: center; transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  nav.scrolled {
+    background: rgba(244, 239, 232, 0.92); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); padding: 1.2rem 3rem;
+    border-bottom: 1px solid rgba(44, 40, 33, 0.06);
+  }
+  .nav-logo {
+    display: flex; align-items: center;
+    text-decoration: none; transition: opacity 0.3s;
+  }
+  .nav-logo:hover { opacity: 0.6; }
+  .nav-logo-img { height: 28px; width: auto; display: block; transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+  .nav-logo-img:first-child { opacity: 0; position: absolute; }
+  .nav-logo-img.nav-logo-light { opacity: 1; position: relative; }
+  nav.scrolled .nav-logo-img:first-child { opacity: 1; position: relative; }
+  nav.scrolled .nav-logo-img.nav-logo-light { opacity: 0; position: absolute; }
+  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(253,251,248,0.7);
+    text-decoration: none; transition: color 0.4s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+    background: var(--white); transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  nav.scrolled .nav-links a { color: var(--text-light); }
+  nav.scrolled .nav-links a::after { background: var(--text); }
+  nav.scrolled .nav-links a:hover { color: var(--text); }
+
+  /* ─── LANGUAGE SWITCHER ─── */
+  .lang-separator { width: 1px; height: 16px; background: rgba(253,251,248,0.3); transition: background 0.4s; }
+  nav.scrolled .lang-separator { background: var(--stone-beige); }
+  .lang-switcher { position: relative; display: flex; align-items: center; }
+  .lang-current {
+    font-family: var(--sans); font-size: 0.65rem; font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase; color: rgba(253,251,248,0.6);
+    cursor: pointer; padding: 0.4rem 0; display: flex; align-items: center;
+    gap: 0.5rem; transition: color 0.4s; background: none; border: none;
+  }
+  .lang-current:hover { color: var(--white); }
+  nav.scrolled .lang-current { color: var(--text-muted); }
+  nav.scrolled .lang-current:hover { color: var(--text); }
+  .lang-current svg {
+    width: 8px; height: 8px; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    fill: none; stroke: currentColor; stroke-width: 1.5;
+  }
+  .lang-switcher.open .lang-current svg { transform: rotate(180deg); }
+  .lang-dropdown {
+    position: absolute; top: calc(100% + 0.8rem); right: 0;
+    background: var(--white); border: 1px solid rgba(44, 40, 33, 0.06);
+    box-shadow: 0 8px 30px rgba(44, 40, 33, 0.08); padding: 0.6rem 0;
+    min-width: 120px; opacity: 0; visibility: hidden;
+    transform: translateY(-6px); transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lang-switcher.open .lang-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .lang-option {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.55rem 1.2rem; font-family: var(--sans); font-size: 0.7rem;
+    font-weight: 300; letter-spacing: 0.08em; color: var(--text-muted);
+    cursor: pointer; transition: all 0.25s; background: none; border: none; width: 100%; text-align: left;
+  }
+  .lang-option:hover { color: var(--text); background: rgba(212, 197, 178, 0.12); }
+  .lang-option.active { color: var(--text); font-weight: 400; }
+  .lang-option .lang-check {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .lang-option.active .lang-check { opacity: 1; }
+
+  /* ─── MOBILE NAV ─── */
+  .nav-toggle {
+    display: none; background: none; border: none; cursor: pointer;
+    width: 32px; height: 32px; position: relative; z-index: 200;
+    padding: 6px 2px;
+  }
+  .nav-toggle span {
+    display: block; width: 100%; height: 1px; background: var(--white);
+    position: absolute; left: 2px; right: 2px; transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  nav.scrolled .nav-toggle span { background: var(--text); }
+  .nav-toggle span:nth-child(1) { top: 8px; }
+  .nav-toggle span:nth-child(2) { top: 15px; }
+  .nav-toggle span:nth-child(3) { top: 22px; }
+  .nav-toggle.active span:nth-child(1) { top: 15px; transform: rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { top: 15px; transform: rotate(-45deg); }
+
+  .mobile-overlay {
+    display: none; position: fixed; inset: 0; background: var(--bg); z-index: 99;
+    flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
+    opacity: 0; transition: opacity 0.5s;
+  }
+  .mobile-overlay.active { display: flex; opacity: 1; }
+  .mobile-overlay a {
+    font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--text);
+    text-decoration: none; letter-spacing: 0.04em; transition: opacity 0.3s;
+  }
+  .mobile-overlay a:hover { opacity: 0.5; }
+  .mobile-lang {
+    display: flex; gap: 1.5rem; margin-top: 2rem; padding-top: 2rem;
+    border-top: 1px solid var(--stone-beige);
+  }
+  .mobile-lang button {
+    font-family: var(--sans); font-size: 0.75rem; font-weight: 300;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+    background: none; border: none; cursor: pointer; padding: 0.3rem 0; transition: color 0.3s;
+  }
+  .mobile-lang button.active { color: var(--text); font-weight: 400; }
+  .mobile-lang button:hover { color: var(--text); }
+
+  /* ─── HERO ─── */
+  .hero {
+    height: 100vh; height: 100svh; min-height: 700px; display: flex; flex-direction: column;
+    justify-content: flex-end; align-items: flex-start; padding: 0 3rem 6rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: url('hero.jpg');
+    background-size: cover; background-position: center 40%;
+    will-change: transform;
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, 
+      rgba(44,40,33,0.25) 0%, 
+      rgba(44,40,33,0.35) 50%,
+      rgba(44,40,33,0.65) 100%);
+  }
+  .hero-texture {
+    display: none;
+  }
+  .hero-line {
+    display: none;
+  }
+  .hero-content { position: relative; z-index: 3; max-width: 800px; }
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(3rem, 6.5vw, 5.5rem); font-weight: 300;
+    line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 1.5rem; color: var(--white);
+    text-shadow: 0 2px 30px rgba(0,0,0,0.2);
+  }
+  .hero h1 em { font-style: italic; font-weight: 300; }
+  .hero-sub {
+    font-family: var(--sans); font-size: 0.78rem; font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase; color: rgba(253,251,248,0.75);
+  }
+  .hero-payoff {
+    font-family: var(--serif); font-size: 1rem; font-weight: 300; font-style: italic;
+    color: rgba(253,251,248,0.85); margin-top: 2.5rem; letter-spacing: 0.03em;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; right: 3rem; z-index: 3;
+    font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(253,251,248,0.5); writing-mode: vertical-rl;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-scroll::after {
+    content: ''; width: 1px; height: 40px; background: rgba(253,251,248,0.5);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; height: 40px; }
+    50% { opacity: 1; height: 55px; }
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 8rem 3rem; position: relative; }
+  .section-narrow { max-width: 720px; margin: 0 auto; }
+  .section-wide { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 3rem; display: flex; align-items: center; gap: 1.5rem;
+  }
+  .section-label::before { content: ''; width: 0; height: 1px; background: var(--stone-beige); transition: width 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s; }
+  .reveal.visible .section-label::before { width: 30px; }
+  .section-number { font-family: var(--serif); font-size: 0.9rem; font-weight: 300; color: var(--stone-beige); margin-right: 0.5rem; }
+  h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 2rem; }
+  h3 { font-family: var(--serif); font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 400; line-height: 1.3; margin-bottom: 1.2rem; }
+  p { font-size: 0.95rem; line-height: 1.85; color: var(--text-light); margin-bottom: 1.5rem; max-width: 600px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ─── IMAGE PANELS ─── */
+  .image-panel { width: 100%; aspect-ratio: 2.2 / 1; position: relative; overflow: hidden; margin: 5rem 0; }
+  .image-panel-inner { position: absolute; inset: -20px; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+  .image-panel:hover .image-panel-inner { transform: scale(1.02); }
+  .ip-court {
+    background-image: url('court.jpg');
+    background-size: cover; background-position: center 55%;
+  }
+  .ip-valley {
+    background: radial-gradient(ellipse at 30% 70%, rgba(212,200,168,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 30%, rgba(201,175,160,0.2) 0%, transparent 50%),
+      linear-gradient(180deg, #C8BDA8 0%, #B8AC95 40%, #A89D88 70%, #9A9083 100%);
+  }
+  .ip-stone {
+    background: radial-gradient(ellipse at 40% 40%, rgba(212,197,178,0.5) 0%, transparent 40%),
+      radial-gradient(ellipse at 60% 60%, rgba(201,175,160,0.4) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 30%, rgba(212,200,168,0.3) 0%, transparent 35%),
+      linear-gradient(160deg, var(--stone-beige) 0%, var(--stone-pink) 50%, var(--stone-yellow) 100%);
+  }
+  .ip-jacuzzi {
+    background: radial-gradient(ellipse at 50% 50%, rgba(123,139,111,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 70%, rgba(180,195,210,0.25) 0%, transparent 40%),
+      linear-gradient(175deg, #A8B5A0 0%, #B8C4AE 40%, #C4CCB8 70%, #D4CDB8 100%);
+  }
+  .ip-pool {
+    background-image: url('pool.jpg');
+    background-size: cover; background-position: center 60%;
+  }
+  .ip-pool2 {
+    background-image: url('pool2.jpg');
+    background-size: cover; background-position: center 50%;
+  }
+  .image-panel-caption {
+    position: absolute; bottom: 2rem; left: 2.5rem; z-index: 2;
+    font-family: var(--serif); font-size: 1.1rem; font-weight: 300; font-style: italic;
+    color: rgba(255,255,255,0.85); text-shadow: 0 1px 20px rgba(0,0,0,0.15);
+    max-width: 400px; line-height: 1.5;
+  }
+  .image-panel-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(44,40,33,0.25) 100%); z-index: 1; }
+
+  /* ─── DARK SECTION ─── */
+  .section-dark { background: var(--bg-dark); color: var(--white); }
+  .section-dark .section-label { color: rgba(255,255,255,0.4); }
+  .section-dark .section-label::before { background: rgba(255,255,255,0.15); }
+  .section-dark h2 { color: var(--white); }
+  .section-dark h3 { color: rgba(255,255,255,0.9); }
+  .section-dark p { color: rgba(255,255,255,0.6); }
+
+  /* ─── RHYTHM GRID ─── */
+  .rhythm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 4rem; margin-top: 4rem; }
+  .rhythm-item { padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .rhythm-time { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem; }
+  .rhythm-item p { font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.55); max-width: 100%; }
+
+  /* ─── TWO COLUMNS ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .two-col-offset { padding-top: 4rem; }
+
+  /* ─── WILL / WILL NOT ─── */
+  .will-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
+  .will-col { padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .will-col h4 { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.5rem; }
+  .will-col p { font-size: 0.9rem; line-height: 2; color: rgba(255,255,255,0.55); max-width: 100%; }
+
+  /* ─── DIVIDER ─── */
+  .stone-divider { display: flex; justify-content: center; align-items: center; gap: 1rem; padding: 4rem 0; }
+  .stone-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .stone-dot:nth-child(1) { background: var(--stone-beige); }
+  .stone-dot:nth-child(2) { background: var(--stone-pink); }
+  .stone-dot:nth-child(3) { background: var(--stone-yellow); }
+
+  /* ─── RESERVE ─── */
+  .reserve-section { background: var(--bg-deep); text-align: center; padding: 10rem 3rem; }
+  .reserve-section h2 { margin-bottom: 1.5rem; }
+  .reserve-section p { margin-left: auto; margin-right: auto; text-align: center; }
+  .reserve-form { max-width: 500px; margin: 3rem auto 0; display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .reserve-form input, .reserve-form textarea {
+    width: 100%; padding: 1.1rem 0; font-family: var(--sans); font-size: 1rem;
+    font-weight: 300; letter-spacing: 0.03em; color: var(--text); background: transparent;
+    border: none; border-bottom: 1px solid var(--stone-beige); outline: none;
+    transition: border-color 0.3s; -webkit-appearance: none; border-radius: 0;
+  }
+  .reserve-form input::placeholder, .reserve-form textarea::placeholder { color: var(--text-muted); font-weight: 300; }
+  .reserve-form input:focus, .reserve-form textarea:focus { border-color: var(--text); }
+  .reserve-form textarea { resize: vertical; min-height: 80px; font-family: var(--sans); }
+  .reserve-btn {
+    align-self: center; margin-top: 1.5rem; padding: 1rem 3rem;
+    font-family: var(--sans); font-size: 0.7rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--white);
+    background: var(--bg-dark); border: none; cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reserve-btn:hover { background: var(--text-light); letter-spacing: 0.22em; }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--bg-dark); color: rgba(255,255,255,0.3); padding: 4rem 3rem; display: flex; justify-content: space-between; align-items: flex-end; }
+  .footer-left { display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 300; color: rgba(255,255,255,0.6); letter-spacing: 0.04em; }
+  .footer-location { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .footer-instagram { display: block; margin-top: 0.8rem; font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s; }
+  .footer-instagram:hover { color: rgba(255,255,255,0.7); }
+  .footer-right { font-family: var(--serif); font-size: 0.85rem; font-style: italic; color: rgba(255,255,255,0.25); letter-spacing: 0.03em; }
+
+  /* ─── RATES ─── */
+  .rates-philosophy { max-width: 680px; margin-bottom: 4rem; }
+  .rates-philosophy p { margin-bottom: 1.2rem; }
+  .rates-included { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0 4rem; }
+  .rates-included-col h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 1rem; color: var(--text); }
+  .rates-included-col p { font-size: 0.9rem; color: var(--text-light); line-height: 1.8; }
+  .rates-note { background: var(--bg-deep); padding: 2.5rem; margin: 3rem 0 4rem; border-left: 2px solid var(--stone-beige); }
+  .rates-note h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 1rem; }
+  .rates-note p { font-size: 0.9rem; color: var(--text-light); line-height: 1.8; }
+  .rates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .rate-card { background: var(--white); padding: 2rem; border: 1px solid rgba(44,40,33,0.06); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s cubic-bezier(0.22,1,0.36,1); }
+  .rate-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(44,40,33,0.08); }
+  .rate-card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--stone-beige); }
+  .rate-card-month { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; }
+  .rate-card-min { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+  .rate-card-prices { display: flex; flex-direction: column; gap: 0.6rem; }
+  .rate-card-row { display: flex; justify-content: space-between; font-size: 0.85rem; }
+  .rate-card-row span:first-child { color: var(--text-light); }
+  .rate-card-row span:last-child { font-weight: 400; }
+  .rate-card-weekly { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(44,40,33,0.06); font-size: 0.8rem; color: var(--text-muted); }
+  .rate-card.rate-card-highlight { background: var(--bg-dark); color: var(--white); border-color: transparent; }
+  .rate-card.rate-card-highlight .rate-card-header { border-color: rgba(255,255,255,0.15); }
+  .rate-card.rate-card-highlight .rate-card-min { color: rgba(255,255,255,0.5); }
+  .rate-card.rate-card-highlight .rate-card-row span:first-child { color: rgba(255,255,255,0.6); }
+  .rate-card.rate-card-highlight .rate-card-weekly { border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+
+  /* ─── PARALLAX ─── */
+  .parallax-strip { width: 100%; height: 60vh; min-height: 450px; position: relative; overflow: hidden; }
+  .parallax-strip-inner { position: absolute; inset: -60px; transition: transform 0.1s linear; }
+  .parallax-strip-text { position: absolute; bottom: 3rem; left: 3rem; z-index: 3; max-width: 500px; }
+  .parallax-strip-text p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.9); text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
+  .parallax-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(44,40,33,0.35) 100%); z-index: 2; }
+
+  /* ─── UMBRIA ─── */
+  .umbria-quote { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; font-style: italic; line-height: 1.45; color: var(--text); max-width: 650px; margin-bottom: 2.5rem; }
+
+  /* ─── LOGISTICS ─── */
+  .logistics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+  .logistics-item { padding-top: 1.2rem; border-top: 1px solid rgba(44,40,33,0.08); }
+  .logistics-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
+  .logistics-value { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--text); line-height: 1.6; }
+
+  /* ─── LANG TRANSITION ─── */
+  [data-i18n] { transition: opacity 0.28s ease; }
+  [data-i18n].lang-fade { opacity: 0; }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+  .reveal-left { transform: translateX(-50px); }
+  .reveal-right { transform: translateX(50px); }
+  .reveal-scale { transform: scale(0.92); }
+  .reveal-fade { transform: none; }
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+  .reveal-delay-3 { transition-delay: 0.36s; }
+  .reveal-delay-4 { transition-delay: 0.48s; }
+  .reveal-delay-5 { transition-delay: 0.6s; }
+  .hero-content > * { opacity: 0; transform: translateY(25px); animation: heroReveal 1s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.3s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.5s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.7s; }
+  .hero-scroll { opacity: 0; animation: heroReveal 1s cubic-bezier(0.22,1,0.36,1) 1.2s forwards; }
+  @keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    section { padding: 5rem 2rem; }
+    .hero { padding: 0 2rem 4rem; }
+    .two-col, .rhythm-grid, .will-section { grid-template-columns: 1fr; gap: 2.5rem; }
+    .two-col-offset { padding-top: 0; }
+    .logistics { grid-template-columns: 1fr; gap: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .nav-links { display: none; }
+    .lang-separator { display: none; }
+    .nav-toggle { display: block; }
+    nav { padding: 1.5rem 2rem; }
+    nav.scrolled { padding: 1.2rem 2rem; }
+    .hero-scroll { display: none; }
+    .reserve-section { padding: 6rem 2rem; }
+    .nav-right { gap: 1.5rem; }
+    .rates-included { grid-template-columns: 1fr; gap: 2rem; }
+    .rates-grid { gap: 1rem; }
+    .umbria-quote { font-size: 1.5rem; }
+    .parallax-strip-text { left: 2rem; right: 2rem; max-width: none; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 0 1.5rem 3rem; min-height: 100svh; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-payoff { margin-top: 1.5rem; }
+    h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+    h3 { font-size: 1.2rem; }
+    p { font-size: 0.9rem; }
+    .image-panel { aspect-ratio: 3/2; margin: 2.5rem -1.5rem; width: calc(100% + 3rem); }
+    .parallax-strip { height: 40vh; min-height: 300px; }
+    .parallax-strip-text { bottom: 2rem; left: 1.5rem; right: 1.5rem; }
+    .parallax-strip-text p { font-size: 1.1rem; }
+    .nav-logo-img { height: 22px; }
+    nav { padding: 1.2rem 1.5rem; }
+    nav.scrolled { padding: 1rem 1.5rem; }
+    .section-label { margin-bottom: 2rem; gap: 1rem; }
+    .rhythm-grid { gap: 2rem; }
+    .rhythm-time { font-size: 0.65rem; }
+    .will-section { gap: 2rem; }
+    .rates-philosophy { margin-bottom: 2.5rem; }
+    .rates-note { padding: 2rem 1.5rem; margin: 2rem 0 3rem; }
+    .rate-card { padding: 1.5rem; }
+    .rate-card-month { font-size: 1rem; }
+    .reserve-section { padding: 5rem 1.5rem; }
+    .reserve-form { margin-top: 2rem; }
+    footer { padding: 3rem 1.5rem; }
+    .footer-name { font-size: 1rem; }
+    .stone-divider { margin: 0 1.5rem; }
+  }
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 1.9rem; }
+    h2 { font-size: 1.4rem; }
+    .rate-card-header { flex-direction: column; gap: 0.3rem; align-items: flex-start; }
+    .nav-logo-img { height: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAAoCAYAAADaKFUbAAAcYElEQVR42u17eXRcV5nn7/vueyXJkmXLtiQvZZeqXFaVqkplJwUBMoEi6UkggW6WoTJNCM2aZj19ON0kLA0J0NALQw8DQ3cGOjRbyEm6WAZoIHBISAVCN3TUtrWUVJIsqWwnjuXdlixVvXfvN3+8V3JZkWU523TmzD1H5+g8Xd333W/9fcsjLL0IgPTGt2cEZp1omXaZjS3aMRa3kpY2DlhDAwPjB2t78RysHKDygAaA3vj2y4XNKyAIi6CdCdMGNM4G9w+UJgYAYOeOHVv2jo099lzS+DQXAZBgMNjU2mLdTEJBYrpMjGyoaHX1+Ph4ZYm7XPRu1nIvE7gBYrVFBB+zSV5CrDRrc7cR+a7jVPVzefuagFPdoTgp9VmCiIh8m7W5F6416zZSKwtSILm1Nx5uIKYxbVwbwIdyuRzn83n9PBCyAEBra6sWmX2UBGnbsn7fqToHAoHAeYJMdYfTqsns37u3fPIZUeJUPPynO5PbpTcelt5YV+y5vnkOUADQ0931mnRiu9Mbj9x9EXr/2wt3xSUZD38BALLZrIXn0crlvPsmY9uu3JmM6lQ8PJ5IJAIAuE4eJhnrGkgkgut8IdOFzuPlXpZIJAK5HJSIsGfZ0NpIEzymq+fSgpPxrusabOt/izG/GxiZuBkAZ7Ow6i5IOUDlclCDI5O3zs1XfgjIZu+UAp6Hi4lpLQCWxQIUXKGUIqVUihzV6VsxXaq7BgC0t7ebfB46GTvHSCY28OIiPxcxKg+YXdFouwv9DYHA1fiwZ53gQgFu/eY8oJGHAsAE/hSgPwIAhQLM81DIBkDAZ7zIOXdORtFtruue0UZ2D42VR3zZmKck5CWDhgg9FWHlAEbOk0TeI+iiMSSbhSoU4LqW+wHbsjdWHWeoY3PoX4bHJmmxgOuWBgAKzIzoStOBJRhwjhYA+fyytFAu5ylzPg/x98my97v4mcvyaDoLOnMGCoARUEMNHTU1NdXeTcXixH4AtzwjqlSLZalY+M92JrdLKh7WiR2hXStx9XVMUk8lVNTcTyKRaEnFuvbvSkVNKhb+ii/8FSlnPL5tU50buyRacisMR0/jfhd9Vyoeed3OZFSS8fA+PyY/pbUyS6ZzWum76xUbfj4PnUhsjyqYy4xIozJ0EifPPth/+PDsRVAhA9CkKy8k5q1iBAIZ89VvRXF2ZGT/ocW09O7YEQG7lwvQCuYZQ5VfFIsHjy+ihfOA7o1Gg8Z2r2bD2sCdGirt/20mk+G+vj6ntj+f9/aJ7V4JUItAZiuO9eD4+PiRFaJezgM6FAo1rmnha41GiAlnq6J/KqJPkKcrVK1Wyb+5dSSRYKqe2Wpsa/Pw8ORvat4LT0fbBGT8gCBEJCtSC4BCoVBjOh7+H2zMF0WwmonmhfB2bGgZTMXD1/oM4At4EfKUyuxiIh9Z0OOXCKQWsEQmk7F74+EvwHLvAkkbAach5iYLDQOJ7m3X1NHCAExvLPJWo/S3AQoI4RSReu3ORKQ0P3P8D3z6FADq7Ql/Cpa+l4S2kMEZFnp9c0BKiVj4Tcvdz18KgEnEwrnWZlWEwRsN6BhADUr4z0H8eiOeTdVSqCPxrrcpmfuZsu2iMrgvk8lwved76pYsRgDlh4eLx+Scr50tjfxFttQtjna7hoenyr77/YEyc6cBuSed7uzq7z98djmNF2DjgqqJzABAR8eK453kclD5PHRl9vhnArb1J45jXjAwsq/P//v3U/HwaSaVz0Qikb6JidNeEWjb5SD5GhtKDwx7hRUAP07Gw91E2OSBuYKbjIU/YVvWx+fm3ZcNj03+qob/euPh/Yrw9d5otDAwvnTBqEZXqqfrRtuy7nMc9+sDI5Nvqw+Vxw6Xv0fEIDG60YvJ1N4Z+tqxw1NHlWW/XBv3eF9f30Xz/xVZMhHVYgatRMj5GvomuR4CMMuqbDZrRaPRhqamooiRCcVqg6k091xY2ws1ITctSIz5khG9D4IYIq8TCDQblc1mrVAo1JjzMM2oZal187a+rCYII3wzERtycBgA0ul0cyaTsZnwt0Kkz/FFrgcR2D8znU43Z7NZywiGLNuyjOVcVQOQT8oa8jDx+LZNELrLdd2KOHw7AM5kYL/yldGGQqHgAvxlIgIAaWlpkZpyuS4OiYgACGSzF5fhiizZz5MvKccDYAi42XVNpLGlWvaI9hBxMgYL5FXUVuBvTy0AA6NbAGB6GpeK8I1muZEcE7cCZ4dqtJQBJEnYo4Va6/bbihlOwP1munvbe/r7+ycB4MXB4KPHV60arlmm0fIup6pfYDViT/39UvFwIwDhhTPPxxDZbFYVCgXXEnqNHbBWV6rOvxX37TsIAH19cHK5cXV+DewceAQgHFCrvOhF6rHHogoYd58+8BJPW8QzJrOCOGgAYHBkqlC7XSaTsSuzJ64TkRcSsE4EZIy6KII1QsMMAYFAzFu887OXEpcFAIaHy7sB7K4VeZTMvcwYXEHAehEhBapTOPmuNub9SvErNPBob0/4O8bwvf9a2vdLAHM1phfHynsA7KnF11Q8fA0EaUCCIkIiSytjR0dBAECIrgIgBJoCIPW1+cXGNTMzs+DySWsDywKJmDVr1phnxF1DnYsnK3DXUn92T09XqLdn+yecueM/IMJlFnNeCEeICCCPsbklDqkVMGzo3xgjc561mSQAqTFpJaCrriqGRCSyLZ2I3K7M/N0Q9JKY70HkJBEtcDaTydhDpfJD2pX3GiPHLKXWWUr9MbM82BsP/7inpyvk31HV0rR0z/YP9sbD3yGiq8XIL0RQ9t3shUKIJyyhdgBEwDwATGc9OmueSoCGJdVElLPIwp+BmGw8dE0XP4sSO0K7kj1dbwZgkt2hDwRY9ZOYq8TR7x8Ynvj03uF9Qwu6w8uGAXMHwHtL5SmIPEAgIsHLXhwMNvlxli6Sd0oyFv7o8cPbdwKQVCz0druR+kVwtSXOBwZGJj8/OFoeEVDVxx0GACKRPgMAQ6MTd8Kp7DLGvdVxzb8BgGVZN7DBP4VCoUYAOhEPvbFB2f0i8gaj3A8ODE98dGhsau9Kg4lAXM+ipQkAOgrngzMCZDmIKUR86tQpfkaELL4wxGPGkq/NZDzGQvE1bFj39GxP2gH781qbM/0jk68YGNs/4RdXmATGLx5VAWD6AgIr+s+Nor/QxggrtfVMi3oNAMlkLhhqOA9IIhHaSJBXnp5zh3rj2zPKsr5qjJkb6Ji4dnfpwOOZTMb2wZNb7xqnfxeyE92Ra7JZWAPjjx3sH5763ODIxIvEyM2u6x5XzFe02GZLT09kh8XWPcaYwJzL1w0NHdgXjUYbvPt54MzP/Gqutj4ms49ixyAQCCK1Em5d9kDMdHap9IjVgnHI07ZknzhmoYXAro1WuRxUJuM1A7zfM3ZfHxzPOOVdROi3RL+aibSIlOAn+4VCwQ0Ggw1Csl4EMIa1j6PdZVC6KhYnf2eMfFwpJgL/RWbTplV9fXB8QdVyW85mYd1Rq/sa+pIReqhcLs8L9KuZWRuRIgpwo9FoQ19fn+NXkTbKOddHhXJ5nkn+6IknYk21jCCTyViDpclvi+AuVgyHm05ZYq5Wio0xMj4+Pn46kUgExsfHHQ9GyHoIUIvJfvHkyTGZ6SfGGCLint5YVzcASSQSgTNnopaXuJp2X7zGt1gGQEZr4yuJcRyHLuZklxWyT5wRkbMeQAAsklP5PHRfH5x8Htr7vc+JxWKrk/HwPaxUN83pgxo0I4BiQjIVDneWy+X5bBbWmtXWHxPIJkAzSxMA2rkjuGWZhF7nADVUmvxMxXHusCwVra5t/HkiEVxXo6/2UyjA/SRgkvGuz5HQ5iaXPucfeggiiohi8Xh8vd98B8zcLfBpIZFGAJJOdzaDJGpT9fZCoeCOj49XakISQpPrukdGR0ePQmRGRJiIIrFYqKtYLFYBmEQ88kaA2gRiDJENAHXtWfJjsgbAQyNTv3C1/n5DwGoSwmcAoFgsVu+/f7zSG40GAfovRpsqgAafZg1AxKJZ34pNuVyev5hF0zLPpbc3GuSq7NCk/1opdYVnfeZbBvIAe0zTIswgiQO4ybZUsOroE42n54Oza9Y0Waj8KmBbPVXHfYyI7hVjNhPTnSJydUMg8MlK1XkCgoJR5q+LxfLei3RTGIBJxrpeoRT/pRisF8iXifBrCM9qllXKUEJIXgVjDqzfGPqAn9ZQPL55nULglw223VutumViukeMbNEGdxGb7Y0NDV+rOs5REbmfBZ82RJ9XzFdqLXdC5HsEVIjockPyYYh591Cp/HAsFmu2qXJ/wLavrFSdw8R8D8R0giRvDFuNAStfdfQpgfxSjPlycbT8s0X3IwDYGQqtcVfxP9pKvc519W4R+QYztRjBVgjfxywPMhO0kc9rmPssg5Mgvo0VvV1rownyHuNaDw6Nj09cyIUvK+R097Yw2XaXcYQNuXMiFjPrdhCEDBmIOKIUiTGaCPOaMG+JceK9+/fm89A7d4bWmgq/iYgSRuQgaX3fwNj+iWAw2LSmxX6TIl4LMT/sH5kcXWGdV9XqtMnY9isV6ysFvF5EmgCZIaj9mvFgsbhvfNH9JBKJrGlpwE0AUgI5CiP3DJSmSgBUIh66USm1Hdr9ycDI/n9PdYfTxnIOkrGvJEEMRM0EOUZVyvdPTEzXFC6T2bSqOtt4E4hfAJEZwL1nYGT/vwOgRDz0hxarqBj6iV9hW+p+C88S3ZGrmHE9QVYD6G+ecb79rwcPziVikZsU4wRgZjWpx8lxbbZ4i3ZxmpVRRFaHcfXU0NjUXvxfGHOiSwgRl1LcuGhu7aNrepZo4Wf4TLqIsT1rgnhSgb+OgTVQtFyevOCSvJJe1s99C7oG0mulPj8ffipNfc5mwR0dEOTPEbZML3cxLQvvzeWgpqezVPeMa+XWXO5JJVJZ+szCeXdZ4syLKm826xV6OgoFqfXcs1lYHR2Qun72k+SRP5/nFxTkAnJbgdD5Evb/R16L73Kp9+FsNmuttLf9TNGcy0H5qejT4j3j/6//pxb19ER2sKF2ReZoFfqM32jnReZPACSZjG5nozcTzAxAgarQiREPND3vVm+sKwZSzS7pY1751FonbvXUwNj+iYsBmGwW1vTj4ZdYCmmBrG9ornyur+/Q2WcR+HjZTqwrBkVpaLqMob+yt1SeWkJWT7ZaS/R6YpMzwN4AWyOJeNctAMwSbojI0c0ArhVwQYRfYgs1XAQ4/EddLODVAvOHFnhEGRoUMddBYe2l3EWAvwHokzMzrc/65OodABOxLQZ/bjdYH9F+X/uSeJ+Mdf1iVyoqvT2RuXh82+XLIdmkP2v1PF4MAL2929pS8bCk4l3TTwXRpuJdv07Gw6fT6c7mZxINX8h7+HL60s5U1El2h1+40myDAXAms2kVSP7Zcd17LMWNFtQ/dXd3b6hDmgv7Y7H1q4lowj+cn03o/6wLek43i8AFqJru7GxeJv2hJUGbUHOtDfs0eXBRwDsz47+TqJkA6wJtTLpgFenUqWYN4bWNzZVbHEfvtm1ru03Vr/sQvh51moaGLQYijl+UOC8W1E0uil+IX4wCudak8J+ruryWL7CvfpqRLzDZyPVTkytEn8ZIIxGBIVB2kBenIezTJ7VUZtGZRshrFLiuoSVydFnEkwV0XPesxgfxn9ESaZ8FQPzeAABv6IvovNjPS7xz8Vk5lYx1/S0ATiS2R3vj4eO7UlFJxrr+qt5VAN6IbLK767YlNKcmJJVORzpWWIx4qtq/5NmJRCJQ6y6txF339HSFUvGwpGLhxzObNq1alFr5Z4Y2xmKx1UswFKl4eHcyFp5Jp9PNi11nb++2tqfp2Rb+J53ubE4kQhsBIBkP37krFfXm0Ly1IJvLYls314WOheVvyAshzLFYrLlYLI0nY+FbyMh3lFIfTsTCfYXC5HeyWViFAtymEyfM/OpAdQl3ZhLxrluY6D9JVY4k4+EAgY7Ou/zZ8fHxSi4HNbQnnAkE+D+7rj6jGuVbel7dzgovEeAJceWOwdHJfm9qY/6lRPRybXRT46nK7ZXWxvcQ03UCtBqj/2exVL6nvmTZE9myw2oIvBl6br46M9/S2xNp0aT/slgsP7Ec4iVigQiEYA4rVT/soNM9ocuM8BshZCl2Kr2xMFXhfrFUOvB4XbHEp+HwQjMl1RO5QUR+Hy6mUz3hbhI8MDAyeZcX6rZutNm6hohe4Yr+7+ySIcW3EeEyCH6jXP7InvHxozV+BoPBprbV9odNlaKK5XRvLPRbAZq92yzospvcEeqB4ltdohOo2ibVE7YaKvQJfzDxXIlOIFZb26wLgIdKk991XfNpJgIT/UMisS3hf7FAc21tDL+7Uidkk4qHv8mCW6HwoYGRyVvZ1p8A5FVNtnk4kUi0IA8QoxNEnxHCO02FbhTBd7Vj3g3BS4jp5zt3htYCgNauiDG3MehdlTVNfyLAqCZ6HwS7GwOBbyfjkdfXBNcb33a53di4B5CZgdLkX52e158Skd9jww/4Vn1BKxIx52angue6Xsl46PVG+BEReWBweOJPB4YnPiIkboDt/t5YpLfm1sVrzMGeabZ8y34/AT9mob8fGJ68gyB3Kkv9QyIefh8A02iESHCNbVk3s9D7iaiXxHxKXHyQFb/DsfQ3vNCQ5Wg02trWEnhEBFc4Yr97oDj5HiNqDJCsEQOtjeV5mu1RttSjIBkZGJ74s0Bz20cheO28LT+sKWIt5oGE9KFDSmrpU3F08uOuq39uW2otGb635rK01lQXc5VvwW8J2NabjfDbBwcnD4dCocaBgf0nXOCPLKWuYHfu03lAN7ase8Bx3FMANs651r1DoxOPDI1N7dUin7Vt1enO80uLxWK1OLr/QSMyAqJVMPKTodLkj4rFfeNcxSdcbQyJedO52M8vUIpXGaN+ncuB/dbb3bZlJeZPH0v4AlkSgVquUb6GU+tpLw1KJrdvVaTug8jXh0pTP6spyuDI1McgctaQ5Gvhi+ANUJxYUBp5pYg5rVVjKZuFNTA89bDjuNMEvA0A9o4dfEw0fUeMcQFUB0cn7x4oTZUGxyZ+4mj3R0x0fToS6SgUCm4Du58npss4cPYNpVLpTCaTsYdGJx6B0EP1Q6tKZIdS3ACDvV5fv8+BwQ8sxS9LRyIdAAwvVYf2a7DEDr3ZcdxywLJ7Lar8Y024tVEZvy5LLLi16rjzdpMeBEDlcrkKgJibpqqOc0gI7wwGg03ACRvAKgg9Xmu0wxtKOAFABGZDLbYS0GzEzMybyZIvJKoGXGWMYRCtrbnW03PyTafi7hwq7ftNPu8NJ0AkKIBhi9rr6+2LV5VpAWhVq1WPc655h2Upi4D7AXBLS5/4dXYywE8DlhU7eijyIt+SmSDS0jLrAoBy+O1szK5isVgtFODGYls3ExFDZHUtrBFjLRFZMNIPgDZ5WICZ6AQziW6ihnS6s5mY3qKNfrS///BsjQ7P84oDAEp5AxeB4YlfVLTpGSpN/ayvr8/x++HbBRBj6XUL7tr/WuFMV1e5NqFhAHD/xMS0MbjRcd1Z27LekOzuuq1UKp0RwZravnQk0g5gh0COnTyJWgNbag1wgPYrxc2rVweCp07xvK/zFgBqb2/3i/fiMcCfaS4Wi46AKhBSSq0P1JrlrhtwF7dMy+Xy/ODoZP/OWKgrGY98oLmJ30FEmwFhVxsby0iZmQSACAmvMb7rJuw0IqKFj8MbRBC/qSEQc4i8/0l7HoCMgMi2WQBQ/8TEdP/o/slUT+SGZKzrYzbUG/yhhFr2ICLG9Q3FBiCBQMDAG8xQAEjNScVxWrosSymAHluUwhkhnDf60we4w8MTY4nE9mgqHrldV5reC6JWAAvTogwAHYWCCBn7yJFEfRqjs1lYxbHJ32mDd4sRENOnk93hdwBy5kkgRkgtWMMF1sLX8h78l9rskyFRT4aWQgQRpXhBoi1LgNUXB4NN6Z7I32nirxIwVhyZ/Hsjpp88PLF8ua+qvK6SAKeY/QnKWoqi7Sfrh3c94gV6jZfDtioAEo9vuzzdE3mERN5iWH1/sDT1RUBmxPs4oeYFxZcQLdG9AzOLJWj0hvjEwtI9aBjjhZpMJtKa7ol8hcV8S4DBodLU50RkgIgWrL3mrgXEq4AjgUVu281mYQ2PTt7taPNZSymbGHeCaGstH+ufmDgCYJQYbZ3Nzc31mpfJZGyQbDVGnzl7Vh8AjgSISJNfQKh9FcCeFoPPzRnzUnHUbdRMOG+E0Zxpse4i5veK4rcOjkz8uJ5h/vjwBRWPPYYLoU4ZiB5lYhJSGwHwdDZL/ow3EaTdO1MG6u+plKokEsF1NlkPGpG1AyOT/3W4NpUqoiELNYFzSH/RaDP5dFZsdxVV5YDWhgCEa/eZmcnUPlWueIrmAa/5WfN3rPgWMvLWoZGJ78H7nsjydMS7P9dppBTbE/N4cnzWuRxUsTT5IVe7PwoEbJtE2gFg925v4EyIvhCw7QZHuZcDkGg0agMQ58yRYMC2NwvwlXK5PG/bqywAjtD5X+EJsSuAFuFauNACOisg09racG7vLCAgDaAKAMFgsAlCr3Vd97GhoX0H6sDYThExBHVm2eJ9tWkW/lhsIBCYBwBH3G84rusSzA0AzMzMDBUKXrgA0fVVx500vOpfPAyBCgApFotVNlavbas1YvBA7fidO3ZsAdFmeAP5DgDxhrSga6HJtm3/0xxiEY8v/RMT00bMI7ZlJeLxcDcA48+ZCYE2i4gWjZP+a651HH3Sn3LxFYZjImKq0GcAGOvFwWDTzCp7B4DXJA4dyFvpzt39/Yfn6phTa1jT2Sq/mcjdA2A1AGzZMq7Hx8FDI5N3pXrCLyWm/9XTE7lueHh8rLu7e4Nh56vi6ocamyu3A4CZtVs4YFYbg45MZtMqANVcDmp4QMJKKVUlNwpA7QyFVmuSIBG3nj6t1vhMIm6gdlasHC3hUCjUWC6X59fEuh4K2PYNiXj4fSz0WyJzuQhOERGzwqsS3ZGGoaHGXwPF8xr+mcymVfMzM1dZrBqMkU2WzCaj0WixVBp/PLUjdCMp/lYyHn51X1/fP3upWteHQNRK4l43UCxWd0Wj7Q7poGJqTqXCna6rR1HVs6xwU++OcB4WGow4ESIuEkks1RO+WUN+xYbWWxYrx/U+5PNDGBMQUoqVuDoEYD+D323EPGgT5ePxyJsaRM+4xCkIGphZkaWy6XTnfl2lQkPAyiXiXR9iqIfFmIQAo8z8cttYr090h8ZV2+a2FxDzGwk4qhhd4lg8fezkSF3CX3N/6sSJE3Mb1rX1MUlw+tjJn5bLC3+j6aMnv9+5oc1lwi0dHW1BJfp1IB4cHJl456FDM1UA2NS+ep2AGyAYNw5N/a6v/zEg1EmGdxgx4wDNdq5vO+oqSRDxKYjsFY3RI8dPPZFIJFpEKleBaEqMjDfaOD599NTBjW0bHjakuxTR68CIGE0/Ghqd/NKGdWsizJQRmIeLw2Njda6SAKBt9bqXKkUv1EK7BTJARB2kzNzRoycPTR8/Ndy+bl2BCe/q3NAWbG9v+z2At4pDNw+OTZUA0IbO1dcS6IRA9pAmFEvl365va92jFF8ujD+AQBqaK1/UVXqE2LpCRNq16J8qcASgQ8aY0vSxk3uOHDmiM5FIq6vQAZIxYzC/zW4a2TN14LH1a1b/WFmcIeCdAn4RkzxEhF8BvB5iZl1jlcDu90RzFxO9FsAOJn3vmTl8K2DhKiIkRfjB/wPJt8urBv/4rAAAAABJRU5ErkJggg==" alt="La Casa di Nonna Iolanda" class="nav-logo-img"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAAoCAYAAADaKFUbAAAZMElEQVR42u17e5RdVZnn79v7nHtvvQLkZQhhCM+IYHj6QrCBERGVRlEzI4r4GNBuXUvHUcDlDKC23dMMbaOtaDPQPaKwNCi22mLbi4Y4a7RbB1AhUQGbhAAJJCGhUlX3nLP3/vZv/jj73LpVVFUqvFaz1py17qq65+6z9/fY+/t+3+MIZrhIioiQzp2APF8I57Y5uEjSG9NZkIvshyzbICKPNGPxPFwkrYho+v94qD8zEgdDuMSI2aaqv7e5/INI+9405gAReZSEiOB5ofGZ8VfTuXnz5oHly5e8S2hWGGOPizEsNln7NBGppst7PvLPZrkvAOgRWrmaA6Lhf82k8yojUER+IyB8J0Olz68AagWT5Yujmitj9CR4ow3xm+MhTAwPDy+wBkfHwE+od22T5Q/E4HIAlwA0gOi/dSU3G/HAAw9U59ydrQyrYezZVP8wsIFT5VGtBlqbReTJZ+WghVB+jCSpjmU5uur53+G0AODLiXNUg1fvvjHXePXV/yBJ9cUX0vMZXkBXwy/pTiKpwZW/5/r1LfJyAwDBdT9GMgZX3EtyIUkhKU93sRZJG0L58TRpqKrxY0nahpDnTcFF8boYlRqqn6b7hmTWMJg+PbrUFd8Lrrj5hapkkoa+fANJBlf+K7m+RdLUm7j8JpurLI9s5DHbfGYP60URUVubbwEgLeQx+UU+D8wKgMjdu5eYzHwNADTqpQ3tIhJEhH2fxl8bk9vPJJoBIOIFdolIDECrZ8Y3NCKhmCxeHGO4Tn35IbTbv0vmOu6tT571cvDyNJVlpm2e+WwSKyJBffFRk7WWqS825PnAPyemwizCaRT9OxF9eLoA9oaWaWMJgDONfQb8zTSHALAko2rRToAMOOooighrfgY3A7hwvnOb+QzSOOUkyN4QngATRUT7PpzLvPShxkBymMT5tYDNz0QkrFu3zs7jJEwUlV75dGmZYWycRcFPi7855ggiUokIGej6ZC6Jr722oPM9yb2JW8jjXpgcAtCiKA7rdPLjVLVjaZ58bMeO20VkYg+o0ABQhPJlNm8dWAsjPgAAp5566rzWHx4e3jqdFrI4JITseJG4wNrW+Ojo6G0isrOfFpKmRvITK6DZaQqojbIJef7z5CZ8E4GIiE5MTKxot9snWeiwwk5Y271dRLbPB/VOrrWxA6w4Q5UHWWu6mCh/FGh2NYYBeED68IUpy/LAjuVy5AM/a6zXMzrJ1vROMufji/uAUEd9dXWemy8CGLFAGYXvW7Z06Xp6f8YedrwAgIoc25Bpjd2ytyaw75NT/Reimusykf1I7o5Rz9tnZORe74vTG1qS0GMIxXtisDcCtmVpRqPomxH1vhCqP+wDR6K++kyn3fomEA8AMCaM58Y4eF+ouu/c04nm2rW2Xqt6O+KBv4kR7wD4hCrasZ19ymRybm2rDYDDWQPK8r2I+uNOJ/9NFPOtRofPBF1nAMBQfqQOScpQx2dzo7lJhFteW0PA7kGTv61vaXCl+nI7yaHZ4H+ztvrqz3tI0pfn9M+/N+hcfXUlSTo3cUL/b8FXE8FXT5Dcp6GDrI4nlayql04JJV3xdyEUH54M1YorSJKue8q0EG6zBu/JiRWzKaAXJoVqTZLt307nX0P1fTIy+PIBknmSVUZfvqVG3cX6Rg9zKXm+Ptk2Ezm3Z+BVmx8agmelZQZTuNMGjiKjPmiy9mLvu0cmczYHHRzYW3qnRwjphL4FAHLkNtHSqc1FvN9mrYUhlMc1pjUGvAtAhHOPJ76HSOYW9i8sbJ9plLMAIIikObcO1X91g7FZpk5ObozhjFEDub8S10UNVeXjZYnOnGRbREIk/zp5hZ4FFZHgqVvT99Z8ZDJfn2z6fPJ8To8Rkehc911Qd4i17YcSGg4AEHyRAWAOac3Ds49ObrY4vLfgrwlHqmp8jdXsxcjzDf20qC8NAGaQBX3bIgcM4kDrBrL4IxHZmPi6E8BvG39sMvmAqp6YZZ1fTeHPlR0AhO2bc4aoIbjiHJt3RjSU/3dgYOCRRKvvWSpNGpo8pQKAuZjB+n/atIHCs6Dk2B9GxHmg4ggArdbgTwD8JN3PQ6heZ4x9GWNcCED8tB0+5Vq3rp4v6m8ntWUOIPdawQSAdnv4lwB+2SR5gPAa9fpyQBYl4bUmueV3DPBhY1tnanB3Uv23EfFNEbkDQJF4hEj7VwB+1TO/IZyu1NUQWVEbiVlpZdLYyQAIYlPy3zaptlaOTYdLTE/BqDUaa8WZOJ8cwDzNn+FknDy3kPsRKgB0uzsPovorovrvieA4E+LNgrg9jZ39JJ96agQA25KfaaiK2mbxqJTf3Rvwl/V8bbf77xjCZYj+G6p8qc1xCxGfnPZcnucD61TLP45Rn7BZayFMdhEye7sG90Oye1CfQsDx8f3J8PEY/bcj4mnKcBuoDyWgOGe0QnBJneuQst7X65Js679BtT3jyST907FocwKvEMr/ktJrgdXMwCv5E6mq6liG6vzabE18lKqjGtxtZHFIHzD5bQ2kijPmAlLNGsF1f5DAyUMkB/aUq23mC678VAO0QlW8TzU8qaG6g+TyPvB0dwJ1506nhZxYEYL7uAb/iwb7har4eR3uAAzVO6hhuwb/LyyKQ3tzuvK2BIw+MFNadZKv4ockqaG6uX/tO+64IwMA78u3kpwCvFJO+9VJHw/y/vvbzwrwQmzGEXOcIisitKKnq6qS1VE2H/zLGMOYueXvzhQZeDCdKkPGCACeU4L9WcMom2efjeppTH6gqjsnWYtsjo1BkssgfH3+6LYNpDvBtjrXM2phbOsMEdlCMoGLOnMWVGseN23KvS9OJ5mJDD2SZa2rjM1eAdV3RQ07bZ6/vCyXHVCW5eE02U0atWWeHH2dDAz8K8l2DTh7Jpez8FfbX+KBOvyPhzRgLOUBmL53k8+a+XkBcfjhzzjjJSQNTJ9jb6EpAtimIEDemYuIr+M++wGF3gPlmwAoyPtkzRol2UngpA2RRTXSzbRBjHOgdCvS+gVj/G8wRoT4LMnBBFDyJrZtChYN0FJffkki1snBB5fqQ6JFf5OyaO30fAvAsvSMkBQ5+ODSQN4NYKDelPe3AWSSZTdCw3UQi07Hj2YZTxMxURB/L4sX7+b69S0Avs6MYVG/clPy5CnmOkbcCkDE2COB6ojkBloAMhGhxLgkTROTrgxJ8T7Evpz8HitQZg/+1YtIRGS3tyvLOJrSb34yjXeiJzkS3/KHN5msdUSrGx7RyHEAFiJHjY2NvUhESpKZ+uoiEZMD0KBVY3oPmM3kNIrOWp3PqS8uN1nrsKjuH0kubOjr+4RawdVVECw3reKqNMtWAFaMXUVykYhUAKBaXohEC4COiHDr1q1DAA6LwV1Wz3dE1VOSMQMa3HaRBTugHK/BijmELFbK0Uc7EYkM1TsI7JcUkNd8lav6+WtCzKzTuS1q+V1j84Ho5XPpN5eaA1ZA5K1RgwOknVKdKiLMaScSRokiUj6tWvKk7ecKen+a+vLnjU9SX97AUF0QquJ9DNUFDNV71Rd/rsE9nPzQTvLRQZKL1Fe/qZ+pHqHqVeqKm+i6pwRXXlb7IrfVu+KbqXwpe0iw1EG/L86khrs0+E0huE/SdU+pkxfu5BDcRRrc99RXX+olckgZHR1dFHx5T/Jvm0j9U3XF15zrnsJQvKe+X21XX36dLFdpqG5VDU+qr/6Mzr2sqqrVIVTvUV/9zvvi1GQ1RoIvf5pk8piq/7z68kbvyzd7X74t8f2khuq73hevn85fgyt27dq1r4bqliSPu0MoP8IQPqVV+VX64jQyJrn7z9O5V5RluYrqrk+8hBCqC1kUh86FU2SOMIhkcTBCtjIgGJJFDpggZkkdVyIC8LVTo2ZkCWSlI32r1fp12q37Qv07o8hLjJFHAP+t2jdvHoC+6J2wdl9U4fvS6dw/zzxvf/vPSYCehMhFMcYBwIybTDYD9nYR+f20k0Pu3LkPFiw4L1KPBswOo3qTdDr3kbSqbo219lDn9NZ2u313VY2tbrWGH0EIJ6lwFYAhAE9YW90sMrKNvNyIfDqSjw4CLzoPkSdGYNyYeJNI+26SAnX/EdYeBsRbRVp3zcRf/z3nuidbm59lgBFlvMfa1o0iUoSqe541+S5knECpW9CRHGgf4H13d47cIpelzlWb2u3hXz+frViYC+3NUvHZm8qWhch8iu7yXNCypzTi3s451wl82vnovUmGpEVkz/HYzQDe3nusKcul5/vDIxWROOX+FVfEuQrec9SLTcIUnKnRYXrsPp2WK/rWTUBS0rOxQegzYJbeM7PwN+uc88gr2D45s6lJk3dkwKnsKw7NpA/OuUafIjFbUXwGpWM+4/8tXzPwslf89G2yWaOD54jmprFAn7bs96bY/f+vF8aVlWV5eLttlgBxBxDGRGRrU2B4KhDjoYBfDsdxtFqtqqp2dTqd+1+QJ7ksVzmRIVV9YmAAAAYWoixHZWDgwT0BGJKZ98WrctNardEtsvnAVSLSfa6Az6T8y1VAthrgcUC4VmRgEy+/3MinPz23u6Nzr1Rf/aUGV6iG0aoav3B6Km4yD1ytpvrPaHC7yfBRsnopSeGzkUN9fk21oXMnqvorqb4IvhxjCJdU1fjx82lvJZm5bveU4KtxqiPJkWcTKM0CzkxVjR2twf2qrmG7V+1tbb2Xb1XviqoaP36uCbzrXvtCNl99CHm/GCoGV2x7Oog2VMX/Ca7cTXLouVRyPXedz9aq/BJJT7qXzVfJTTpwkMDfR1/eZLK8k9nWWnL34qbg3i+c7du3j4gxDza9wc8l9H/OFd3tDsUYg4i41BhgZj5FUy1VL7FhMFS/nfHMZDAPyyHAiJA0UeIQgAweMt95Gt+rIrKv2b7zwhiqXxqbHxq1/b+aro2+pEJcvHhxREST0owzVX/6woJsWrxqJosUFHKt7YtrzUzj+udN9+2M5ndK9WjqurOELhGDg5LqqHZ6GNLMWXdRgtPnTGMNAGzbtk2mx+jTQqP+zWGn8dPgHTud5qZUWtNwoq/z0KYu7sBzegWwf83+uRrBBiCOYPny0mRco8HtMrb1RvXFn6XwoE+w23qx4XQF1lmutZbkUtY5/9AXT6I/v1wTvqYpUPTHz1PG9cfG6b5OT3T03W+RzJt193yGCiMiBiC3bNmCabykOceXkRzp48VMpgslQgRLly5l36FpWnL368tT9zJvTb6/jx/2yeApL7KJSODWrUPj4+PLRCRC4AAgZ6aT+63JS0wsJzk0fa6sL/g2AIZEBn5PX17IqN82tnWpLyfuEpFvpx0VgBDr3oGGGEh9CCSGqrgwBvtqwG2Hr1pBZId9cNOVKeFu4f0JyPPXqi/HbN75egzuMmPsqyLwmAnF5SJyD8kWQjglGnMqghswrZ2Xqd/vj8S2XmeABUr3VyJyU7/gynL08Nx2zlf1pRUZpvphmOpPRYYfmxPxFiDyWlmqOkVRZHVcDHhHDMiMCZX6SowLX0xlSpMKBFPelRQRpfdviIhnxxi2qXdHUPhPInJdcg/L0G6fHoVnhlB9HkDMTOtiGDnOAD+DKT4JjOxoFEduHohx/0tj5GEDRnaHqvg5kv9v+lhEJJTl7iNz2/pEjHaXQYiqPjMmuwLA7ilmVn35V6kgX79vUxWfTUnzXWVZvqTZXY8//vhwcOUnpvimGrjdoL66n2NjL2pAjfrqXzT4n9cN8rT05dkpsf7r4IqLSPdqVtUxGtxjGtxjJPcl17fo/enqq0qDGwuue6n35dksisPUV9dMK/ALq+p4aphgKC/utQEHt0F9taEpRc4KvLrdg9SXDK58lJxsGPR+4lwNrkvvz+xrdPgTDX5Hfwdn8MWvgyvGd+7cuU/dXFF8mIy9Lk8695pUtPlQakI4QL37m1TUuJ6hehfJVT6986SuuLXP3SyghruDq37UoHfnuq9WXz1ERjo38fJ6bHGYBj8RXHlx09mivtoYfPGTKXkPktZXxdXcmDoemo4Q1/1xIugekiNJiCMM5cenjKu6F9SovnsyAGxM85Tl6BEk6avu1Wn8oK+6TwZfPr5jx45ekxvTW5Pel2f3BOiKX2vwympsdXNvbGxsab3viu9MPusuSiHFSX0dIZ8kSVbVMfW6a+3M6Lo4hOoYXLGF5HB9r3ugBu+1Kq9phNZYDQ1us/rqdz2+ffGr4MpxslayuuLvgytGk9tIMiweV1/e2dtA5fgbSHr15VemRjfF9xkDOTa2tP7evb6u+21tkHuexn0t8Vsr2ZdnkQz0xZm9Mb64un62nqu3y40BsHJlLwdLUmyl52twD5ms/VL15d80Zq/vtZlIUsSYT2hwZZ4PrCcpK1eudCSl3V6wSX25VcT8p3RSchEZBLhl8eLFu5MwjCp31cCHixNDLREZihrG0dp639q1ay1JGR4WCwYDct+esmx+A+COkVbrZyKi3LixI4IVdT+LSUX3t8/a80ISdcHjCQMAMcj7jc0yY/APfTnsGsgw/shkrVXw/hXJyZm6XXa/AAAmD++zimNTTThMTEwsB8T0HRDJsnxfABnJe+p7jw6mdXZBLDFs29y6dQgmu0BDeafI/hN93S4GTW07T90nWfu2qqqOlHzgx6kRYojEoTFGosoX9vtkAcwYUmtnAkFWRka20U2siSq327zztuC6F4vIleqrfSbHjS0ls8NFsB1AmUBH4y+c+nKzydqvqKpqRbvd3lx3kvaQakyFdgEgFqYBE55gJQK7Y8d+rTVr1lQAwN27AwfjlNSLiJQA7iGLlVD7Zo3qRcxyACao5nsKXmKMrMGXSTV0HAOAYNzZBwZFRKi+2AqACl0N4KciiKRIUoCIyLba3JdvEOJ4ALvFmJwx2sbXh1AFW3v+vJbVxigiUV1RFyjGtcLChSuNzW30+mh/jr0eV9YH07FBA6HT6TzAojgMuT1PfVWIyRaITBYyJlttY8z7T3ZChZm0hn5BDR8EADH5n4SqeD+pY5OCalqhabds2bKnvDebPjER4V133dWoyz6lzF3Hplwc4yS0GRl5SkMLyQFV/+Wo5voQ4gM271wD6j0AkFnuqboV6ynqQ51WjgAQRPJZG2lMQ69EoK5EiQiravx41fBTA3OBUr6btTpfBON44q/mowF409t1G3A4PEy0pFPvt7oNqK7yNQSnfi+RRmYLVP21MTdfB+N6m7evAvVeEQO069PeU3KEDKKv97hBbiSzrD34jRjKK43NcrHZV0TkwL4YcLuI3A+x+y1fvnyof+fV/gwHqi/H2u32w8C2Vmq1MQBwwgknJAXWBKs2/d1rjUgS5NKlU+N6Y3rSEZEYQ3WdMdkfG6vvyTudH/b3UIWmR22OkwwIAcYnnmge5J0AJBOzLD3b8CIx1i20MfLeOp3bC+Uqkgsz27odMe5r89Z/aLfbGxp3i8nXUYXGTGnu27SpR0pNZ1EMAtXDtZHDwcndsFcxJKr+yCj68svGZBf6UL5H8s4tIsIYY9ZXZTRNqSwaQwIoZ8p4krQ2H7gk+vIHxmY5IEuahUSEjPyCsXkboTw++e28Dm3KFTZvLxfBtbVZXZoB4iGY9haehloYTO5ijQLSTSetN3Z8fBwQo00Il6KBN6svHxUZfHiyzotjAER6js1dq/YT9ZqCRYsWlQBgPb+GGEIk35Ce7ZX1jJGzYnAb83zgn0WEAqmSVXLeFy81Nt8nxvBPvS00MXEAxCwHYpH60QjVpHgqAKxcuZLJpNRvcQ4AIiPbNLifmqzzEpajR6Q42IsIjdjlABSx7hcn5Az15ZOdzj73TR5OrKqn1DERiYbkQFVVqwFzjvf+lel9HjOtqF2/4Z53zo8aNiFB+rQBTNYeuC6G6oYo9qssy8NTXLy4ZeX6qH6dyTqXNbbd5u0RgSwlObhu3TqQtJE4GHWj3WEpW7MviRU27ywAsE9zkoZbrSWAsRQenN5lKgGss3nngOCKD5HuxOCKi0RkFIDJ2/kb6YvTe8BpKsIeDKFzss07bZvZ/QF3FMm2DA1tCd6tgZi30JdvaoQbXHmJMXZBiP5tIuJ27969BMAKm3eGyLEX5S7eH9VPGJudV/ed+ddqbt4I4DdisoPrcKl7UJbli2rzbpZNkkIjgoNqs54dRFJsZj6IqNtjNnBzVVVHk1xJX76J0DYAi8z8Qd10yJ/YvLNvcN1LSL4qVMX7BeZ+AEY1P5e+eL3xvntMK8vebYz8b2vlrQj7vVZEIi+/3ExP4YnIqIn+fIhsmurTKDbvXEDgqpiZ/87gPhZDdYUx5g7z2c/9exGp+4dRZkD8CmB+AOdefNpppwVMTCwhZScQr6kRm3sJQvlKsfZvY6iucW6iEcYQLI4G4lUC80N4f6yI0ObxA1H9LWKyj8WIiy24wWTt9yL6rwNyWqjNmu83uwAYQvnKTLJjEMNfRMa/hspZ3nePJWnyztB3NYYzo5h3k+E/h1B+SkQOgnHHtdvDd5OUkYHWq43Jb0QMX1ZtvUaGh7dGujXG2odg82tiCK+zeecbRt17jc3vjeSbAHqAPsb4VUrcnEI7D2DEwvwjEP+nOj0CwIBIe33lu6caMRsza25C1Ks94+4IfA6I34fI/sv22WexzasPxuC/JSb/YIz+UgvzS5O3PxLVrRORtwGZ+3/Utjx77vjkvQAAAABJRU5ErkJggg==" alt="La Casa di Nonna Iolanda" class="nav-logo-img nav-logo-light"></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#experience" data-i18n="nav_experience">L'Esperienza</a></li>
+      <li><a href="#tennis" data-i18n="nav_tennis">Tennis & Benessere</a></li>
+      <li><a href="#place" data-i18n="nav_place">Il Luogo</a></li>
+      <li><a href="#reserve" data-i18n="nav_reserve">Prenota</a></li>
+    </ul>
+    <div class="lang-separator"></div>
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-current" id="langBtn" aria-label="Lingua">
+        <span id="langLabel">IT</span>
+        <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-option active" data-lang="it">Italiano <span class="lang-check"></span></button>
+        <button class="lang-option" data-lang="en">English <span class="lang-check"></span></button>
+        <button class="lang-option" data-lang="fr">Français <span class="lang-check"></span></button>
+        <button class="lang-option" data-lang="de">Deutsch <span class="lang-check"></span></button>
+      </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="#experience" onclick="closeMobile()" data-i18n="nav_experience">L'Esperienza</a>
+  <a href="#tennis" onclick="closeMobile()" data-i18n="nav_tennis">Tennis & Benessere</a>
+  <a href="#place" onclick="closeMobile()" data-i18n="nav_place">Il Luogo</a>
+  <a href="#reserve" onclick="closeMobile()" data-i18n="nav_reserve">Prenota</a>
+  <div class="mobile-lang">
+    <button class="active" data-lang="it" onclick="switchLang('it')">IT</button>
+    <button data-lang="en" onclick="switchLang('en')">EN</button>
+    <button data-lang="fr" onclick="switchLang('fr')">FR</button>
+    <button data-lang="de" onclick="switchLang('de')">DE</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-sub" data-i18n="hero_sub">Casa Vacanze con Campo da Tennis — Umbria, Italia</p>
+    <h1 data-i18n="hero_h1" data-i18n-html="true">Il campo era già <em>qui.</em></h1>
+    <p class="hero-payoff" data-i18n="hero_payoff">Dove l'erba continua.</p>
+  </div>
+  <div class="hero-scroll" data-i18n="scroll">Scorri</div>
+</section>
+
+<!-- INTRO -->
+<section>
+  <div class="section-narrow">
+    <div class="reveal"><div class="section-label"><span class="section-number">01</span> <span data-i18n="label_intro">Introduzione</span></div></div>
+    <div class="reveal reveal-delay-1"><h2 data-i18n="intro_h2">Un campo da tennis dentro la terra — non sopra.</h2></div>
+    <div class="reveal reveal-delay-2"><p data-i18n="intro_p1">C'è un luogo nell'Italia centrale dove la pietra circonda un campo. L'erba lo avvolge. Le colline proseguono oltre la linea di fondo come se il campo fosse sempre stato parte di questa terra.</p></div>
+    <div class="reveal reveal-delay-3">
+      <p data-i18n="intro_p2">La Casa di Nonna Iolanda è una tenuta privata nel borgo di Le Torri, Gualdo Cattaneo. Nessuna reception. Nessun programma. Nessun rumore.</p>
+      <p data-i18n="intro_p3" data-i18n-html="true">Una casa in pietra. Un campo da tennis privato. Una jacuzzi con vista.<br>Tutto il resto è paesaggio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURT IMAGE -->
+<div class="image-panel reveal reveal-scale">
+  <div class="image-panel-inner ip-court"></div>
+  <div class="image-panel-overlay"></div>
+  <div class="image-panel-caption" data-i18n="court_caption" data-i18n-html="true">Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.</div>
+</div>
+
+<!-- EXPERIENCE -->
+<section class="section-dark" id="experience">
+  <div class="section-wide">
+    <div class="reveal"><div class="section-label"><span class="section-number">02</span> <span data-i18n="label_experience">L'Esperienza</span></div></div>
+    <div class="two-col">
+      <div>
+        <div class="reveal reveal-delay-1"><h2 data-i18n="exp_h2" data-i18n-html="true">Non è un hotel.<br>Non è un resort.</h2></div>
+        <div class="reveal reveal-delay-2">
+          <p data-i18n="exp_p1">Non è solo una vacanza. È un modo diverso di vivere l'Umbria. La Casa di Nonna Iolanda nasce da un'idea semplice: non scegliere tra sport e viaggio, tra relax e movimento.</p>
+          <p data-i18n="exp_p2" data-i18n-html="true">Arrivi. Giochi. Esplori. Ti fermi.<br>È il luogo a dettare il ritmo. Non un programma.</p>
+        </div>
+      </div>
+      <div class="two-col-offset reveal reveal-delay-3">
+        <p data-i18n="exp_p3">Lo sport qui non è performance. È presenza. Giochi perché la mattina è quieta. Perché la luce è morbida e l'aria è calda e il suono della palla è l'unica cosa che rompe il silenzio.</p>
+        <p data-i18n="exp_p4">Dopo, riposi. La jacuzzi guarda la valle. Il cielo fa il resto.</p>
+      </div>
+    </div>
+    <div class="rhythm-grid">
+      <div class="rhythm-item reveal"><div class="rhythm-time" data-i18n="time_morning">Mattina</div><p data-i18n="rhythm_morning">La luce attraversa la valle presto. Il campo è asciutto. L'aria non si è ancora scaldata. È il momento migliore per giocare — prima che il giorno cominci a muoversi.</p></div>
+      <div class="rhythm-item reveal reveal-delay-1"><div class="rhythm-time" data-i18n="time_midday">Mezzogiorno</div><p data-i18n="rhythm_midday">Quiete. La tenuta è tua. L'ombra degli alberi antichi, i muri di pietra freschi al tatto. Nulla è pianificato.</p></div>
+      <div class="rhythm-item reveal reveal-delay-2"><div class="rhythm-time" data-i18n="time_afternoon">Pomeriggio</div><p data-i18n="rhythm_afternoon">Un secondo set se vuoi. O la piscina salata. O la jacuzzi. L'acqua è calda. La vista non finisce.</p></div>
+      <div class="rhythm-item reveal reveal-delay-3"><div class="rhythm-time" data-i18n="time_evening">Sera</div><p data-i18n="rhythm_evening">La luce in Umbria diventa oro prima di scomparire. La noterai dal campo. O dalla terrazza. O da qualunque punto.</p></div>
+    </div>
+    <div class="will-section">
+      <div class="will-col reveal reveal-left"><h4 data-i18n="will_find_title">Cosa troverai</h4><p data-i18n="will_find">Un campo da tennis in erba sintetica di ultima generazione, ad uso esclusivo. Una piscina salata aperta sul paesaggio. Una jacuzzi panoramica. Possibilità di giocare con un compagno o con un Maestro Nazionale FIT. Sentieri per camminare, correre, pedalare. Silenzio assoluto.</p></div>
+      <div class="will-col reveal reveal-right reveal-delay-1"><h4 data-i18n="will_not_title">Cosa non troverai</h4><p data-i18n="will_not_1">Reception. Servizio concierge. Musica di sottofondo. Attività organizzate. Drink di benvenuto. Loghi sugli asciugamani.</p><p data-i18n="will_not_2">Nulla si frappone tra te e il luogo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARALLAX VALLEY -->
+<div class="parallax-strip">
+  <div class="parallax-strip-inner ip-valley" data-parallax="0.15"></div>
+  <div class="parallax-overlay"></div>
+  <div class="parallax-strip-text reveal"><p data-i18n="parallax_1">Nessuna recinzione. Nessuna struttura. Solo terreno.</p></div>
+</div>
+
+<!-- TENNIS -->
+<section id="tennis">
+  <div class="section-wide">
+    <div class="reveal"><div class="section-label"><span class="section-number">03</span> <span data-i18n="label_tennis">Tennis & Benessere</span></div></div>
+    <div class="two-col">
+      <div>
+        <div class="reveal reveal-delay-1"><h2 data-i18n="tennis_h2">Il campo è nel cuore della tenuta.</h2></div>
+        <div class="reveal reveal-delay-2">
+          <p data-i18n="tennis_p1">Delimitato da pietre nei toni chiari di questa regione — beige tenue, rosa attenuato, giallo caldo. Non è stato posato qui. È stato inserito nel terreno.</p>
+          <p data-i18n="tennis_p2">I bordi non sono recinzioni. Sono la terra che prosegue.</p>
+        </div>
+      </div>
+      <div class="two-col-offset"><div class="reveal reveal-delay-3">
+        <h3 data-i18n="surface_h3">La Superficie</h3>
+        <p data-i18n="surface_p">Erba sintetica di ultima generazione — progettata per un gioco costante, costruita per sembrare il prato che la circonda. Tiene bene la palla. Risponde al movimento. E quando esci dal campo, non riesci a distinguere dove finisce la superficie e dove inizia la campagna.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<div class="stone-divider"><div class="stone-dot"></div><div class="stone-dot"></div><div class="stone-dot"></div></div>
+
+<!-- PLAY & WELLNESS -->
+<section>
+  <div class="section-wide">
+    <div class="two-col">
+      <div>
+        <div class="reveal">
+          <h3 data-i18n="play_h3">Il tuo gioco</h3>
+          <p data-i18n="play_p1">Il campo è ad uso esclusivo degli ospiti, disponibile in ogni momento del soggiorno. Gioca liberamente, in totale autonomia.</p>
+          <p data-i18n="play_p2">Se cerchi un compagno di gioco, possiamo trovarlo per te. Se vuoi migliorare la tecnica, un Maestro Nazionale FIT è disponibile su richiesta.</p>
+          <p data-i18n="play_p3">Una partita leggera o un allenamento strutturato. Qui il tennis si adatta al tuo ritmo.</p>
+        </div>
+        <div class="reveal reveal-delay-2" style="margin-top: 2.5rem;">
+          <h3 data-i18n="setting_h3">L'Ambientazione</h3>
+          <p data-i18n="setting_p1">Non c'è una clubhouse. Non c'è un pro shop. Non c'è un tabellone. Solo il suono della palla, il vento e il verde intorno.</p>
+          <p data-i18n="setting_p2">Sentirai la palla. Sentirai il tuo respiro. Sentirai la valle. Nient'altro.</p>
+        </div>
+      </div>
+      <div>
+        <div class="reveal reveal-delay-1">
+          <h3 data-i18n="jacuzzi_h3">La Jacuzzi</h3>
+          <p data-i18n="jacuzzi_p1">A pochi passi dal campo, la jacuzzi esterna si trova sul bordo della terrazza della tenuta. Acqua calda. Aria aperta. Una vista che supera la prima valle e raggiunge la successiva.</p>
+          <p data-i18n="jacuzzi_p2">Nessuna copertura. Nessun vetro. Nulla tra la pelle e il paesaggio.</p>
+        </div>
+        <div class="reveal reveal-delay-3" style="margin-top: 2.5rem;">
+          <h3 data-i18n="pool_h3">La Piscina Salata</h3>
+          <p data-i18n="pool_p">A dieci minuti a piedi dalla tenuta, al Castello di Barattano. Acqua salata, nessun cloro — aperta sul paesaggio umbro, a disposizione degli ospiti. Stagionale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARALLAX JACUZZI -->
+<div class="parallax-strip">
+  <div class="parallax-strip-inner ip-jacuzzi" data-parallax="0.15"></div>
+  <div class="parallax-overlay"></div>
+  <div class="parallax-strip-text reveal"><p data-i18n="parallax_2">Acqua calda. Aria aperta. La vista non finisce.</p></div>
+</div>
+
+<!-- PARALLAX POOL -->
+<div class="parallax-strip">
+  <div class="parallax-strip-inner ip-pool" data-parallax="0.15"></div>
+  <div class="parallax-overlay"></div>
+  <div class="parallax-strip-text reveal"><p data-i18n="parallax_pool">La piscina del Castello. A dieci minuti a piedi.</p></div>
+</div>
+
+<div class="image-panel reveal reveal-scale">
+  <div class="image-panel-inner ip-pool2"></div>
+  <div class="image-panel-overlay"></div>
+  <div class="image-panel-caption" data-i18n="pool_caption">Acqua salata, colline umbre.</div>
+</div>
+
+<!-- TRAILS -->
+<section>
+  <div class="section-wide">
+    <div class="reveal"><div class="section-label"><span class="section-number">04</span> <span data-i18n="label_trails">Sentieri & Strade</span></div></div>
+    <div class="two-col">
+      <div>
+        <div class="reveal reveal-delay-1"><h2 data-i18n="trails_h2">Il paesaggio non si guarda soltanto. Si attraversa.</h2></div>
+        <div class="reveal reveal-delay-2">
+          <p data-i18n="trails_p1">Dalla tenuta partono sentieri che entrano nella campagna umbra senza mai incontrare una strada principale. A piedi o in bicicletta, il territorio si apre lentamente — uliveti, borghi in pietra, crinali silenziosi.</p>
+          <p data-i18n="trails_p2">Non servono mappe complicate. Le strade bianche sono già lì. I sentieri sono segnati dal passaggio di chi ci vive da sempre.</p>
+        </div>
+      </div>
+      <div class="two-col-offset">
+        <div class="reveal reveal-delay-3">
+          <h3 data-i18n="trails_bike_h3">In bicicletta</h3>
+          <p data-i18n="trails_bike_p">Strade sterrate e asfaltate tra colline e fondovalle. Percorsi per ogni livello — dalla pedalata lenta tra gli olivi alle salite con vista. Il tipo di ciclismo dove ci si ferma più di quanto si pedali.</p>
+        </div>
+        <div class="reveal reveal-delay-4" style="margin-top: 2.5rem;">
+          <h3 data-i18n="trails_walk_h3">A piedi, di corsa</h3>
+          <p data-i18n="trails_walk_p">Sentieri tra boschi, campi aperti e piccoli borghi. Camminate di un'ora, trekking di una giornata, oppure una corsa mattutina tra gli olivi. Il ritmo lo decide il terreno — e la luce.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stone-divider"><div class="stone-dot"></div><div class="stone-dot"></div><div class="stone-dot"></div></div>
+
+<!-- PLACE -->
+<section id="place">
+  <div class="section-narrow">
+    <div class="reveal"><div class="section-label"><span class="section-number">05</span> <span data-i18n="label_place">Il Luogo</span></div></div>
+    <div class="reveal reveal-delay-1"><h2 data-i18n="place_h2">L'architettura non compete con il paesaggio. Ne fa parte.</h2></div>
+    <div class="reveal reveal-delay-2">
+      <p data-i18n="place_p1">La Casa di Nonna Iolanda è una proprietà privata nel cuore rurale dell'Umbria. La struttura principale è una tenuta restaurata in pietra locale, su un terreno rialzato con viste in ogni direzione.</p>
+      <p data-i18n="place_p2">La stessa pietra. Le stesse proporzioni. Lo stesso silenzio che la valle custodisce da secoli.</p>
+    </div>
+  </div>
+</section>
+
+<div class="image-panel reveal reveal-scale">
+  <div class="image-panel-inner ip-stone"></div>
+  <div class="image-panel-overlay"></div>
+  <div class="image-panel-caption" data-i18n="stone_caption" data-i18n-html="true">Pietra nei toni di questa regione.<br>Beige, rosa, giallo.</div>
+</div>
+
+<!-- UMBRIA -->
+<section>
+  <div class="section-narrow">
+    <div class="reveal"><p class="umbria-quote" data-i18n="umbria_quote" data-i18n-html="true">Non la Toscana. Non così esibita.<br>Più silenziosa. Meno nota. Più sé stessa.</p></div>
+    <div class="reveal reveal-delay-1"><p data-i18n="umbria_p1">L'Umbria ha il suo ritmo — più lento, più difficile da tradurre, più facile da sentire. Il cibo è diretto. Il vino è locale. Le persone non spiegano il luogo. Ci vivono.</p></div>
+    <div class="reveal reveal-delay-2"><p data-i18n="umbria_p2">La tenuta si trova a Torri di Barattano, nel comune di Gualdo Cattaneo, tra Perugia e Spoleto. Un tratto d'Umbria dove il paesaggio è ininterrotto. Oliveti. Muri a secco. Campi aperti. Nessuna segnaletica. Nessun vicino in vista.</p></div>
+    <div class="logistics reveal reveal-delay-3">
+      <div class="logistics-item"><div class="logistics-label">Perugia</div><div class="logistics-value">30 min</div></div>
+      <div class="logistics-item"><div class="logistics-label">Spoleto</div><div class="logistics-value">30 min</div></div>
+      <div class="logistics-item"><div class="logistics-label">Roma — Fiumicino</div><div class="logistics-value">90 min</div></div>
+    </div>
+    <div class="reveal reveal-delay-4" style="margin-top:2rem"><p style="font-size:0.85rem;color:var(--text-muted)" data-i18n="logistics_detail" data-i18n-html="true">Aeroporti più vicini: Perugia (SAG), Roma Fiumicino (FCO), Firenze (FLR).<br>Transfer privati organizzabili su richiesta. Coordinate esatte condivise dopo la conferma della prenotazione.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).</p></div>
+  </div>
+</section>
+
+<!-- RATES -->
+<section id="rates" class="section-dark">
+  <div class="section-wide">
+    <div class="reveal"><div class="section-label"><span class="section-number">06</span> <span data-i18n="label_rates">Tariffe</span></div></div>
+    <div class="rates-philosophy">
+      <div class="reveal reveal-delay-1"><h2 data-i18n="rates_h2">Soggiorni pensati per chi vuole restare.</h2></div>
+      <div class="reveal reveal-delay-2">
+        <p data-i18n="rates_p1">Accogliamo persone che desiderano rallentare, muoversi nella natura e vivere l'Umbria con calma. Per questo chiediamo soggiorni minimi e applichiamo tariffe che riflettono l'unicità del luogo, i servizi inclusi e la tranquillità che offriamo.</p>
+      </div>
+    </div>
+    <div class="rates-included">
+      <div class="rates-included-col reveal reveal-left">
+        <h4 data-i18n="rates_included_h4">Incluso nel soggiorno</h4>
+        <p data-i18n="rates_included_p">Campo da tennis privato, ad uso esclusivo. Idromassaggio panoramico per 5 persone. Piscina salata del Castello di Barattano a 900 metri (stagionale). Momenti di gioco o palleggio con sparring partner.</p>
+      </div>
+      <div class="rates-included-col reveal reveal-right reveal-delay-1">
+        <h4 data-i18n="rates_extra_h4">Su richiesta</h4>
+        <p data-i18n="rates_extra_p">Lezioni con Maestro FIT Nazionale. Passeggiate a cavallo nel maneggio della zona. Escursioni e trekking guidati. Noleggio e-bike. Servizio spa e massaggi a 400 metri dalla tenuta.</p>
+      </div>
+    </div>
+    <div class="rates-note reveal reveal-fade">
+      <h4 data-i18n="rates_note_h4">Una nota importante</h4>
+      <p data-i18n="rates_note_p">Questa casa è pensata per chi ama il silenzio, il tempo lento, lo sport vissuto senza fretta. Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto.</p>
+    </div>
+    <div class="reveal"><h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:0.5rem" data-i18n="rates_prices_h3">Tariffe 2026</h3></div>
+    <div class="reveal" style="margin-bottom:1rem"><p style="font-size:0.85rem;color:var(--text-muted)" data-i18n="rates_weekly_note">Soggiorni settimanali (7 notti): sconto 12%</p></div>
+    <div class="rates-grid">
+      <div class="rate-card reveal reveal-scale">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_jun">Giugno</span><span class="rate-card-min" data-i18n="min_3">min. 3 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 210</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 240</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 20</span></div>
+        </div>
+      </div>
+      <div class="rate-card reveal reveal-scale reveal-delay-1">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_jul">Luglio</span><span class="rate-card-min" data-i18n="min_4">min. 4 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 230</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 265</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 25</span></div>
+        </div>
+      </div>
+      <div class="rate-card rate-card-highlight reveal reveal-scale reveal-delay-2">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_aug">Agosto</span><span class="rate-card-min" data-i18n="min_5">min. 5 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 245</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 275</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 25</span></div>
+        </div>
+      </div>
+      <div class="rate-card reveal reveal-scale reveal-delay-3">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_sep">Settembre</span><span class="rate-card-min" data-i18n="min_3">min. 3 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 210</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 240</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 20</span></div>
+        </div>
+      </div>
+      <div class="rate-card reveal reveal-scale reveal-delay-4">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_oct">Ottobre</span><span class="rate-card-min" data-i18n="min_2">min. 2 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 155</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 170</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 15</span></div>
+        </div>
+      </div>
+      <div class="rate-card reveal reveal-scale reveal-delay-5">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_nov">Novembre</span><span class="rate-card-min" data-i18n="min_2">min. 2 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 145</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 160</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 15</span></div>
+        </div>
+      </div>
+      <div class="rate-card reveal reveal-scale">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_dec">Dicembre</span><span class="rate-card-min" data-i18n="min_2">min. 2 notti</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 150</span></div>
+          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 160</span></div>
+          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 15</span></div>
+        </div>
+      </div>
+      <div class="rate-card rate-card-highlight reveal reveal-scale reveal-delay-1">
+        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_xmas">Natale & Capodanno</span><span class="rate-card-min">22/12 – 02/01</span></div>
+        <div class="rate-card-prices">
+          <div class="rate-card-row"><span data-i18n="rates_xmas_flat">Tariffa unica a notte</span><span>€ 250</span></div>
+          <div class="rate-card-row"><span></span><span class="rate-card-min" data-i18n="min_3">min. 3 notti</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVE -->
+<section class="reserve-section" id="reserve">
+  <div class="reveal"><div class="section-label" style="justify-content:center"><span class="section-number">07</span> <span data-i18n="label_reserve">Prenota</span></div></div>
+  <div class="reveal reveal-delay-1"><h2 data-i18n="reserve_h2">Solo su richiesta privata.</h2></div>
+  <div class="reveal reveal-delay-2">
+    <p data-i18n="reserve_p1">Non c'è un calendario. Non c'è prenotazione istantanea. Ogni soggiorno viene organizzato direttamente.</p>
+    <p data-i18n="reserve_p2">Comunicaci quando vorresti venire, quanti ospiti ti accompagneranno e qualsiasi altra cosa dovremmo sapere. Risponderemo entro 48 ore.</p>
+  </div>
+  <div class="reserve-form reveal reveal-delay-3">
+    <div class="form-row">
+      <input type="text" data-i18n-ph="ph_name" placeholder="Nome" aria-label="Nome">
+      <input type="email" data-i18n-ph="ph_email" placeholder="Email" aria-label="Email">
+    </div>
+    <div class="form-row">
+      <input type="text" data-i18n-ph="ph_dates" placeholder="Date preferite" aria-label="Date preferite">
+      <input type="text" data-i18n-ph="ph_guests" placeholder="Numero di ospiti" aria-label="Numero di ospiti">
+    </div>
+    <textarea data-i18n-ph="ph_message" placeholder="Qualcosa che dovremmo sapere" rows="3" aria-label="Messaggio"></textarea>
+    <button class="reserve-btn" type="button" data-i18n="reserve_btn">Richiedi un soggiorno privato</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-name">La Casa di Nonna Iolanda</div>
+    <div class="footer-location">Via Matteotti 26, Torri — Gualdo Cattaneo (PG)</div>
+    <a href="https://instagram.com/casavacanzedinonnaiolanda" target="_blank" rel="noopener" class="footer-instagram">@casavacanzedinonnaiolanda</a>
+  </div>
+  <div class="footer-right" data-i18n="hero_payoff">Dove l'erba continua.</div>
+</footer>
+
+<script>
+const T={it:{nav_experience:"L'Esperienza",nav_tennis:"Tennis & Benessere",nav_place:"Il Luogo",nav_reserve:"Prenota",scroll:"Scorri",hero_sub:"Casa Vacanze con Campo da Tennis — Umbria, Italia",hero_h1:"Il campo era già <em>qui.</em>",hero_payoff:"Dove l'erba continua.",label_intro:"Introduzione",intro_h2:"Un campo da tennis dentro la terra — non sopra.",intro_p1:"C'è un luogo nell'Italia centrale dove la pietra circonda un campo. L'erba lo avvolge. Le colline proseguono oltre la linea di fondo come se il campo fosse sempre stato parte di questa terra.",intro_p2:"La Casa di Nonna Iolanda è una tenuta privata nel borgo di Le Torri, Gualdo Cattaneo. Nessuna reception. Nessun programma. Nessun rumore.",intro_p3:"Una casa in pietra. Un campo da tennis privato. Una jacuzzi con vista.<br>Tutto il resto è paesaggio.",court_caption:"Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.",label_experience:"L'Esperienza",exp_h2:"Non è un hotel.<br>Non è un resort.",exp_p1:"Non è solo una vacanza. È un modo diverso di vivere l'Umbria. La Casa di Nonna Iolanda nasce da un'idea semplice: non scegliere tra sport e viaggio, tra relax e movimento.",exp_p2:"Arrivi. Giochi. Esplori. Ti fermi.<br>È il luogo a dettare il ritmo. Non un programma.",exp_p3:"Lo sport qui non è performance. È presenza. Giochi perché la mattina è quieta. Perché la luce è morbida e l'aria è calda e il suono della palla è l'unica cosa che rompe il silenzio.",exp_p4:"Dopo, riposi. La jacuzzi guarda la valle. Il cielo fa il resto.",time_morning:"Mattina",time_midday:"Mezzogiorno",time_afternoon:"Pomeriggio",time_evening:"Sera",rhythm_morning:"La luce attraversa la valle presto. Il campo è asciutto. L'aria non si è ancora scaldata. È il momento migliore per giocare — prima che il giorno cominci a muoversi.",rhythm_midday:"Quiete. La tenuta è tua. L'ombra degli alberi antichi, i muri di pietra freschi al tatto. Nulla è pianificato.",rhythm_afternoon:"Un secondo set se vuoi. O la piscina salata. O la jacuzzi. L'acqua è calda. La vista non finisce.",rhythm_evening:"La luce in Umbria diventa oro prima di scomparire. La noterai dal campo. O dalla terrazza. O da qualunque punto.",will_find_title:"Cosa troverai",will_find:"Un campo da tennis in erba sintetica di ultima generazione, ad uso esclusivo. Una piscina salata aperta sul paesaggio. Una jacuzzi panoramica. Possibilità di giocare con un compagno o con un Maestro Nazionale FIT. Sentieri per camminare, correre, pedalare. Silenzio assoluto.",will_not_title:"Cosa non troverai",will_not_1:"Reception. Servizio concierge. Musica di sottofondo. Attività organizzate. Drink di benvenuto. Loghi sugli asciugamani.",will_not_2:"Nulla si frappone tra te e il luogo.",parallax_1:"Nessuna recinzione. Nessuna struttura. Solo terreno.",parallax_2:"Acqua calda. Aria aperta. La vista non finisce.",label_trails:"Sentieri & Strade",trails_h2:"Il paesaggio non si guarda soltanto. Si attraversa.",trails_p1:"Dalla tenuta partono sentieri che entrano nella campagna umbra senza mai incontrare una strada principale. A piedi o in bicicletta, il territorio si apre lentamente — uliveti, borghi in pietra, crinali silenziosi.",trails_p2:"Non servono mappe complicate. Le strade bianche sono già lì. I sentieri sono segnati dal passaggio di chi ci vive da sempre.",trails_bike_h3:"In bicicletta",trails_bike_p:"Strade sterrate e asfaltate tra colline e fondovalle. Percorsi per ogni livello — dalla pedalata lenta tra gli olivi alle salite con vista. Il tipo di ciclismo dove ci si ferma più di quanto si pedali.",trails_walk_h3:"A piedi, di corsa",trails_walk_p:"Sentieri tra boschi, campi aperti e piccoli borghi. Camminate di un'ora, trekking di una giornata, oppure una corsa mattutina tra gli olivi. Il ritmo lo decide il terreno — e la luce.",label_tennis:"Tennis & Benessere",tennis_h2:"Il campo è nel cuore della tenuta.",tennis_p1:"Delimitato da pietre nei toni chiari di questa regione — beige tenue, rosa attenuato, giallo caldo. Non è stato posato qui. È stato inserito nel terreno.",tennis_p2:"I bordi non sono recinzioni. Sono la terra che prosegue.",surface_h3:"La Superficie",surface_p:"Erba sintetica di ultima generazione — progettata per un gioco costante, costruita per sembrare il prato che la circonda. Tiene bene la palla. Risponde al movimento. E quando esci dal campo, non riesci a distinguere dove finisce la superficie e dove inizia la campagna.",jacuzzi_h3:"La Jacuzzi",jacuzzi_p1:"A pochi passi dal campo, la jacuzzi esterna si trova sul bordo della terrazza della tenuta. Acqua calda. Aria aperta. Una vista che supera la prima valle e raggiunge la successiva.",jacuzzi_p2:"Nessuna copertura. Nessun vetro. Nulla tra la pelle e il paesaggio.",play_h3:"Il tuo gioco",play_p1:"Il campo è ad uso esclusivo degli ospiti, disponibile in ogni momento del soggiorno. Gioca liberamente, in totale autonomia.",play_p2:"Se cerchi un compagno di gioco, possiamo trovarlo per te. Se vuoi migliorare la tecnica, un Maestro Nazionale FIT è disponibile su richiesta.",play_p3:"Una partita leggera o un allenamento strutturato. Qui il tennis si adatta al tuo ritmo.",pool_h3:"La Piscina Salata",pool_p:"A dieci minuti a piedi dalla tenuta, al Castello di Barattano. Acqua salata, nessun cloro — aperta sul paesaggio umbro, a disposizione degli ospiti. Stagionale.",parallax_pool:"La piscina del Castello. A dieci minuti a piedi.",pool_caption:"Acqua salata, colline umbre.",setting_h3:"L'Ambientazione",setting_p1:"Non c'è una clubhouse. Non c'è un pro shop. Non c'è un tabellone. Solo il suono della palla, il vento e il verde intorno.",setting_p2:"Sentirai la palla. Sentirai il tuo respiro. Sentirai la valle. Nient'altro.",label_place:"Il Luogo",place_h2:"L'architettura non compete con il paesaggio. Ne fa parte.",place_p1:"La Casa di Nonna Iolanda è una proprietà privata nel cuore rurale dell'Umbria. La struttura principale è una tenuta restaurata in pietra locale, su un terreno rialzato con viste in ogni direzione.",place_p2:"La stessa pietra. Le stesse proporzioni. Lo stesso silenzio che la valle custodisce da secoli.",stone_caption:"Pietra nei toni di questa regione.<br>Beige, rosa, giallo.",umbria_quote:"Non la Toscana. Non così esibita.<br>Più silenziosa. Meno nota. Più sé stessa.",umbria_p1:"L'Umbria ha il suo ritmo — più lento, più difficile da tradurre, più facile da sentire. Il cibo è diretto. Il vino è locale. Le persone non spiegano il luogo. Ci vivono.",umbria_p2:"La tenuta si trova a Torri di Barattano, nel comune di Gualdo Cattaneo, tra Perugia e Spoleto. Un tratto d'Umbria dove il paesaggio è ininterrotto. Oliveti. Muri a secco. Campi aperti. Nessuna segnaletica. Nessun vicino in vista.",logistics_detail:"Aeroporti più vicini: Perugia (SAG), Roma Fiumicino (FCO), Firenze (FLR).<br>Transfer privati organizzabili su richiesta. Coordinate esatte condivise dopo la conferma della prenotazione.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",label_reserve:"Prenota",label_rates:"Tariffe",rates_h2:"Soggiorni pensati per chi vuole restare.",rates_p1:"Accogliamo persone che desiderano rallentare, muoversi nella natura e vivere l'Umbria con calma. Per questo chiediamo soggiorni minimi e applichiamo tariffe che riflettono l'unicità del luogo, i servizi inclusi e la tranquillità che offriamo.",rates_included_h4:"Incluso nel soggiorno",rates_included_p:"Campo da tennis privato, ad uso esclusivo. Idromassaggio panoramico per 5 persone. Piscina salata del Castello di Barattano a 900 metri (stagionale). Momenti di gioco o palleggio con sparring partner.",rates_extra_h4:"Su richiesta",rates_extra_p:"Lezioni con Maestro FIT Nazionale. Passeggiate a cavallo nel maneggio della zona. Escursioni e trekking guidati. Noleggio e-bike. Servizio spa e massaggi a 400 metri dalla tenuta.",rates_note_h4:"Una nota importante",rates_note_p:"Questa casa è pensata per chi ama il silenzio, il tempo lento, lo sport vissuto senza fretta. Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto.",rates_prices_h3:"Tariffe 2026",rates_weekly_note:"Soggiorni settimanali (7 notti): sconto 12%",month_jun:"Giugno",month_jul:"Luglio",month_aug:"Agosto",month_sep:"Settembre",month_oct:"Ottobre",month_nov:"Novembre",month_dec:"Dicembre",month_xmas:"Natale & Capodanno",min_2:"min. 2 notti",min_3:"min. 3 notti",min_4:"min. 4 notti",min_5:"min. 5 notti",guests_2:"2 persone",guests_34:"3–4 persone",guest_extra:"Persona aggiuntiva",rates_xmas_flat:"Tariffa unica a notte",reserve_h2:"Solo su richiesta privata.",reserve_p1:"Non c'è un calendario. Non c'è prenotazione istantanea. Ogni soggiorno viene organizzato direttamente.",reserve_p2:"Comunicaci quando vorresti venire, quanti ospiti ti accompagneranno e qualsiasi altra cosa dovremmo sapere. Risponderemo entro 48 ore.",reserve_btn:"Richiedi un soggiorno privato",ph_name:"Nome",ph_email:"Email",ph_dates:"Date preferite",ph_guests:"Numero di ospiti",ph_message:"Qualcosa che dovremmo sapere"},
+en:{nav_experience:"The Experience",nav_tennis:"Tennis & Wellness",nav_place:"The Place",nav_reserve:"Reserve",scroll:"Scroll",hero_sub:"Holiday Home with Private Tennis Court — Umbria, Italy",hero_h1:"The court was already <em>here.</em>",hero_payoff:"Where the grass continues.",label_intro:"Introduction",intro_h2:"A tennis court set inside the land — not on it.",intro_p1:"There is a place in central Italy where stone borders a court. Grass surrounds it. The hills continue past the baseline as if the court had always been part of this ground.",intro_p2:"La Casa di Nonna Iolanda is a private estate in the village of Le Torri, Gualdo Cattaneo. No reception. No programme. No noise.",intro_p3:"A stone house. A private tennis court. A jacuzzi with a view.<br>Everything else is landscape.",court_caption:"Synthetic grass that looks like the real thing.<br>Umbrian stone that holds the edge.",label_experience:"The Experience",exp_h2:"This is not a hotel.<br>Not a resort.",exp_p1:"Not just a holiday. A different way of living Umbria. La Casa di Nonna Iolanda was born from a simple idea: not choosing between sport and travel, between rest and movement.",exp_p2:"You arrive. You play. You explore. You stop.<br>The place sets the rhythm. Not a schedule.",exp_p3:"Sport here is not performance. It is presence. You play because the morning is still. Because the light is soft and the air is warm and the sound of the ball is the only thing that breaks the quiet.",exp_p4:"After, you rest. The jacuzzi faces the valley. The sky does the rest.",time_morning:"Morning",time_midday:"Midday",time_afternoon:"Afternoon",time_evening:"Evening",rhythm_morning:"Light crosses the valley early. The court is dry. The air hasn't warmed yet. This is the best time to play — before the day begins to move.",rhythm_midday:"Stillness. The estate is yours. The shade of old trees, the stone walls cool to the touch. Nothing is planned.",rhythm_afternoon:"A second set if you want it. Or the saltwater pool. Or the jacuzzi. The water is warm. The view doesn't end.",rhythm_evening:"The light in Umbria turns gold before it disappears. You'll notice it from the court. Or from the terrace. Or from anywhere.",will_find_title:"What you will find",will_find:"A latest-generation synthetic grass tennis court, for your exclusive use. A saltwater pool open to the landscape. A panoramic jacuzzi. The option to play with a partner or train with a FIT National Coach. Trails for walking, running, cycling. Absolute quiet.",will_not_title:"What you will not",will_not_1:"Reception desks. Concierge services. Background music. Organised activities. Welcome drinks. Branding on towels.",will_not_2:"Nothing stands between you and the place.",parallax_1:"No fence. No structure. Just terrain.",parallax_2:"Warm water. Open air. The view doesn't end.",label_trails:"Trails & Roads",trails_h2:"The landscape is not just to be seen. It is to be crossed.",trails_p1:"From the estate, trails lead into the Umbrian countryside without ever meeting a main road. On foot or by bicycle, the territory opens slowly — olive groves, stone villages, silent ridgelines.",trails_p2:"No complicated maps needed. The white roads are already there. The paths are marked by those who have walked them for generations.",trails_bike_h3:"By bicycle",trails_bike_p:"Dirt roads and paved lanes between hills and valley floors. Routes for every level — from slow rides through olive groves to climbs with a view. The kind of cycling where you stop more than you pedal.",trails_walk_h3:"On foot, on the run",trails_walk_p:"Paths through woods, open fields and small stone villages. An hour's walk, a full day's trek, or a morning run through the olive groves. The pace is set by the terrain — and the light.",label_tennis:"Tennis & Wellness",tennis_h2:"The court sits at the heart of the estate.",tennis_p1:"Bordered by stones in the pale tones of this region — soft beige, muted pink, warm yellow. It was not placed here. It was set into the ground.",tennis_p2:"The edges are not fences. They are the land continuing.",surface_h3:"The Surface",surface_p:"Latest-generation synthetic grass — designed for consistent play, built to look like the meadow around it. It holds the ball well. It responds to movement. And when you step off the court, you cannot tell where the surface ends and the countryside begins.",jacuzzi_h3:"The Jacuzzi",jacuzzi_p1:"Steps from the court, the outdoor jacuzzi sits at the edge of the estate's terrace. Warm water. Open air. A view that reaches past the nearest valley and into the next.",jacuzzi_p2:"No enclosure. No glass. Nothing between skin and landscape.",play_h3:"Your game",play_p1:"The court is for guests' exclusive use, available at any moment during your stay. Play freely, in complete autonomy.",play_p2:"If you're looking for a playing partner, we can find one for you. If you want to improve your technique, a FIT National Coach is available on request.",play_p3:"A light match or a structured session. Here, tennis adapts to your rhythm.",pool_h3:"The Saltwater Pool",pool_p:"A ten-minute walk from the estate, at Castello di Barattano. Salt water, no chlorine — open to the Umbrian landscape, available to guests. Seasonal.",parallax_pool:"The Castle pool. A ten-minute walk.",pool_caption:"Salt water, Umbrian hills.",setting_h3:"The Setting",setting_p1:"There is no clubhouse. No pro shop. No scoreboard. Just the sound of the ball, the wind, and the green all around.",setting_p2:"You will hear the ball. You will hear your breathing. You will hear the valley. Nothing else.",label_place:"The Place",place_h2:"The architecture does not compete with the landscape. It belongs to it.",place_p1:"La Casa di Nonna Iolanda is a private property in the rural heart of Umbria. The main structure is a restored estate of local stone, set on elevated ground with views in every direction.",place_p2:"The same stone. The same proportions. The same silence the valley has held for centuries.",stone_caption:"Stone in the tones of this region.<br>Beige, pink, yellow.",umbria_quote:"Not Tuscany. Not as performed.<br>Quieter. Less known. More itself.",umbria_p1:"Umbria has its own rhythm — slower, harder to translate, easier to feel. The food is direct. The wine is local. The people do not explain the place. They live in it.",umbria_p2:"The estate is located in Torri di Barattano, in the municipality of Gualdo Cattaneo, between Perugia and Spoleto. A stretch of Umbria where the landscape is uninterrupted. Olive groves. Stone walls. Open fields. No signage. No neighbours in sight.",logistics_detail:"Nearest airports: Perugia (SAG), Rome Fiumicino (FCO), Florence (FLR).<br>Private transfers arranged upon request. Exact coordinates shared after confirmed reservation.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",label_reserve:"Reserve",label_rates:"Rates",rates_h2:"Stays designed for those who want to linger.",rates_p1:"We welcome guests who wish to slow down, move through nature, and experience Umbria at a calm pace. For this reason, we require minimum stays and apply rates that reflect the uniqueness of the place, the services included, and the tranquility we offer.",rates_included_h4:"Included in your stay",rates_included_p:"Private tennis court, for exclusive use. Panoramic hot tub for 5 people. Saltwater pool at Castello di Barattano, 900 metres away (seasonal). Playing or hitting sessions with a sparring partner.",rates_extra_h4:"On request",rates_extra_p:"Lessons with a FIT National Coach. Horseback riding at a local stable. Guided hikes and trekking. E-bike rental. Spa services and massages 400 metres from the estate.",rates_note_h4:"An important note",rates_note_p:"This house is made for those who love silence, slow time, and sport without rush. If you're looking for entertainment, noise, or quick getaways, we're probably not the right place.",rates_prices_h3:"2026 Rates",rates_weekly_note:"Weekly stays (7 nights): 12% discount",month_jun:"June",month_jul:"July",month_aug:"August",month_sep:"September",month_oct:"October",month_nov:"November",month_dec:"December",month_xmas:"Christmas & New Year",min_2:"min. 2 nights",min_3:"min. 3 nights",min_4:"min. 4 nights",min_5:"min. 5 nights",guests_2:"2 guests",guests_34:"3–4 guests",guest_extra:"Additional guest",rates_xmas_flat:"Flat rate per night",reserve_h2:"By private inquiry only.",reserve_p1:"There is no calendar. No instant booking. Every stay is arranged directly.",reserve_p2:"Tell us when you would like to come, how many guests will join you, and anything else we should know. We will respond within 48 hours.",reserve_btn:"Request a private stay",ph_name:"Name",ph_email:"Email",ph_dates:"Preferred dates",ph_guests:"Number of guests",ph_message:"Anything we should know"},
+fr:{nav_experience:"L'Expérience",nav_tennis:"Tennis & Bien-être",nav_place:"Le Lieu",nav_reserve:"Réserver",scroll:"Défiler",hero_sub:"Maison de Vacances avec Court de Tennis — Ombrie, Italie",hero_h1:"Le court était déjà <em>là.</em>",hero_payoff:"Là où l'herbe continue.",label_intro:"Introduction",intro_h2:"Un court de tennis ancré dans la terre — pas posé dessus.",intro_p1:"Il existe un lieu dans le centre de l'Italie où la pierre entoure un court. L'herbe l'enveloppe. Les collines se prolongent au-delà de la ligne de fond comme si le court avait toujours fait partie de ce sol.",intro_p2:"La Casa di Nonna Iolanda est un domaine privé dans le village de Le Torri, Gualdo Cattaneo. Pas de réception. Pas de programme. Pas de bruit.",intro_p3:"Une maison en pierre. Un court de tennis privé. Un jacuzzi avec vue.<br>Tout le reste est paysage.",court_caption:"Gazon synthétique qui ressemble à du vrai.<br>Pierre ombrienne qui en marque la limite.",label_experience:"L'Expérience",exp_h2:"Ce n'est pas un hôtel.<br>Ni un resort.",exp_p1:"Pas seulement des vacances. Une autre façon de vivre l'Ombrie. La Casa di Nonna Iolanda est née d'une idée simple : ne pas choisir entre sport et voyage, entre repos et mouvement.",exp_p2:"Vous arrivez. Vous jouez. Vous explorez. Vous vous arrêtez.<br>C'est le lieu qui donne le rythme. Pas un programme.",exp_p3:"Le sport ici n'est pas performance. C'est présence. On joue parce que le matin est calme. Parce que la lumière est douce et l'air est chaud et le son de la balle est la seule chose qui rompt le silence.",exp_p4:"Après, on se repose. Le jacuzzi fait face à la vallée. Le ciel fait le reste.",time_morning:"Matin",time_midday:"Midi",time_afternoon:"Après-midi",time_evening:"Soir",rhythm_morning:"La lumière traverse la vallée tôt. Le court est sec. L'air ne s'est pas encore réchauffé. C'est le meilleur moment pour jouer — avant que la journée ne commence à bouger.",rhythm_midday:"Immobilité. Le domaine est à vous. L'ombre des vieux arbres, les murs de pierre frais au toucher. Rien n'est prévu.",rhythm_afternoon:"Un deuxième set si vous le souhaitez. Ou la piscine d'eau salée. Ou le jacuzzi. L'eau est chaude. La vue ne s'arrête pas.",rhythm_evening:"La lumière en Ombrie devient dorée avant de disparaître. Vous la remarquerez depuis le court. Ou depuis la terrasse. Ou depuis n'importe où.",will_find_title:"Ce que vous trouverez",will_find:"Un court de tennis en gazon synthétique de dernière génération, à usage exclusif. Une piscine d'eau salée ouverte sur le paysage. Un jacuzzi panoramique. La possibilité de jouer avec un partenaire ou de s'entraîner avec un Maître National FIT. Des sentiers pour marcher, courir, pédaler. Un silence absolu.",will_not_title:"Ce que vous ne trouverez pas",will_not_1:"Réception. Service de conciergerie. Musique d'ambiance. Activités organisées. Cocktail de bienvenue. Logos sur les serviettes.",will_not_2:"Rien ne se dresse entre vous et le lieu.",parallax_1:"Pas de clôture. Pas de structure. Juste le terrain.",parallax_2:"Eau chaude. Air libre. La vue ne s'arrête pas.",label_trails:"Sentiers & Routes",trails_h2:"Le paysage ne se regarde pas seulement. Il se traverse.",trails_p1:"Depuis le domaine, des sentiers mènent dans la campagne ombrienne sans jamais croiser une route principale. À pied ou à vélo, le territoire s'ouvre lentement — oliveraies, villages de pierre, crêtes silencieuses.",trails_p2:"Pas besoin de cartes compliquées. Les routes blanches sont déjà là. Les sentiers sont tracés par ceux qui les parcourent depuis toujours.",trails_bike_h3:"À vélo",trails_bike_p:"Routes de terre et routes goudronnées entre collines et fonds de vallée. Des parcours pour tous les niveaux — de la balade lente entre les oliviers aux montées avec vue. Le type de cyclisme où l'on s'arrête plus qu'on ne pédale.",trails_walk_h3:"À pied, en courant",trails_walk_p:"Sentiers à travers bois, champs ouverts et petits villages de pierre. Promenades d'une heure, treks d'une journée, ou course matinale entre les oliviers. Le rythme est dicté par le terrain — et la lumière.",label_tennis:"Tennis & Bien-être",tennis_h2:"Le court est au cœur du domaine.",tennis_p1:"Bordé de pierres aux tons clairs de cette région — beige doux, rose atténué, jaune chaud. Il n'a pas été posé ici. Il a été inséré dans le sol.",tennis_p2:"Les bords ne sont pas des clôtures. C'est la terre qui se prolonge.",surface_h3:"La Surface",surface_p:"Gazon synthétique de dernière génération — conçu pour un jeu régulier, construit pour ressembler à la prairie qui l'entoure. Il retient bien la balle. Il répond au mouvement. Et quand vous quittez le court, vous ne pouvez pas distinguer où s'arrête la surface et où commence la campagne.",jacuzzi_h3:"Le Jacuzzi",jacuzzi_p1:"À quelques pas du court, le jacuzzi extérieur se trouve au bord de la terrasse du domaine. Eau chaude. Air libre. Une vue qui dépasse la première vallée et atteint la suivante.",jacuzzi_p2:"Pas d'enceinte. Pas de verre. Rien entre la peau et le paysage.",play_h3:"Votre jeu",play_p1:"Le court est à l'usage exclusif des hôtes, disponible à tout moment du séjour. Jouez librement, en totale autonomie.",play_p2:"Si vous cherchez un partenaire de jeu, nous pouvons en trouver un pour vous. Si vous souhaitez améliorer votre technique, un Maître National FIT est disponible sur demande.",play_p3:"Un match léger ou un entraînement structuré. Ici, le tennis s'adapte à votre rythme.",pool_h3:"La Piscine d'Eau Salée",pool_p:"À dix minutes à pied du domaine, au Castello di Barattano. Eau salée, pas de chlore — ouverte sur le paysage ombrien, à disposition des hôtes. Saisonnière.",parallax_pool:"La piscine du Château. À dix minutes à pied.",pool_caption:"Eau salée, collines ombriennes.",setting_h3:"Le Cadre",setting_p1:"Il n'y a pas de clubhouse. Pas de pro shop. Pas de tableau d'affichage. Juste le son de la balle, le vent et le vert tout autour.",setting_p2:"Vous entendrez la balle. Vous entendrez votre respiration. Vous entendrez la vallée. Rien d'autre.",label_place:"Le Lieu",place_h2:"L'architecture ne rivalise pas avec le paysage. Elle en fait partie.",place_p1:"La Casa di Nonna Iolanda est une propriété privée au cœur rural de l'Ombrie. La structure principale est un domaine restauré en pierre locale, sur un terrain surélevé avec des vues dans toutes les directions.",place_p2:"La même pierre. Les mêmes proportions. Le même silence que la vallée préserve depuis des siècles.",stone_caption:"Pierre aux tons de cette région.<br>Beige, rose, jaune.",umbria_quote:"Pas la Toscane. Pas aussi mise en scène.<br>Plus silencieuse. Moins connue. Plus elle-même.",umbria_p1:"L'Ombrie a son propre rythme — plus lent, plus difficile à traduire, plus facile à ressentir. La cuisine est directe. Le vin est local. Les gens n'expliquent pas le lieu. Ils y vivent.",umbria_p2:"Le domaine se situe à Torri di Barattano, dans la commune de Gualdo Cattaneo, entre Pérouse et Spolète. Un tronçon d'Ombrie où le paysage est ininterrompu. Oliveraies. Murs de pierre. Champs ouverts. Aucune signalisation. Aucun voisin en vue.",logistics_detail:"Aéroports les plus proches : Pérouse (SAG), Rome Fiumicino (FCO), Florence (FLR).<br>Transferts privés organisés sur demande. Coordonnées exactes communiquées après confirmation de la réservation.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",label_reserve:"Réserver",label_rates:"Tarifs",rates_h2:"Des séjours conçus pour ceux qui veulent rester.",rates_p1:"Nous accueillons des personnes qui souhaitent ralentir, bouger dans la nature et vivre l'Ombrie sereinement. C'est pourquoi nous demandons des séjours minimum et appliquons des tarifs qui reflètent l'unicité du lieu, les services inclus et la tranquillité que nous offrons.",rates_included_h4:"Inclus dans le séjour",rates_included_p:"Court de tennis privé, à usage exclusif. Jacuzzi panoramique pour 5 personnes. Piscine d'eau salée au Castello di Barattano à 900 mètres (saisonnière). Moments de jeu ou d'échange avec un partenaire.",rates_extra_h4:"Sur demande",rates_extra_p:"Cours avec un Maître National FIT. Promenades à cheval dans un manège local. Randonnées et treks guidés. Location de vélos électriques. Services spa et massages à 400 mètres du domaine.",rates_note_h4:"Une note importante",rates_note_p:"Cette maison est faite pour ceux qui aiment le silence, le temps lent, le sport sans précipitation. Si vous cherchez de l'animation, du bruit ou des vacances express, nous ne sommes probablement pas le bon endroit.",rates_prices_h3:"Tarifs 2026",rates_weekly_note:"Séjours d'une semaine (7 nuits) : remise de 12%",month_jun:"Juin",month_jul:"Juillet",month_aug:"Août",month_sep:"Septembre",month_oct:"Octobre",month_nov:"Novembre",month_dec:"Décembre",month_xmas:"Noël & Nouvel An",min_2:"min. 2 nuits",min_3:"min. 3 nuits",min_4:"min. 4 nuits",min_5:"min. 5 nuits",guests_2:"2 personnes",guests_34:"3–4 personnes",guest_extra:"Personne supplémentaire",rates_xmas_flat:"Tarif unique par nuit",reserve_h2:"Sur demande privée uniquement.",reserve_p1:"Il n'y a pas de calendrier. Pas de réservation instantanée. Chaque séjour est organisé directement.",reserve_p2:"Dites-nous quand vous souhaitez venir, combien d'invités vous accompagneront et tout ce que nous devrions savoir. Nous vous répondrons sous 48 heures.",reserve_btn:"Demander un séjour privé",ph_name:"Nom",ph_email:"Email",ph_dates:"Dates souhaitées",ph_guests:"Nombre d'invités",ph_message:"Quelque chose que nous devrions savoir"},
+de:{nav_experience:"Das Erlebnis",nav_tennis:"Tennis & Wellness",nav_place:"Der Ort",nav_reserve:"Reservieren",scroll:"Scrollen",hero_sub:"Ferienhaus mit privatem Tennisplatz — Umbrien, Italien",hero_h1:"Der Platz war schon immer <em>hier.</em>",hero_payoff:"Wo das Gras weitergeht.",label_intro:"Einleitung",intro_h2:"Ein Tennisplatz in die Erde eingebettet — nicht darauf gesetzt.",intro_p1:"Es gibt einen Ort in Mittelitalien, an dem Stein einen Platz umgibt. Gras umhüllt ihn. Die Hügel setzen sich hinter der Grundlinie fort, als wäre der Platz schon immer Teil dieses Bodens gewesen.",intro_p2:"La Casa di Nonna Iolanda ist ein privates Anwesen im Dorf Le Torri, Gualdo Cattaneo. Keine Rezeption. Kein Programm. Kein Lärm.",intro_p3:"Ein Steinhaus. Ein privater Tennisplatz. Ein Whirlpool mit Aussicht.<br>Alles andere ist Landschaft.",court_caption:"Kunstrasen, der wie echtes Gras aussieht.<br>Umbrischer Stein, der den Rand markiert.",label_experience:"Das Erlebnis",exp_h2:"Dies ist kein Hotel.<br>Kein Resort.",exp_p1:"Nicht nur ein Urlaub. Eine andere Art, Umbrien zu erleben. La Casa di Nonna Iolanda entstand aus einer einfachen Idee: nicht wählen müssen zwischen Sport und Reise, zwischen Ruhe und Bewegung.",exp_p2:"Sie kommen an. Sie spielen. Sie erkunden. Sie halten inne.<br>Der Ort gibt den Rhythmus vor. Nicht ein Zeitplan.",exp_p3:"Sport ist hier keine Leistung. Es ist Präsenz. Man spielt, weil der Morgen still ist. Weil das Licht weich ist und die Luft warm und das Geräusch des Balls das Einzige ist, das die Ruhe bricht.",exp_p4:"Danach ruht man. Der Whirlpool blickt ins Tal. Der Himmel erledigt den Rest.",time_morning:"Morgen",time_midday:"Mittag",time_afternoon:"Nachmittag",time_evening:"Abend",rhythm_morning:"Das Licht durchquert das Tal früh. Der Platz ist trocken. Die Luft hat sich noch nicht erwärmt. Dies ist die beste Zeit zum Spielen — bevor der Tag beginnt, sich zu bewegen.",rhythm_midday:"Stille. Das Anwesen gehört Ihnen. Der Schatten alter Bäume, die Steinmauern kühl bei Berührung. Nichts ist geplant.",rhythm_afternoon:"Ein zweiter Satz, wenn Sie möchten. Oder der Salzwasserpool. Oder der Whirlpool. Das Wasser ist warm. Die Aussicht endet nicht.",rhythm_evening:"Das Licht in Umbrien wird golden, bevor es verschwindet. Sie werden es vom Platz aus bemerken. Oder von der Terrasse. Oder von überall.",will_find_title:"Was Sie finden werden",will_find:"Einen Tennisplatz mit Kunstrasen der neuesten Generation, zur exklusiven Nutzung. Einen Salzwasserpool, offen zur Landschaft. Einen Panorama-Whirlpool. Die Möglichkeit, mit einem Partner zu spielen oder mit einem FIT-Nationaltrainer zu trainieren. Wege zum Wandern, Laufen, Radfahren. Absolute Stille.",will_not_title:"Was Sie nicht finden werden",will_not_1:"Rezeptionen. Concierge-Service. Hintergrundmusik. Organisierte Aktivitäten. Willkommensgetränke. Logos auf Handtüchern.",will_not_2:"Nichts steht zwischen Ihnen und dem Ort.",parallax_1:"Kein Zaun. Keine Struktur. Nur Gelände.",parallax_2:"Warmes Wasser. Freie Luft. Die Aussicht endet nicht.",label_trails:"Wege & Straßen",trails_h2:"Die Landschaft wird nicht nur betrachtet. Sie wird durchquert.",trails_p1:"Vom Anwesen aus führen Wege in die umbrische Landschaft, ohne je eine Hauptstraße zu kreuzen. Zu Fuß oder mit dem Fahrrad öffnet sich das Gebiet langsam — Olivenhaine, Steindörfer, stille Bergrücken.",trails_p2:"Komplizierte Karten sind nicht nötig. Die weißen Straßen sind bereits da. Die Pfade sind von denen gezeichnet, die hier seit jeher leben.",trails_bike_h3:"Mit dem Fahrrad",trails_bike_p:"Schotter- und Asphaltstraßen zwischen Hügeln und Talsohlen. Strecken für jedes Niveau — vom gemütlichen Radeln durch Olivenhaine bis zu Anstiegen mit Aussicht. Die Art von Radfahren, bei der man öfter anhält als tritt.",trails_walk_h3:"Zu Fuß, im Lauf",trails_walk_p:"Pfade durch Wälder, offene Felder und kleine Steindörfer. Wanderungen von einer Stunde, Tagestreks oder ein Morgenlauf durch die Olivenhaine. Das Tempo bestimmt das Gelände — und das Licht.",label_tennis:"Tennis & Wellness",tennis_h2:"Der Platz liegt im Herzen des Anwesens.",tennis_p1:"Umgeben von Steinen in den hellen Tönen dieser Region — zartes Beige, gedämpftes Rosa, warmes Gelb. Er wurde hier nicht hingestellt. Er wurde in den Boden eingefügt.",tennis_p2:"Die Ränder sind keine Zäune. Sie sind das Land, das weitergeht.",surface_h3:"Der Belag",surface_p:"Kunstrasen der neuesten Generation — für gleichmäßiges Spiel konzipiert, gebaut, um wie die umgebende Wiese auszusehen. Er hält den Ball gut. Er reagiert auf Bewegung. Und wenn Sie den Platz verlassen, können Sie nicht erkennen, wo der Belag endet und die Landschaft beginnt.",jacuzzi_h3:"Der Whirlpool",jacuzzi_p1:"Wenige Schritte vom Platz entfernt befindet sich der Outdoor-Whirlpool am Rand der Terrasse. Warmes Wasser. Freie Luft. Ein Blick, der über das nächste Tal hinaus bis zum übernächsten reicht.",jacuzzi_p2:"Keine Umrandung. Kein Glas. Nichts zwischen Haut und Landschaft.",play_h3:"Ihr Spiel",play_p1:"Der Platz steht den Gästen exklusiv zur Verfügung, jederzeit während des Aufenthalts. Spielen Sie frei, in völliger Eigenregie.",play_p2:"Wenn Sie einen Spielpartner suchen, finden wir einen für Sie. Wenn Sie Ihre Technik verbessern möchten, steht ein FIT-Nationaltrainer auf Anfrage zur Verfügung.",play_p3:"Ein lockeres Match oder ein strukturiertes Training. Hier passt sich Tennis Ihrem Rhythmus an.",pool_h3:"Der Salzwasserpool",pool_p:"Zehn Minuten zu Fuß vom Anwesen entfernt, am Castello di Barattano. Salzwasser, kein Chlor — offen zur umbrischen Landschaft, für Gäste zugänglich. Saisonal.",parallax_pool:"Der Pool des Kastells. Zehn Minuten zu Fuß.",pool_caption:"Salzwasser, umbrische Hügel.",setting_h3:"Die Umgebung",setting_p1:"Es gibt kein Clubhaus. Keinen Pro Shop. Keine Anzeigetafel. Nur das Geräusch des Balls, der Wind und das Grün ringsum.",setting_p2:"Sie werden den Ball hören. Sie werden Ihren Atem hören. Sie werden das Tal hören. Nichts anderes.",label_place:"Der Ort",place_h2:"Die Architektur konkurriert nicht mit der Landschaft. Sie gehört dazu.",place_p1:"La Casa di Nonna Iolanda ist ein Privatbesitz im ländlichen Herzen Umbriens. Das Hauptgebäude ist ein restauriertes Anwesen aus lokalem Stein, auf erhöhtem Grund mit Blick in jede Richtung.",place_p2:"Derselbe Stein. Dieselben Proportionen. Dieselbe Stille, die das Tal seit Jahrhunderten bewahrt.",stone_caption:"Stein in den Tönen dieser Region.<br>Beige, Rosa, Gelb.",umbria_quote:"Nicht die Toskana. Nicht so inszeniert.<br>Stiller. Weniger bekannt. Mehr sie selbst.",umbria_p1:"Umbrien hat seinen eigenen Rhythmus — langsamer, schwerer zu übersetzen, leichter zu spüren. Das Essen ist direkt. Der Wein ist lokal. Die Menschen erklären den Ort nicht. Sie leben darin.",umbria_p2:"Das Anwesen liegt in Torri di Barattano, in der Gemeinde Gualdo Cattaneo, zwischen Perugia und Spoleto. Ein Abschnitt Umbriens, in dem die Landschaft ununterbrochen ist. Olivenhaine. Steinmauern. Offene Felder. Keine Beschilderung. Keine Nachbarn in Sicht.",logistics_detail:"Nächste Flughäfen: Perugia (SAG), Rom Fiumicino (FCO), Florenz (FLR).<br>Private Transfers auf Anfrage. Genaue Koordinaten werden nach bestätigter Reservierung mitgeteilt.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",label_reserve:"Reservieren",label_rates:"Preise",rates_h2:"Aufenthalte für diejenigen, die bleiben möchten.",rates_p1:"Wir begrüßen Menschen, die entschleunigen, sich in der Natur bewegen und Umbrien in Ruhe erleben möchten. Deshalb verlangen wir Mindestaufenthalte und wenden Preise an, die die Einzigartigkeit des Ortes, die enthaltenen Leistungen und die Ruhe widerspiegeln, die wir bieten.",rates_included_h4:"Im Aufenthalt enthalten",rates_included_p:"Privater Tennisplatz zur exklusiven Nutzung. Panorama-Whirlpool für 5 Personen. Salzwasserpool am Castello di Barattano, 900 Meter entfernt (saisonal). Spiel- oder Übungsmomente mit einem Sparringpartner.",rates_extra_h4:"Auf Anfrage",rates_extra_p:"Unterricht mit einem FIT-Nationaltrainer. Ausritte in einer lokalen Reitanlage. Geführte Wanderungen und Trekking. E-Bike-Verleih. Spa-Service und Massagen 400 Meter vom Anwesen entfernt.",rates_note_h4:"Ein wichtiger Hinweis",rates_note_p:"Dieses Haus ist für Menschen gedacht, die Stille, langsame Zeit und Sport ohne Eile lieben. Wenn Sie Animation, Lärm oder Kurzurlaube suchen, sind wir wahrscheinlich nicht der richtige Ort.",rates_prices_h3:"Preise 2026",rates_weekly_note:"Wochenaufenthalte (7 Nächte): 12% Rabatt",month_jun:"Juni",month_jul:"Juli",month_aug:"August",month_sep:"September",month_oct:"Oktober",month_nov:"November",month_dec:"Dezember",month_xmas:"Weihnachten & Neujahr",min_2:"min. 2 Nächte",min_3:"min. 3 Nächte",min_4:"min. 4 Nächte",min_5:"min. 5 Nächte",guests_2:"2 Personen",guests_34:"3–4 Personen",guest_extra:"Zusätzliche Person",rates_xmas_flat:"Pauschalpreis pro Nacht",reserve_h2:"Nur auf private Anfrage.",reserve_p1:"Es gibt keinen Kalender. Keine Sofortbuchung. Jeder Aufenthalt wird direkt vereinbart.",reserve_p2:"Teilen Sie uns mit, wann Sie kommen möchten, wie viele Gäste Sie begleiten und alles andere, was wir wissen sollten. Wir antworten innerhalb von 48 Stunden.",reserve_btn:"Privaten Aufenthalt anfragen",ph_name:"Name",ph_email:"E-Mail",ph_dates:"Bevorzugte Daten",ph_guests:"Anzahl der Gäste",ph_message:"Etwas, das wir wissen sollten"}};
+
+let currentLang='it';
+function switchLang(lang){
+  if(lang===currentLang)return;
+  const tr=T[lang];if(!tr)return;
+  const els=document.querySelectorAll('[data-i18n]');
+  els.forEach(el=>el.classList.add('lang-fade'));
+  setTimeout(()=>{
+    els.forEach(el=>{
+      const k=el.getAttribute('data-i18n');
+      if(tr[k]!==undefined){
+        if(el.getAttribute('data-i18n-html')==='true')el.innerHTML=tr[k];
+        else el.textContent=tr[k];
+      }
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+      const k=el.getAttribute('data-i18n-ph');
+      if(tr[k]){el.placeholder=tr[k];el.setAttribute('aria-label',tr[k]);}
+    });
+    document.documentElement.lang=lang;
+    els.forEach(el=>el.classList.remove('lang-fade'));
+    currentLang=lang;
+    updateLangUI(lang);
+  },280);
+}
+function updateLangUI(lang){
+  document.getElementById('langLabel').textContent=lang.toUpperCase();
+  document.querySelectorAll('.lang-dropdown .lang-option').forEach(b=>b.classList.toggle('active',b.getAttribute('data-lang')===lang));
+  document.querySelectorAll('.mobile-lang button').forEach(b=>b.classList.toggle('active',b.getAttribute('data-lang')===lang));
+  document.getElementById('langSwitcher').classList.remove('open');
+}
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);});
+
+// Mobile
+const navToggle=document.getElementById('navToggle'),mobileOverlay=document.getElementById('mobileOverlay');
+navToggle.addEventListener('click',()=>{
+  navToggle.classList.toggle('active');mobileOverlay.classList.toggle('active');
+  document.body.style.overflow=mobileOverlay.classList.contains('active')?'hidden':'';
+});
+function closeMobile(){navToggle.classList.remove('active');mobileOverlay.classList.remove('active');document.body.style.overflow='';}
+
+// Lang dropdown
+const langSwitcher=document.getElementById('langSwitcher'),langBtn=document.getElementById('langBtn');
+langBtn.addEventListener('click',e=>{e.stopPropagation();langSwitcher.classList.toggle('open');});
+document.querySelectorAll('.lang-dropdown .lang-option').forEach(b=>b.addEventListener('click',()=>switchLang(b.getAttribute('data-lang'))));
+document.addEventListener('click',e=>{if(!langSwitcher.contains(e.target))langSwitcher.classList.remove('open');});
+
+// Reveal
+const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+// Hero parallax
+const heroBg=document.querySelector('.hero-bg');
+const heroContent=document.querySelector('.hero-content');
+const heroScroll=document.querySelector('.hero-scroll');
+function updateHeroParallax(){
+  const scrollY=window.scrollY;
+  const heroH=window.innerHeight;
+  if(heroBg)heroBg.style.transform=`translateY(${scrollY*0.4}px)`;
+  const opacity=Math.max(0,1-scrollY/(heroH*0.6));
+  if(heroContent)heroContent.style.opacity=opacity;
+  if(heroScroll)heroScroll.style.opacity=opacity;
+}
+window.addEventListener('scroll',updateHeroParallax,{passive:true});
+
+// Parallax
+const pEls=document.querySelectorAll('[data-parallax]');
+function updateParallax(){pEls.forEach(el=>{const p=el.closest('.parallax-strip');if(!p)return;const r=p.getBoundingClientRect();el.style.transform=`translateY(${(r.top-window.innerHeight/2)*parseFloat(el.dataset.parallax)}px)`;});}
+window.addEventListener('scroll',updateParallax,{passive:true});updateParallax();
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}));
+</script>
+</body>
+</html>
