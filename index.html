@@ -47,8 +47,11 @@
     text-decoration: none; transition: opacity 0.3s;
   }
   .nav-logo:hover { opacity: 0.6; }
-  .nav-logo-img { height: 34px; width: auto; display: block; transition: filter 0.4s cubic-bezier(0.22, 1, 0.36, 1); filter: brightness(0) invert(1); }
-  nav.scrolled .nav-logo-img { filter: none; }
+  .nav-logo-img { height: 34px; width: auto; display: block; transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1); filter: brightness(0) invert(1); }
+  .nav-logo-light { position: absolute; opacity: 0; filter: none; }
+  nav.scrolled .nav-logo-img:not(.nav-logo-light) { opacity: 0; }
+  nav.scrolled .nav-logo-light { opacity: 1; }
+  .nav-logo { position: relative; display: flex; }
   .nav-right { display: flex; align-items: center; gap: 2.5rem; }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
