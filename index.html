@@ -253,7 +253,8 @@
   }
   .ip-jacuzzi {
     background-image: url('jacuzzi.jpg');
-    background-size: cover; background-position: center center;
+    background-size: cover; background-position: center 75%;
+    inset: -80px;
   }
   .ip-pool {
     background-image: url('pool.jpg');
@@ -380,6 +381,11 @@
   .parallax-strip-text { position: absolute; bottom: 3rem; left: 3rem; z-index: 3; max-width: 500px; }
   .parallax-strip-text p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.9); text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
   .parallax-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(44,40,33,0.35) 100%); z-index: 2; }
+  
+  /* Parallax fade-in effect */
+  .parallax-fade-in { opacity: 0; transform: scale(1.02); transition: opacity 1.2s ease-out, transform 1.5s ease-out; }
+  .parallax-fade-in.visible { opacity: 1; transform: scale(1); }
+  .section-dark + .parallax-fade-in { margin-top: 0; }
 
   /* ─── HOUSE GALLERY ─── */
   .house-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
@@ -651,11 +657,11 @@
   </div>
 </section>
 
-<!-- COURT IMAGE -->
-<div class="image-panel reveal reveal-fade">
-  <div class="image-panel-inner ip-court"></div>
-  <div class="image-panel-overlay"></div>
-  <div class="image-panel-caption" data-i18n="court_caption" data-i18n-html="true">Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.</div>
+<!-- COURT PARALLAX -->
+<div class="parallax-strip parallax-fade-in">
+  <div class="parallax-strip-inner ip-court" data-parallax="0.1"></div>
+  <div class="parallax-overlay"></div>
+  <div class="parallax-strip-text reveal"><p data-i18n="court_caption" data-i18n-html="true">Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.</p></div>
 </div>
 
 <!-- TENNIS -->
@@ -983,6 +989,7 @@ document.addEventListener('click',e=>{if(!langSwitcher.contains(e.target))langSw
 // Reveal
 const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+document.querySelectorAll('.parallax-fade-in').forEach(el=>revealObs.observe(el));
 
 // Hero parallax
 const heroBg=document.querySelector('.hero-bg');
