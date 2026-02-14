@@ -47,8 +47,8 @@
     text-decoration: none; transition: opacity 0.3s;
   }
   .nav-logo:hover { opacity: 0.6; }
-  .nav-logo-img { height: 34px; width: auto; display: block; transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1); filter: brightness(0) invert(1); }
-  .nav-logo-light { position: absolute; opacity: 0; filter: none; }
+  .nav-logo-img { height: 34px; width: auto; display: block; transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s cubic-bezier(0.22, 1, 0.36, 1); filter: brightness(0) invert(1); }
+  .nav-logo-light { position: absolute; opacity: 0; filter: sepia(1) saturate(0.5) brightness(0.35) hue-rotate(350deg); }
   nav.scrolled .nav-logo-img:not(.nav-logo-light) { opacity: 0; }
   nav.scrolled .nav-logo-light { opacity: 1; }
   .nav-logo { position: relative; display: flex; }
@@ -303,6 +303,15 @@
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .two-col-offset { padding-top: 4rem; }
 
+  /* ─── CONTENT WITH SIDE IMAGE ─── */
+  .section-with-image { padding: 0; }
+  .content-image-split { display: grid; grid-template-columns: 40fr 60fr; min-height: 85vh; }
+  .content-side { padding: 6rem 4rem 6rem 8rem; display: flex; flex-direction: column; justify-content: center; }
+  .image-side { position: relative; overflow: hidden; }
+  .image-side-inner { position: absolute; inset: -50px -200px; background-size: cover; background-position: center 60%; transition: transform 0.1s linear; }
+  .image-side-caption { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; font-family: var(--serif); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.9); text-shadow: 0 2px 20px rgba(0,0,0,0.3); z-index: 2; }
+  .image-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(44,40,33,0.4) 100%); z-index: 1; }
+
   /* ─── WILL / WILL NOT ─── */
   .will-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
   .will-col { padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -377,7 +386,7 @@
 
   /* ─── PARALLAX ─── */
   .parallax-strip { width: 100%; height: 60vh; min-height: 450px; position: relative; overflow: hidden; }
-  .parallax-strip-tall { height: 85vh; min-height: 600px; }
+  .parallax-strip-tall { height: 100vh; min-height: 700px; }
   .parallax-strip-inner { position: absolute; inset: -60px; transition: transform 0.1s linear; }
   .parallax-strip-text { position: absolute; bottom: 3rem; left: 3rem; z-index: 3; max-width: 500px; }
   .parallax-strip-text p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.9); text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
@@ -456,6 +465,10 @@
     .hero { padding: 0 2rem 4rem; }
     .two-col, .rhythm-grid, .will-section { grid-template-columns: 1fr; gap: 2.5rem; }
     .two-col-offset { padding-top: 0; }
+    .content-image-split { grid-template-columns: 1fr; min-height: auto; }
+    .content-side { padding: 5rem 2rem; order: 1; }
+    .image-side { min-height: 50vh; order: 2; }
+    .section-with-image { padding: 0; }
     .logistics { grid-template-columns: 1fr; gap: 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
     footer { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
@@ -474,7 +487,7 @@
     .rates-grid { gap: 1rem; }
     .umbria-quote { font-size: 1.5rem; }
     .parallax-strip-text { left: 2rem; right: 2rem; max-width: none; }
-    .parallax-strip-tall { height: 70vh; min-height: 500px; }
+    .parallax-strip-tall { height: 85vh; min-height: 550px; }
     .house-gallery { gap: 0.8rem; }
     .house-gallery-item.wide { aspect-ratio: 2/1; }
     .pool-split { height: 50vh; min-height: 400px; }
@@ -484,6 +497,9 @@
   }
   @media (max-width: 600px) {
     section { padding: 4rem 1.5rem; }
+    .content-side { padding: 4rem 1.5rem; }
+    .image-side { min-height: 45vh; }
+    .image-side-caption { font-size: 0.9rem; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; }
     .hero { padding: 0 1.5rem 3rem; min-height: 100svh; }
     .hero h1 { font-size: 2.2rem; }
     .hero-payoff { margin-top: 1.5rem; }
@@ -492,7 +508,7 @@
     p { font-size: 0.9rem; }
     .image-panel { aspect-ratio: 3/2; margin: 2.5rem -1.5rem; width: calc(100% + 3rem); }
     .parallax-strip { height: 40vh; min-height: 300px; }
-    .parallax-strip-tall { height: 60vh; min-height: 400px; }
+    .parallax-strip-tall { height: 75vh; min-height: 450px; }
     .parallax-strip-text { bottom: 2rem; left: 1.5rem; right: 1.5rem; }
     .parallax-strip-text p { font-size: 1.1rem; }
     .nav-logo-img { height: 26px; }
@@ -660,34 +676,27 @@
   </div>
 </section>
 
-<!-- COURT PARALLAX -->
-<div class="parallax-strip parallax-strip-tall parallax-fade-in">
-  <div class="parallax-strip-inner ip-court" data-parallax="0.03"></div>
-  <div class="parallax-overlay"></div>
-  <div class="parallax-strip-text reveal"><p data-i18n="court_caption" data-i18n-html="true">Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.</p></div>
-</div>
-
 <!-- TENNIS -->
-<section id="tennis">
-  <div class="section-wide">
-    <div class="reveal"><div class="section-label"><span class="section-number">04</span> <span data-i18n="label_tennis">Tennis & Benessere</span></div></div>
-    <div class="two-col">
-      <div>
-        <div class="reveal reveal-delay-1"><h2 data-i18n="tennis_h2">Il campo è nel cuore della tenuta.</h2></div>
-        <div class="reveal reveal-delay-2">
-          <p data-i18n="tennis_p1">Delimitato da pietre nei toni chiari di questa regione — beige tenue, rosa attenuato, giallo caldo. Non è stato posato qui. È stato inserito nel terreno.</p>
-          <p data-i18n="tennis_p2">I bordi non sono recinzioni. Sono la terra che prosegue.</p>
-        </div>
+<section id="tennis" class="section-with-image">
+  <div class="content-image-split">
+    <div class="content-side">
+      <div class="reveal"><div class="section-label"><span class="section-number">04</span> <span data-i18n="label_tennis">Tennis & Benessere</span></div></div>
+      <div class="reveal reveal-delay-1"><h2 data-i18n="tennis_h2">Il campo è nel cuore della tenuta.</h2></div>
+      <div class="reveal reveal-delay-2">
+        <p data-i18n="tennis_p1">Delimitato da pietre nei toni chiari di questa regione — beige tenue, rosa attenuato, giallo caldo. Non è stato posato qui. È stato inserito nel terreno.</p>
+        <p data-i18n="tennis_p2">I bordi non sono recinzioni. Sono la terra che prosegue.</p>
       </div>
-      <div class="two-col-offset"><div class="reveal reveal-delay-3">
+      <div class="reveal reveal-delay-3" style="margin-top: 2.5rem;">
         <h3 data-i18n="surface_h3">La Superficie</h3>
         <p data-i18n="surface_p">Erba sintetica di ultima generazione — progettata per un gioco costante, costruita per sembrare il prato che la circonda. Tiene bene la palla. Risponde al movimento. E quando esci dal campo, non riesci a distinguere dove finisce la superficie e dove inizia la campagna.</p>
-      </div></div>
+      </div>
+    </div>
+    <div class="image-side reveal reveal-delay-2">
+      <div class="image-side-inner" data-parallax-x="0.05" style="background-image: url('court.jpg')"></div>
+      <div class="image-side-caption" data-i18n="court_caption" data-i18n-html="true">Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.</div>
     </div>
   </div>
 </section>
-
-<div class="stone-divider"><div class="stone-dot"></div><div class="stone-dot"></div><div class="stone-dot"></div></div>
 
 <!-- PLAY & WELLNESS -->
 <section>
@@ -757,18 +766,16 @@
 <!-- POOL SPLIT PARALLAX -->
 <div class="pool-split">
   <div class="pool-split-left">
-    <div class="pool-split-img" data-parallax-x="-0.1" style="background-image: url('pool.jpg')"></div>
+    <div class="pool-split-img" data-parallax-x="-0.04" style="background-image: url('pool.jpg')"></div>
     <div class="pool-split-overlay"></div>
     <div class="pool-split-caption reveal" data-i18n="pool_caption_left">Vista dal Castello</div>
   </div>
   <div class="pool-split-right">
-    <div class="pool-split-img" data-parallax-x="0.1" style="background-image: url('pool2.jpg')"></div>
+    <div class="pool-split-img" data-parallax-x="0.04" style="background-image: url('pool2.jpg')"></div>
     <div class="pool-split-overlay"></div>
     <div class="pool-split-caption reveal" data-i18n="pool_caption_right">Vista sulle colline</div>
   </div>
 </div>
-
-<div class="stone-divider"><div class="stone-dot"></div><div class="stone-dot"></div><div class="stone-dot"></div></div>
 
 <!-- PLACE -->
 <section id="place">
@@ -1011,19 +1018,20 @@ window.addEventListener('scroll',updateHeroParallax,{passive:true});
 // Parallax
 const pEls=document.querySelectorAll('[data-parallax]');
 function updateParallax(){pEls.forEach(el=>{const p=el.closest('.parallax-strip');if(!p)return;const r=p.getBoundingClientRect();el.style.transform=`translateY(${(r.top-window.innerHeight/2)*parseFloat(el.dataset.parallax)}px)`;});}
-// Pool split horizontal parallax
-const poolImgs=document.querySelectorAll('[data-parallax-x]');
-function updatePoolParallax(){
-  poolImgs.forEach(el=>{
-    const p=el.closest('.pool-split');
+// Horizontal parallax for images
+const hParallaxImgs=document.querySelectorAll('[data-parallax-x]');
+function updateHorizontalParallax(){
+  hParallaxImgs.forEach(el=>{
+    const p=el.closest('.pool-split') || el.closest('.image-side');
     if(!p)return;
     const r=p.getBoundingClientRect();
-    const progress=(r.top-window.innerHeight)/(window.innerHeight+r.height);
-    el.style.transform=`translateX(${progress*parseFloat(el.dataset.parallaxX)*100}px)`;
+    const viewH=window.innerHeight;
+    const centerOffset=(r.top + r.height/2 - viewH/2);
+    el.style.transform=`translateX(${centerOffset * parseFloat(el.dataset.parallaxX)}px)`;
   });
 }
 window.addEventListener('scroll',updateParallax,{passive:true});updateParallax();
-window.addEventListener('scroll',updatePoolParallax,{passive:true});updatePoolParallax();
+window.addEventListener('scroll',updateHorizontalParallax,{passive:true});updateHorizontalParallax();
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}));
