@@ -238,7 +238,7 @@
   .image-panel-inner { position: absolute; inset: -20px; }
   .ip-court {
     background-image: url('court.jpg');
-    background-size: cover; background-position: center 55%;
+    background-size: cover; background-position: center 70%;
   }
   .ip-valley {
     background: radial-gradient(ellipse at 30% 70%, rgba(212,200,168,0.4) 0%, transparent 50%),
@@ -253,7 +253,7 @@
   }
   .ip-jacuzzi {
     background-image: url('jacuzzi.jpg');
-    background-size: cover; background-position: center 75%;
+    background-size: cover; background-position: center 65%;
     inset: -80px;
   }
   .ip-pool {
@@ -377,6 +377,7 @@
 
   /* ─── PARALLAX ─── */
   .parallax-strip { width: 100%; height: 60vh; min-height: 450px; position: relative; overflow: hidden; }
+  .parallax-strip-tall { height: 85vh; min-height: 600px; }
   .parallax-strip-inner { position: absolute; inset: -60px; transition: transform 0.1s linear; }
   .parallax-strip-text { position: absolute; bottom: 3rem; left: 3rem; z-index: 3; max-width: 500px; }
   .parallax-strip-text p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.9); text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
@@ -473,6 +474,7 @@
     .rates-grid { gap: 1rem; }
     .umbria-quote { font-size: 1.5rem; }
     .parallax-strip-text { left: 2rem; right: 2rem; max-width: none; }
+    .parallax-strip-tall { height: 70vh; min-height: 500px; }
     .house-gallery { gap: 0.8rem; }
     .house-gallery-item.wide { aspect-ratio: 2/1; }
     .pool-split { height: 50vh; min-height: 400px; }
@@ -490,6 +492,7 @@
     p { font-size: 0.9rem; }
     .image-panel { aspect-ratio: 3/2; margin: 2.5rem -1.5rem; width: calc(100% + 3rem); }
     .parallax-strip { height: 40vh; min-height: 300px; }
+    .parallax-strip-tall { height: 60vh; min-height: 400px; }
     .parallax-strip-text { bottom: 2rem; left: 1.5rem; right: 1.5rem; }
     .parallax-strip-text p { font-size: 1.1rem; }
     .nav-logo-img { height: 26px; }
@@ -658,8 +661,8 @@
 </section>
 
 <!-- COURT PARALLAX -->
-<div class="parallax-strip parallax-fade-in">
-  <div class="parallax-strip-inner ip-court" data-parallax="0.1"></div>
+<div class="parallax-strip parallax-strip-tall parallax-fade-in">
+  <div class="parallax-strip-inner ip-court" data-parallax="0.03"></div>
   <div class="parallax-overlay"></div>
   <div class="parallax-strip-text reveal"><p data-i18n="court_caption" data-i18n-html="true">Erba sintetica che sembra vera.<br>Pietra umbra che ne segna il confine.</p></div>
 </div>
