@@ -469,6 +469,9 @@
     .house-gallery { gap: 0.8rem; }
     .house-gallery-item.wide { aspect-ratio: 2/1; }
     .pool-split { height: 50vh; min-height: 400px; }
+    .pool-split-caption { bottom: 1.5rem; }
+    .pool-split-left .pool-split-caption { left: 1.5rem; }
+    .pool-split-right .pool-split-caption { right: 1.5rem; }
   }
   @media (max-width: 600px) {
     section { padding: 4rem 1.5rem; }
@@ -502,14 +505,21 @@
     .house-gallery-item.wide { aspect-ratio: 3/2; }
     .house-gallery-caption { font-size: 0.85rem; padding: 1rem 0.8rem 0.8rem; }
     .pool-split { flex-direction: column; height: auto; min-height: auto; }
-    .pool-split-left, .pool-split-right { height: 50vh; min-height: 280px; }
-    .pool-split-caption { font-size: 0.9rem; }
+    .pool-split-left, .pool-split-right { height: 45vh; min-height: 250px; }
+    .pool-split-caption { font-size: 0.9rem; bottom: 1.2rem; }
+    .pool-split-left .pool-split-caption { left: 1.2rem; }
+    .pool-split-right .pool-split-caption { right: 1.2rem; }
+    .pool-split-img { inset: -20px; }
   }
   @media (max-width: 380px) {
     .hero h1 { font-size: 1.9rem; }
     h2 { font-size: 1.4rem; }
     .rate-card-header { flex-direction: column; gap: 0.3rem; align-items: flex-start; }
     .nav-logo-img { height: 22px; }
+    .pool-split-left, .pool-split-right { height: 40vh; min-height: 220px; }
+    .pool-split-caption { font-size: 0.85rem; bottom: 1rem; }
+    .pool-split-left .pool-split-caption { left: 1rem; }
+    .pool-split-right .pool-split-caption { right: 1rem; }
   }
 </style>
 </head>
@@ -708,6 +718,14 @@
   <div class="parallax-strip-text reveal"><p data-i18n="parallax_2">Acqua calda. Aria aperta. La vista non finisce.</p></div>
 </div>
 
+<!-- TRAILS -->
+<section>
+  <div class="section-wide">
+    <div class="reveal"><div class="section-label"><span class="section-number">05</span> <span data-i18n="label_trails">Sentieri & Strade</span></div></div>
+    <div class="reveal reveal-delay-1"><h2 data-i18n="trails_h2">Il paesaggio non si guarda soltanto. Si attraversa.</h2></div>
+  </div>
+</section>
+
 <!-- POOL SPLIT PARALLAX -->
 <div class="pool-split">
   <div class="pool-split-left">
@@ -722,24 +740,22 @@
   </div>
 </div>
 
-<!-- TRAILS -->
+<!-- TRAILS CONTINUED -->
 <section>
   <div class="section-wide">
-    <div class="reveal"><div class="section-label"><span class="section-number">05</span> <span data-i18n="label_trails">Sentieri & Strade</span></div></div>
     <div class="two-col">
       <div>
-        <div class="reveal reveal-delay-1"><h2 data-i18n="trails_h2">Il paesaggio non si guarda soltanto. Si attraversa.</h2></div>
-        <div class="reveal reveal-delay-2">
+        <div class="reveal">
           <p data-i18n="trails_p1">Dalla tenuta partono sentieri che entrano nella campagna umbra senza mai incontrare una strada principale. A piedi o in bicicletta, il territorio si apre lentamente — uliveti, borghi in pietra, crinali silenziosi.</p>
           <p data-i18n="trails_p2">Non servono mappe complicate. Le strade bianche sono già lì. I sentieri sono segnati dal passaggio di chi ci vive da sempre.</p>
         </div>
       </div>
       <div class="two-col-offset">
-        <div class="reveal reveal-delay-3">
+        <div class="reveal reveal-delay-1">
           <h3 data-i18n="trails_bike_h3">In bicicletta</h3>
           <p data-i18n="trails_bike_p">Strade sterrate e asfaltate tra colline e fondovalle. Percorsi per ogni livello — dalla pedalata lenta tra gli olivi alle salite con vista. Il tipo di ciclismo dove ci si ferma più di quanto si pedali.</p>
         </div>
-        <div class="reveal reveal-delay-4" style="margin-top: 2.5rem;">
+        <div class="reveal reveal-delay-2" style="margin-top: 2.5rem;">
           <h3 data-i18n="trails_walk_h3">A piedi, di corsa</h3>
           <p data-i18n="trails_walk_p">Sentieri tra boschi, campi aperti e piccoli borghi. Camminate di un'ora, trekking di una giornata, oppure una corsa mattutina tra gli olivi. Il ritmo lo decide il terreno — e la luce.</p>
         </div>
