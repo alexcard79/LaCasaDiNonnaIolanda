@@ -362,6 +362,14 @@
   .contact-item-compact svg { flex-shrink: 0; stroke: var(--text-light); margin-top: 0.15rem; }
   .contact-item-compact a { color: var(--text); text-decoration: none; transition: color 0.3s; }
   .contact-item-compact a:hover { color: var(--accent); }
+  .address-link-wrap { position: relative; }
+  .address-link { cursor: pointer; text-decoration: none; color: var(--text); border-bottom: 1px dashed var(--text-muted); display: inline; line-height: 1.6; }
+  .address-link:hover { color: var(--accent); border-color: var(--accent); }
+  .maps-choice { display: none; position: absolute; top: calc(100% + 0.5rem); left: 0; background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 0.5rem; z-index: 10; min-width: 180px; }
+  .maps-choice-visible { display: flex; flex-direction: column; gap: 0.25rem; }
+  .maps-choice-btn { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; font-size: 0.85rem; color: var(--text); text-decoration: none; transition: background 0.2s; }
+  .maps-choice-btn:hover { background: var(--stone-beige); }
+  .maps-choice-btn svg { stroke: var(--text-light); flex-shrink: 0; }
   .contact-map { height: 240px; background: var(--stone-beige); overflow: hidden; }
   .contact-map iframe { width: 100%; height: 100%; filter: grayscale(30%) contrast(1.1); }
   
@@ -998,10 +1006,22 @@
     <div class="contact-address-info">
       <div class="contact-item-compact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <div>
-          Via Matteotti 26, Torri<br>
-          06035 Gualdo Cattaneo (PG)<br>
-          Umbria, Italia
+        <div class="address-link-wrap">
+          <a href="#" class="address-link" onclick="event.preventDefault();document.querySelector('.maps-choice').classList.toggle('maps-choice-visible')">
+            Via Matteotti 26, Torri<br>
+            06035 Gualdo Cattaneo (PG)<br>
+            Umbria, Italia
+          </a>
+          <div class="maps-choice">
+            <a href="https://maps.apple.com/?address=Via+Matteotti+26,+Torri,+06035+Gualdo+Cattaneo+PG,+Italia&ll=42.8242,12.5513" target="_blank" rel="noopener" class="maps-choice-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Apple Maps
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=La+Casa+Di+Nonna+Iolanda,+Località+Torri,+Gualdo+Cattaneo" target="_blank" rel="noopener" class="maps-choice-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Google Maps
+            </a>
+          </div>
         </div>
       </div>
       <div class="contact-item-compact">
@@ -1153,7 +1173,7 @@ function closeMobile(){navToggle.classList.remove('active');mobileOverlay.classL
 const langSwitcher=document.getElementById('langSwitcher'),langBtn=document.getElementById('langBtn');
 langBtn.addEventListener('click',e=>{e.stopPropagation();langSwitcher.classList.toggle('open');});
 document.querySelectorAll('.lang-dropdown .lang-option').forEach(b=>b.addEventListener('click',()=>switchLang(b.getAttribute('data-lang'))));
-document.addEventListener('click',e=>{if(!langSwitcher.contains(e.target))langSwitcher.classList.remove('open');});
+document.addEventListener('click',e=>{if(!langSwitcher.contains(e.target))langSwitcher.classList.remove('open');const mc=document.querySelector('.maps-choice');if(mc&&!mc.parentElement.contains(e.target))mc.classList.remove('maps-choice-visible');});
 
 // Reveal
 const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
