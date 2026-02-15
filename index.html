@@ -276,7 +276,7 @@
   /* ─── POOL SPLIT PARALLAX ─── */
   .pool-split { display: flex; width: 100%; height: 70vh; min-height: 500px; overflow: hidden; }
   .pool-split-left, .pool-split-right { position: relative; flex: 1; overflow: hidden; }
-  .pool-split-img { position: absolute; inset: -40px; background-size: cover; background-position: center; transition: transform 0.1s linear; will-change: transform; }
+  .pool-split-img { position: absolute; inset: -40px; background-size: cover; background-position: center; will-change: transform; }
   .pool-split-left .pool-split-img { background-position: center 60%; }
   .pool-split-right .pool-split-img { background-position: center 50%; }
   .pool-split-overlay { position: absolute; inset: 0; z-index: 1; }
@@ -309,7 +309,7 @@
   .content-image-split { display: grid; grid-template-columns: 40fr 60fr; min-height: 85vh; }
   .content-side { padding: 6rem 4rem 6rem 8rem; display: flex; flex-direction: column; justify-content: center; }
   .image-side { position: relative; overflow: hidden; }
-  .image-side-inner { position: absolute; inset: -50px -200px; background-size: cover; background-position: center 60%; transition: transform 0.1s linear; will-change: transform; }
+  .image-side-inner { position: absolute; inset: -50px -200px; background-size: cover; background-position: center 60%; will-change: transform; }
   .image-side-caption { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; font-family: var(--serif); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.9); text-shadow: 0 2px 20px rgba(0,0,0,0.3); z-index: 2; }
   .image-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(44,40,33,0.4) 100%); z-index: 1; }
 
@@ -407,7 +407,7 @@
   /* ─── PARALLAX ─── */
   .parallax-strip { width: 100%; height: 60vh; min-height: 450px; position: relative; overflow: hidden; }
   .parallax-strip-tall { height: 100vh; min-height: 700px; }
-  .parallax-strip-inner { position: absolute; inset: -60px; transition: transform 0.1s linear; will-change: transform; }
+  .parallax-strip-inner { position: absolute; inset: -60px; will-change: transform; }
   .parallax-strip-text { position: absolute; bottom: 3rem; left: 3rem; z-index: 3; max-width: 500px; }
   .parallax-strip-text p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.9); text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
   .parallax-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(44,40,33,0.35) 100%); z-index: 2; }
@@ -555,9 +555,9 @@
     .pool-split-caption { font-size: 0.9rem; bottom: 1.2rem; }
     .pool-split-left .pool-split-caption { left: 1.2rem; }
     .pool-split-right .pool-split-caption { right: 1.2rem; }
-    .pool-split-img { inset: 0; transition: none; }
-    .parallax-strip-inner { inset: 0; transition: none; }
-    .image-side-inner { inset: 0; transition: none; }
+    .pool-split-img { inset: -20px; transition: none; }
+    .parallax-strip-inner { inset: -30px; transition: none; }
+    .image-side-inner { inset: -30px -100px; transition: none; }
   }
   @media (max-width: 380px) {
     .hero h1 { font-size: 1.9rem; }
@@ -1035,30 +1035,32 @@ function updateHeroParallax(){
 }
 window.addEventListener('scroll',updateHeroParallax,{passive:true});
 
-// Parallax (disabled on mobile for performance)
+// Parallax (optimized for mobile)
 const pEls=document.querySelectorAll('[data-parallax]');
 const hParallaxImgs=document.querySelectorAll('[data-parallax-x]');
 const isMobile = () => window.innerWidth <= 900;
 
 function updateParallax(){
-  if(isMobile()) return;
+  const factor = isMobile() ? 0.5 : 1; // Reduced on mobile
   pEls.forEach(el=>{
     const p=el.closest('.parallax-strip');
     if(!p)return;
     const r=p.getBoundingClientRect();
-    el.style.transform=`translateY(${(r.top-window.innerHeight/2)*parseFloat(el.dataset.parallax)}px)`;
+    const val = (r.top-window.innerHeight/2)*parseFloat(el.dataset.parallax)*factor;
+    el.style.transform=`translate3d(0,${val}px,0)`;
   });
 }
 
 function updateHorizontalParallax(){
-  if(isMobile()) return;
+  const factor = isMobile() ? 0.5 : 1;
   hParallaxImgs.forEach(el=>{
     const p=el.closest('.pool-split') || el.closest('.image-side');
     if(!p)return;
     const r=p.getBoundingClientRect();
     const viewH=window.innerHeight;
     const centerOffset=(r.top + r.height/2 - viewH/2);
-    el.style.transform=`translateX(${centerOffset * parseFloat(el.dataset.parallaxX)}px)`;
+    const val = centerOffset * parseFloat(el.dataset.parallaxX) * factor;
+    el.style.transform=`translate3d(${val}px,0,0)`;
   });
 }
 
