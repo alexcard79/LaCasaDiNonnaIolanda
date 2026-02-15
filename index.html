@@ -379,6 +379,27 @@
   .contact-item a:hover { color: var(--accent); }
   .contact-map { height: 400px; background: var(--stone-beige); overflow: hidden; }
   .contact-map iframe { width: 100%; height: 100%; filter: grayscale(30%) contrast(1.1); }
+  
+  /* Contact Form */
+  .contact-form-wrap { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--stone-beige); }
+  .contact-form-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 1.5rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-form input, .contact-form textarea {
+    width: 100%; padding: 1rem; font-family: var(--sans); font-size: 0.9rem;
+    color: var(--text); background: var(--white); border: 1px solid var(--stone-beige);
+    outline: none; transition: border-color 0.3s;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--text-muted); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--text); }
+  .contact-form textarea { resize: vertical; min-height: 100px; font-family: var(--sans); }
+  .contact-submit {
+    align-self: flex-start; padding: 1rem 2.5rem; font-family: var(--sans); font-size: 0.75rem;
+    font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--white); background: var(--bg-dark); border: none; cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .contact-submit:hover { background: var(--text-light); }
 
   /* ─── FOOTER ─── */
   footer { background: var(--bg-dark); color: rgba(255,255,255,0.3); padding: 4rem 3rem; display: flex; justify-content: space-between; align-items: flex-end; }
@@ -597,6 +618,8 @@
     .contact-section { padding: 3rem 1.5rem; }
     .contact-title { font-size: 1.6rem; }
     .contact-map { height: 280px; }
+    .contact-form .form-row { grid-template-columns: 1fr; }
+    .contact-submit { width: 100%; }
     footer { padding: 3rem 1.5rem; }
     .footer-name { font-size: 1rem; }
     .cookie-banner { flex-direction: column; padding: 1.5rem; gap: 1rem; text-align: center; }
@@ -1029,6 +1052,26 @@
             <a href="https://instagram.com/casavacanzedinonnaiolanda" target="_blank" rel="noopener">@casavacanzedinonnaiolanda</a>
           </div>
         </div>
+      </div>
+      
+      <div class="contact-form-wrap">
+        <h3 class="contact-form-title">Richiedi informazioni</h3>
+        <form class="contact-form" action="https://formsubmit.co/info@lacasadinonnaiolanda.com" method="POST">
+          <input type="hidden" name="_subject" value="Nuova richiesta dal sito">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+          <div class="form-row">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-row">
+            <input type="text" name="date" placeholder="Date preferite">
+            <input type="text" name="ospiti" placeholder="Numero ospiti">
+          </div>
+          <textarea name="messaggio" placeholder="Il tuo messaggio" rows="4"></textarea>
+          <button type="submit" class="contact-submit">Invia richiesta</button>
+        </form>
       </div>
     </div>
     <div class="contact-map reveal reveal-delay-1">
