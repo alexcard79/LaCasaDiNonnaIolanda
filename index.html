@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Casa di Nonna Iolanda — Ritiro Privato, Umbria</title>
 <meta name="description" content="Tennis privato e cielo aperto. Un ritiro di lusso nella natura nel cuore dell'Umbria, Italia.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -275,7 +276,7 @@
   /* ─── POOL SPLIT PARALLAX ─── */
   .pool-split { display: flex; width: 100%; height: 70vh; min-height: 500px; overflow: hidden; }
   .pool-split-left, .pool-split-right { position: relative; flex: 1; overflow: hidden; }
-  .pool-split-img { position: absolute; inset: -40px; background-size: cover; background-position: center; transition: transform 0.1s linear; }
+  .pool-split-img { position: absolute; inset: -40px; background-size: cover; background-position: center; transition: transform 0.1s linear; will-change: transform; }
   .pool-split-left .pool-split-img { background-position: center 60%; }
   .pool-split-right .pool-split-img { background-position: center 50%; }
   .pool-split-overlay { position: absolute; inset: 0; z-index: 1; }
@@ -308,7 +309,7 @@
   .content-image-split { display: grid; grid-template-columns: 40fr 60fr; min-height: 85vh; }
   .content-side { padding: 6rem 4rem 6rem 8rem; display: flex; flex-direction: column; justify-content: center; }
   .image-side { position: relative; overflow: hidden; }
-  .image-side-inner { position: absolute; inset: -50px -200px; background-size: cover; background-position: center 60%; transition: transform 0.1s linear; }
+  .image-side-inner { position: absolute; inset: -50px -200px; background-size: cover; background-position: center 60%; transition: transform 0.1s linear; will-change: transform; }
   .image-side-caption { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; font-family: var(--serif); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.9); text-shadow: 0 2px 20px rgba(0,0,0,0.3); z-index: 2; }
   .image-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(44,40,33,0.4) 100%); z-index: 1; }
 
@@ -383,11 +384,30 @@
   .rate-card.rate-card-highlight .rate-card-min { color: rgba(255,255,255,0.5); }
   .rate-card.rate-card-highlight .rate-card-row span:first-child { color: rgba(255,255,255,0.6); }
   .rate-card.rate-card-highlight .rate-card-weekly { border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+  
+  /* ─── RATES TABLE ─── */
+  .rates-table-wrap { overflow-x: auto; margin-top: 2rem; }
+  .rates-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .rates-table th { text-align: left; padding: 1rem 1.2rem; font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); border-bottom: 2px solid var(--stone-beige); }
+  .rates-table td { padding: 1rem 1.2rem; border-bottom: 1px solid rgba(44,40,33,0.08); vertical-align: middle; }
+  .rates-table .period-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; }
+  .rates-table .period-name small { display: block; font-family: var(--sans); font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .rates-table .price { font-weight: 500; font-size: 1rem; }
+  .rates-table .per-night { font-size: 0.75rem; color: var(--text-muted); margin-left: 0.2rem; }
+  .rates-table .min-nights { font-size: 0.8rem; color: var(--text-light); }
+  .rates-table .highlight-row { background: var(--bg-dark); color: var(--white); }
+  .rates-table .highlight-row td { border-color: rgba(255,255,255,0.1); }
+  .rates-table .highlight-row .period-name { color: var(--white); }
+  .rates-table .highlight-row .period-name small { color: rgba(255,255,255,0.5); }
+  .rates-table .highlight-row .per-night { color: rgba(255,255,255,0.5); }
+  .rates-table .highlight-row .min-nights { color: rgba(255,255,255,0.6); }
+  .rates-table .highlight-row small { color: rgba(255,255,255,0.5); }
+  .rates-extra-note { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
 
   /* ─── PARALLAX ─── */
   .parallax-strip { width: 100%; height: 60vh; min-height: 450px; position: relative; overflow: hidden; }
   .parallax-strip-tall { height: 100vh; min-height: 700px; }
-  .parallax-strip-inner { position: absolute; inset: -60px; transition: transform 0.1s linear; }
+  .parallax-strip-inner { position: absolute; inset: -60px; transition: transform 0.1s linear; will-change: transform; }
   .parallax-strip-text { position: absolute; bottom: 3rem; left: 3rem; z-index: 3; max-width: 500px; }
   .parallax-strip-text p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.9); text-shadow: 0 2px 30px rgba(0,0,0,0.2); }
   .parallax-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(44,40,33,0.35) 100%); z-index: 2; }
@@ -535,7 +555,9 @@
     .pool-split-caption { font-size: 0.9rem; bottom: 1.2rem; }
     .pool-split-left .pool-split-caption { left: 1.2rem; }
     .pool-split-right .pool-split-caption { right: 1.2rem; }
-    .pool-split-img { inset: -20px; }
+    .pool-split-img { inset: 0; transition: none; }
+    .parallax-strip-inner { inset: 0; transition: none; }
+    .image-side-inner { inset: 0; transition: none; }
   }
   @media (max-width: 380px) {
     .hero h1 { font-size: 1.9rem; }
@@ -829,71 +851,69 @@
       <p data-i18n="rates_note_p">Questa casa è pensata per chi ama il silenzio, il tempo lento, lo sport vissuto senza fretta. Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto.</p>
     </div>
     <div class="reveal"><h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:0.5rem" data-i18n="rates_prices_h3">Tariffe 2026</h3></div>
-    <div class="reveal" style="margin-bottom:1rem"><p style="font-size:0.85rem;color:var(--text-muted)" data-i18n="rates_weekly_note">Soggiorni settimanali (7 notti): sconto 12%</p></div>
-    <div class="rates-grid">
-      <div class="rate-card reveal reveal-scale">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_jun">Giugno</span><span class="rate-card-min" data-i18n="min_3">min. 3 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 210</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 240</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 20</span></div>
-        </div>
-      </div>
-      <div class="rate-card reveal reveal-scale reveal-delay-1">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_jul">Luglio</span><span class="rate-card-min" data-i18n="min_4">min. 4 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 230</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 265</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 25</span></div>
-        </div>
-      </div>
-      <div class="rate-card rate-card-highlight reveal reveal-scale reveal-delay-2">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_aug">Agosto</span><span class="rate-card-min" data-i18n="min_5">min. 5 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 245</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 275</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 25</span></div>
-        </div>
-      </div>
-      <div class="rate-card reveal reveal-scale reveal-delay-3">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_sep">Settembre</span><span class="rate-card-min" data-i18n="min_3">min. 3 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 210</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 240</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 20</span></div>
-        </div>
-      </div>
-      <div class="rate-card reveal reveal-scale reveal-delay-4">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_oct">Ottobre</span><span class="rate-card-min" data-i18n="min_2">min. 2 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 155</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 170</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 15</span></div>
-        </div>
-      </div>
-      <div class="rate-card reveal reveal-scale reveal-delay-5">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_nov">Novembre</span><span class="rate-card-min" data-i18n="min_2">min. 2 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 145</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 160</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 15</span></div>
-        </div>
-      </div>
-      <div class="rate-card reveal reveal-scale">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_dec">Dicembre</span><span class="rate-card-min" data-i18n="min_2">min. 2 notti</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="guests_2">2 persone</span><span>€ 150</span></div>
-          <div class="rate-card-row"><span data-i18n="guests_34">3–4 persone</span><span>€ 160</span></div>
-          <div class="rate-card-row"><span data-i18n="guest_extra">Persona aggiuntiva</span><span>€ 15</span></div>
-        </div>
-      </div>
-      <div class="rate-card rate-card-highlight reveal reveal-scale reveal-delay-1">
-        <div class="rate-card-header"><span class="rate-card-month" data-i18n="month_xmas">Natale & Capodanno</span><span class="rate-card-min">22/12 – 02/01</span></div>
-        <div class="rate-card-prices">
-          <div class="rate-card-row"><span data-i18n="rates_xmas_flat">Tariffa unica a notte</span><span>€ 250</span></div>
-          <div class="rate-card-row"><span></span><span class="rate-card-min" data-i18n="min_3">min. 3 notti</span></div>
-        </div>
-      </div>
+    <div class="reveal" style="margin-bottom:0.5rem"><p style="font-size:0.85rem;color:var(--text-muted)" data-i18n="rates_weekly_note">Soggiorni settimanali (7 notti): sconto 12%</p></div>
+    
+    <div class="rates-table-wrap reveal">
+      <table class="rates-table">
+        <thead>
+          <tr>
+            <th>Periodo</th>
+            <th>2 persone</th>
+            <th>3–4 persone</th>
+            <th>Soggiorno min.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="period-name">Giugno</td>
+            <td><span class="price">€ 210</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 240</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">3 notti</td>
+          </tr>
+          <tr>
+            <td class="period-name">Luglio</td>
+            <td><span class="price">€ 230</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 265</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">4 notti</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="period-name">Agosto</td>
+            <td><span class="price">€ 245</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 275</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">5 notti</td>
+          </tr>
+          <tr>
+            <td class="period-name">Settembre</td>
+            <td><span class="price">€ 210</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 240</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">3 notti</td>
+          </tr>
+          <tr>
+            <td class="period-name">Ottobre</td>
+            <td><span class="price">€ 155</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 170</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">2 notti</td>
+          </tr>
+          <tr>
+            <td class="period-name">Novembre</td>
+            <td><span class="price">€ 145</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 160</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">2 notti</td>
+          </tr>
+          <tr>
+            <td class="period-name">Dicembre</td>
+            <td><span class="price">€ 150</span><span class="per-night">/notte</span></td>
+            <td><span class="price">€ 160</span><span class="per-night">/notte</span></td>
+            <td class="min-nights">2 notti</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="period-name">Natale & Capodanno<small>22/12 – 02/01</small></td>
+            <td colspan="2"><span class="price">€ 250</span><span class="per-night">/notte</span> <small>(tariffa unica)</small></td>
+            <td class="min-nights">3 notti</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="rates-extra-note">Persona aggiuntiva: € 15–25/notte a seconda del periodo</p>
     </div>
   </div>
 </section>
@@ -1015,12 +1035,23 @@ function updateHeroParallax(){
 }
 window.addEventListener('scroll',updateHeroParallax,{passive:true});
 
-// Parallax
+// Parallax (disabled on mobile for performance)
 const pEls=document.querySelectorAll('[data-parallax]');
-function updateParallax(){pEls.forEach(el=>{const p=el.closest('.parallax-strip');if(!p)return;const r=p.getBoundingClientRect();el.style.transform=`translateY(${(r.top-window.innerHeight/2)*parseFloat(el.dataset.parallax)}px)`;});}
-// Horizontal parallax for images
 const hParallaxImgs=document.querySelectorAll('[data-parallax-x]');
+const isMobile = () => window.innerWidth <= 900;
+
+function updateParallax(){
+  if(isMobile()) return;
+  pEls.forEach(el=>{
+    const p=el.closest('.parallax-strip');
+    if(!p)return;
+    const r=p.getBoundingClientRect();
+    el.style.transform=`translateY(${(r.top-window.innerHeight/2)*parseFloat(el.dataset.parallax)}px)`;
+  });
+}
+
 function updateHorizontalParallax(){
+  if(isMobile()) return;
   hParallaxImgs.forEach(el=>{
     const p=el.closest('.pool-split') || el.closest('.image-side');
     if(!p)return;
@@ -1030,8 +1061,21 @@ function updateHorizontalParallax(){
     el.style.transform=`translateX(${centerOffset * parseFloat(el.dataset.parallaxX)}px)`;
   });
 }
-window.addEventListener('scroll',updateParallax,{passive:true});updateParallax();
-window.addEventListener('scroll',updateHorizontalParallax,{passive:true});updateHorizontalParallax();
+
+let ticking = false;
+function onScroll() {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      updateParallax();
+      updateHorizontalParallax();
+      ticking = false;
+    });
+    ticking = true;
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+updateParallax();
+updateHorizontalParallax();
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}));
