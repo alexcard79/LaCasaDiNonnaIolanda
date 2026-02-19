@@ -529,6 +529,10 @@
   .exp-card-body { padding: 2rem; }
   .exp-card-body h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
   .exp-card-body p { font-size: 0.88rem; max-width: 100%; color: var(--text-light); }
+  .exp-card-dark { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08); }
+  .exp-card-dark:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .exp-card-dark .exp-card-body h3 { color: rgba(255,255,255,0.9); }
+  .exp-card-dark .exp-card-body p { color: rgba(255,255,255,0.5); }
   .exp-card-tag {
     position: absolute; top: 1rem; left: 1rem;
     font-family: var(--sans); font-size: 0.6rem; font-weight: 500;
@@ -737,7 +741,7 @@
       <li><a href="#esperienze">Esperienze</a></li>
       <li><a href="#casa">La Casa</a></li>
       <li><a href="#tariffe">Tariffe</a></li>
-      <li><a href="tel:+393487655756" class="nav-cta">Prenota Ora</a></li>
+      <li><a href="https://wa.me/393487655756?text=Ciao,%20vorrei%20verificare%20la%20disponibilit%C3%A0%20per%20un%20soggiorno%20alla%20Casa%20di%20Nonna%20Iolanda." target="_blank" rel="noopener" class="nav-cta">Verifica disponibilità</a></li>
       <li><a href="#contatti">Contatti</a></li>
     </ul>
     <div class="nav-contact">
@@ -770,7 +774,7 @@
   <a href="#esperienze" onclick="closeMobile()">Esperienze</a>
   <a href="#casa" onclick="closeMobile()">La Casa</a>
   <a href="#tariffe" onclick="closeMobile()">Tariffe</a>
-  <a href="tel:+393487655756" onclick="closeMobile()" class="mobile-cta">Prenota Ora</a>
+  <a href="https://wa.me/393487655756?text=Ciao,%20vorrei%20verificare%20la%20disponibilit%C3%A0%20per%20un%20soggiorno%20alla%20Casa%20di%20Nonna%20Iolanda." target="_blank" rel="noopener" onclick="closeMobile()" class="mobile-cta">Verifica disponibilità</a>
   <a href="#contatti" onclick="closeMobile()">Contatti</a>
   <div class="mobile-lang">
     <button class="active" data-lang="it" onclick="switchLang('it')">IT</button>
@@ -880,32 +884,36 @@
       <div class="reveal"><h3 style="color:rgba(255,255,255,0.4); font-family:var(--sans); font-size:0.7rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:2rem;">Su richiesta / Extra</h3></div>
     </div>
 
-    <div class="exp-extra-grid">
-      <div class="exp-extra-card reveal">
-        <div class="exp-extra-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="20" x2="12" y2="16"/><line x1="16" y1="20" x2="12" y2="16"/></svg></div>
-        <div>
-          <h4>Lezioni con Maestro FIT Nazionale</h4>
+    <div class="exp-grid">
+      <div class="exp-card exp-card-dark reveal">
+        <span class="exp-card-tag">Su richiesta</span>
+        <img src="extra_tennis.jpg" alt="Lezioni tennis" class="exp-card-img">
+        <div class="exp-card-body">
+          <h3>Lezioni con Maestro FIT Nazionale</h3>
           <p>Se vuoi migliorare la tecnica, un Maestro Nazionale FIT è disponibile su richiesta. Una partita leggera o un allenamento strutturato. Qui il tennis si adatta al tuo ritmo.</p>
         </div>
       </div>
-      <div class="exp-extra-card reveal reveal-delay-1">
-        <div class="exp-extra-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-        <div>
-          <h4>Equitazione e passeggiate a cavallo</h4>
+      <div class="exp-card exp-card-dark reveal reveal-delay-1">
+        <span class="exp-card-tag">Su richiesta</span>
+        <img src="extra_equitazione.jpg" alt="Equitazione" class="exp-card-img">
+        <div class="exp-card-body">
+          <h3>Equitazione e passeggiate a cavallo</h3>
           <p>Escursioni guidate nella campagna circostante per una connessione profonda con la natura.</p>
         </div>
       </div>
-      <div class="exp-extra-card reveal reveal-delay-2">
-        <div class="exp-extra-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <div>
-          <h4>Noleggio e-bike / Vespa</h4>
+      <div class="exp-card exp-card-dark reveal reveal-delay-2">
+        <span class="exp-card-tag">Su richiesta</span>
+        <img src="extra_ebike.jpg" alt="Noleggio e-bike" class="exp-card-img">
+        <div class="exp-card-body">
+          <h3>Noleggio e-bike / Vespa</h3>
           <p>Esplora i dintorni con libertà e senza fatica, vivendo un’esperienza immersiva nel paesaggio umbro.</p>
         </div>
       </div>
-      <div class="exp-extra-card reveal reveal-delay-3">
-        <div class="exp-extra-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <div>
-          <h4>Servizio spa e massaggi</h4>
+      <div class="exp-card exp-card-dark reveal reveal-delay-3">
+        <span class="exp-card-tag">Su richiesta</span>
+        <img src="extra_spa.jpg" alt="Spa e massaggi" class="exp-card-img">
+        <div class="exp-card-body">
+          <h3>Servizio spa e massaggi</h3>
           <p>Trattamenti esclusivi a circa 400 m dalla casa, per il massimo del relax e del benessere.</p>
         </div>
       </div>
@@ -924,8 +932,8 @@
       <div class="house-gallery-item wide reveal reveal-delay-1" onclick="openLightbox(0)"><img src="foto1_cortile.jpg" alt="Cortile"><div class="house-gallery-caption">Cortile</div></div>
       <div class="house-gallery-item reveal reveal-delay-2" onclick="openLightbox(1)"><img src="foto2_soggiorno.jpg" alt="Soggiorno"><div class="house-gallery-caption">Soggiorno</div></div>
       <div class="house-gallery-item reveal reveal-delay-3" onclick="openLightbox(2)"><img src="foto3_cucina.jpg" alt="Cucina"><div class="house-gallery-caption">Cucina</div></div>
-      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(3)"><img src="foto4_camera.jpg" alt="Camera"><div class="house-gallery-caption">Camera matrimoniale</div></div>
-      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(4)"><img src="foto5_soppalco.jpg" alt="Soppalco"><div class="house-gallery-caption">Soppalco</div></div>
+      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(3)"><img src="foto4_camera.jpg" alt="Seconda camera"><div class="house-gallery-caption">Seconda camera</div></div>
+      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(4)"><img src="foto5_soppalco.jpg" alt="Camera matrimoniale"><div class="house-gallery-caption">Camera matrimoniale — Soppalco</div></div>
       <div class="house-gallery-item reveal reveal-delay-5" onclick="openLightbox(5)"><img src="foto6_bagno.jpg" alt="Bagno"><div class="house-gallery-caption">Bagno</div></div>
       <div class="house-gallery-item reveal reveal-delay-5" onclick="openLightbox(6)"><img src="foto7_doccia.jpg" alt="Doccia"><div class="house-gallery-caption">Doccia</div></div>
     </div>
@@ -991,16 +999,6 @@
           <li>Servizio spa esclusivo e massaggi su prenotazione a circa 400 m dall’abitazione</li>
         </ul>
       </div>
-    </div>
-    <div class="rates-note reveal reveal-fade">
-      <h4>Una nota importante</h4>
-      <p>La nostra casa vacanze è pensata per chi ama:</p>
-      <ul class="rates-note-list">
-        <li>il silenzio</li>
-        <li>il tempo lento</li>
-        <li>lo sport vissuto senza fretta</li>
-      </ul>
-      <p>Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto per te.</p>
     </div>
 
     <div class="reveal"><h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:0.5rem">Tariffe 2026</h3></div>
@@ -1074,6 +1072,17 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="rates-note reveal reveal-fade" style="margin-top:4rem">
+      <h4>Una nota importante</h4>
+      <p>La nostra casa vacanze è pensata per chi ama:</p>
+      <ul class="rates-note-list">
+        <li>il silenzio</li>
+        <li>il tempo lento</li>
+        <li>lo sport vissuto senza fretta</li>
+      </ul>
+      <p>Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto per te.</p>
     </div>
   </div>
 </section>
@@ -1310,8 +1319,8 @@ const galleryImages = [
   { src: 'foto1_cortile.jpg', caption: 'Cortile' },
   { src: 'foto2_soggiorno.jpg', caption: 'Soggiorno' },
   { src: 'foto3_cucina.jpg', caption: 'Cucina' },
-  { src: 'foto4_camera.jpg', caption: 'Camera matrimoniale' },
-  { src: 'foto5_soppalco.jpg', caption: 'Soppalco' },
+  { src: 'foto4_camera.jpg', caption: 'Seconda camera' },
+  { src: 'foto5_soppalco.jpg', caption: 'Camera matrimoniale — Soppalco' },
   { src: 'foto6_bagno.jpg', caption: 'Bagno' },
   { src: 'foto7_doccia.jpg', caption: 'Doccia' }
 ];
