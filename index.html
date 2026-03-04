@@ -1653,7 +1653,7 @@ function parseCSVDates(csv) {
       if (checkin && checkout) {
         let d = new Date(checkin);
         while (d <= checkout) {
-          dates.add(d.toISOString().slice(0,10));
+          dates.add(toDateStr(d));
           d.setDate(d.getDate() + 1);
         }
       }
@@ -1679,6 +1679,13 @@ function formatDateLocal(dateStr, lang) {
   return day + ' ' + months[d.getMonth()];
 }
 
+function toDateStr(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return y + '-' + m + '-' + day;
+}
+
 function onDayClick(dateStr) {
   if (bookedDates.has(dateStr)) return;
   const d = new Date(dateStr + 'T00:00:00');
@@ -1698,7 +1705,7 @@ function onDayClick(dateStr) {
       let check = new Date(calSelection.start + 'T00:00:00');
       const endD = new Date(dateStr + 'T00:00:00');
       while (check <= endD) {
-        if (bookedDates.has(check.toISOString().slice(0,10))) { hasBooked = true; break; }
+        if (bookedDates.has(toDateStr(check))) { hasBooked = true; break; }
         check.setDate(check.getDate() + 1);
       }
       if (hasBooked) {
@@ -1801,7 +1808,7 @@ function renderMonth(date, lang) {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   for (let d = 1; d <= daysInMonth; d++) {
     const dateObj = new Date(year, month, d);
-    const dateStr = dateObj.toISOString().slice(0,10);
+    const dateStr = toDateStr(dateObj);
     const isPast = dateObj < today;
     const isToday = dateObj.getTime() === today.getTime();
     const isBooked = bookedDates.has(dateStr);
