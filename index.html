@@ -503,6 +503,67 @@
   .lightbox-next { right: 1.5rem; }
   .lightbox-next::before { right: 50%; transform: translate(30%, -50%) rotate(135deg); }
 
+  /* ─── AVAILABILITY CALENDAR ─── */
+  .cal-section { padding: 6rem 0; }
+  .cal-wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+  .cal-header { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
+  .cal-nav { background: none; border: 1px solid var(--stone); color: var(--stone); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; font-size: 1rem; -webkit-tap-highlight-color: transparent; }
+  .cal-nav:hover { background: var(--stone); color: var(--cream); }
+  .cal-nav:active { background: var(--stone); color: var(--cream); transform: scale(0.9); }
+  .cal-month-label { font-family: var(--serif); font-size: 1.15rem; color: var(--text-main); min-width: 200px; text-align: center; }
+  .cal-grid-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .cal-month { }
+  .cal-month-title { font-family: var(--serif); font-size: 1rem; color: var(--text-main); text-align: center; margin-bottom: 1rem; font-weight: 400; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-day-name { font-family: var(--sans); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); text-align: center; padding: 0.5rem 0; font-weight: 500; }
+  .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 0.8rem; color: var(--text-main); border-radius: 6px; transition: all 0.2s; position: relative; }
+  .cal-day.empty { }
+  .cal-day.past { color: var(--text-muted); opacity: 0.35; }
+  .cal-day.available { background: rgba(139,152,119,0.08); color: var(--text-main); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .cal-day.available:hover { background: rgba(139,152,119,0.22); }
+  .cal-day.available:active { background: rgba(139,152,119,0.35); transform: scale(0.92); }
+  .cal-day.booked { background: rgba(168,120,100,0.15); color: rgba(168,120,100,0.9); text-decoration: line-through; text-decoration-color: rgba(168,120,100,0.4); cursor: not-allowed; }
+  .cal-day.today { font-weight: 600; box-shadow: inset 0 0 0 1.5px var(--stone); }
+  .cal-day.selected-start, .cal-day.selected-end { background: var(--stone) !important; color: var(--cream) !important; text-decoration: none !important; border-radius: 6px; font-weight: 600; }
+  .cal-day.in-range { background: rgba(168,157,131,0.18) !important; color: var(--text-main) !important; text-decoration: none !important; border-radius: 2px; }
+  .cal-selection-info { text-align: center; margin-top: 1.5rem; font-family: var(--sans); font-size: 0.85rem; color: var(--stone); font-weight: 500; opacity: 0; transition: opacity 0.3s; }
+  .cal-selection-info.visible { opacity: 1; }
+  .cal-legend { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; font-family: var(--sans); font-size: 0.75rem; color: var(--text-muted); }
+  .cal-legend-item { display: flex; align-items: center; gap: 0.5rem; }
+  .cal-legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .cal-legend-dot.avail { background: rgba(139,152,119,0.2); }
+  .cal-legend-dot.booked { background: rgba(168,120,100,0.25); }
+  .cal-note { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+  .cal-cta { text-align: center; margin-top: 2rem; }
+  .cal-cta a { display: inline-block; font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); background: var(--text-main); padding: 0.9rem 2.5rem; border-radius: 4px; text-decoration: none; transition: all 0.3s; }
+  .cal-cta a:hover { background: var(--stone); }
+  .cal-loading { text-align: center; padding: 3rem; color: var(--text-muted); font-style: italic; }
+
+  .cal-booking-form { max-width: 560px; margin: 2.5rem auto 0; padding: 2.5rem; background: rgba(139,152,119,0.04); border: 1px solid rgba(139,152,119,0.12); border-radius: 8px; display: none; animation: calFormIn 0.5s ease; }
+  .cal-booking-form.visible { display: block; }
+  .cal-booking-form h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--text-main); margin-bottom: 0.5rem; text-align: center; }
+  .cal-booking-dates { text-align: center; font-family: var(--sans); font-size: 0.9rem; color: var(--stone); font-weight: 500; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(139,152,119,0.12); }
+  .cal-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .cal-form input, .cal-form select, .cal-form textarea { width: 100%; padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.85rem; border: 1px solid rgba(139,152,119,0.2); border-radius: 4px; background: var(--cream); color: var(--text-main); transition: border-color 0.3s; box-sizing: border-box; }
+  .cal-form input:focus, .cal-form select:focus, .cal-form textarea:focus { outline: none; border-color: var(--stone); }
+  .cal-form select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b9877' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+  .cal-form textarea { margin-bottom: 0.75rem; resize: vertical; }
+  .cal-form-submit { width: 100%; padding: 0.9rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); background: var(--text-main); border: none; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
+  .cal-form-submit:hover { background: var(--stone); }
+  .cal-form-alt { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(139,152,119,0.12); font-family: var(--sans); font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+  .cal-wa-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--stone); font-weight: 500; text-decoration: none; padding: 0.4rem 1rem; border: 1px solid var(--stone); border-radius: 20px; transition: all 0.3s; }
+  .cal-wa-link:hover { background: var(--stone); color: var(--cream); }
+  .cal-wa-link svg { flex-shrink: 0; }
+  @keyframes calFormIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    .cal-form-row { grid-template-columns: 1fr; }
+    .cal-booking-form { padding: 1.5rem; margin-top: 2rem; }
+    .cal-grid-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cal-section { padding: 4rem 0; }
+    .cal-legend { gap: 1.5rem; }
+  }
+
   /* ─── UMBRIA ─── */
   .umbria-quote { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; font-style: italic; line-height: 1.45; color: var(--text); max-width: 650px; margin-bottom: 2.5rem; }
 
@@ -738,12 +799,12 @@
   <a href="#" class="nav-logo"><img src="logo.png" alt="La Casa di Nonna Iolanda" class="nav-logo-img"><img src="logo.png" alt="La Casa di Nonna Iolanda" class="nav-logo-img nav-logo-light"></a>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#luogo">Il Luogo</a></li>
-      <li><a href="#esperienze">Esperienze</a></li>
-      <li><a href="#casa">La Casa</a></li>
-      <li><a href="#tariffe">Tariffe</a></li>
-      <li><a href="https://wa.me/393487655756?text=Ciao,%20vorrei%20verificare%20la%20disponibilit%C3%A0%20per%20un%20soggiorno%20alla%20Casa%20di%20Nonna%20Iolanda." target="_blank" rel="noopener" class="nav-cta">Verifica disponibilità</a></li>
-      <li><a href="#contatti">Contatti</a></li>
+      <li><a href="#luogo" data-i18n="nav.luogo">Il Luogo</a></li>
+      <li><a href="#esperienze" data-i18n="nav.esperienze">Esperienze</a></li>
+      <li><a href="#casa" data-i18n="nav.casa">La Casa</a></li>
+      <li><a href="#tariffe" data-i18n="nav.tariffe">Tariffe</a></li>
+      <li><a href="#disponibilita" class="nav-cta" data-i18n="nav.prenota">Verifica disponibilità</a></li>
+      <li><a href="#contatti" data-i18n="nav.contatti">Contatti</a></li>
     </ul>
     <div class="nav-contact">
       <a href="https://wa.me/393487655756" target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -771,12 +832,12 @@
 </nav>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <a href="#luogo" onclick="closeMobile()">Il Luogo</a>
-  <a href="#esperienze" onclick="closeMobile()">Esperienze</a>
-  <a href="#casa" onclick="closeMobile()">La Casa</a>
-  <a href="#tariffe" onclick="closeMobile()">Tariffe</a>
-  <a href="https://wa.me/393487655756?text=Ciao,%20vorrei%20verificare%20la%20disponibilit%C3%A0%20per%20un%20soggiorno%20alla%20Casa%20di%20Nonna%20Iolanda." target="_blank" rel="noopener" onclick="closeMobile()" class="mobile-cta">Verifica disponibilità</a>
-  <a href="#contatti" onclick="closeMobile()">Contatti</a>
+  <a href="#luogo" onclick="closeMobile()" data-i18n="nav.luogo">Il Luogo</a>
+  <a href="#esperienze" onclick="closeMobile()" data-i18n="nav.esperienze">Esperienze</a>
+  <a href="#casa" onclick="closeMobile()" data-i18n="nav.casa">La Casa</a>
+  <a href="#tariffe" onclick="closeMobile()" data-i18n="nav.tariffe">Tariffe</a>
+  <a href="#disponibilita" onclick="closeMobile()" class="mobile-cta" data-i18n="nav.prenota">Verifica disponibilità</a>
+  <a href="#contatti" onclick="closeMobile()" data-i18n="nav.contatti">Contatti</a>
   <div class="mobile-lang">
     <button class="active" data-lang="it" onclick="switchLang('it')">IT</button>
     <button data-lang="en" onclick="switchLang('en')">EN</button>
@@ -789,29 +850,29 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <p class="hero-sub">Natura, Sport e Silenzio</p>
-    <h1>Il tuo rifugio<br>in <em>Umbria.</em></h1>
-    <p class="hero-tagline">Casa vacanze con campo da tennis privato e benessere panoramico.</p>
+    <p class="hero-sub" data-i18n="hero.pre">Natura, Sport e Silenzio</p>
+    <h1 data-i18n="hero.title1">Il tuo rifugio<br>in <em>Umbria.</em></h1>
+    <p class="hero-tagline" data-i18n="hero.tagline">Casa vacanze con campo da tennis privato e benessere panoramico.</p>
   </div>
-  <div class="hero-scroll">Scorri</div>
+  <div class="hero-scroll" data-i18n="hero.scroll">Scorri</div>
 </section>
 
 <!-- IL LUOGO E LA FILOSOFIA -->
 <section id="luogo">
   <div class="section-wide">
-    <div class="reveal"><div class="section-label"><span class="section-number">01</span> Il Luogo e la Filosofia</div></div>
+    <div class="reveal"><div class="section-label"><span class="section-number">01</span> <span data-i18n="luogo.label">Il Luogo e la Filosofia</span></div></div>
     <div class="two-col">
       <div>
-        <div class="reveal reveal-delay-1"><h2>Un rifugio nel cuore dell’Umbria.</h2></div>
+        <div class="reveal reveal-delay-1"><h2 data-i18n="luogo.title">Un rifugio nel cuore dell’Umbria.</h2></div>
         <div class="reveal reveal-delay-2">
-          <p>Casa di Nonna Iolanda è un rifugio nel cuore dell’Umbria, a Torri, un piccolo borgo di Gualdo Cattaneo. Qui il paesaggio è rimasto intatto. Poche case, pochissime persone, silenzio reale.</p>
-          <p>È un borgo fermo nel tempo, lontano dai flussi turistici. Ed è proprio questa la sua unicità.</p>
+          <p data-i18n="luogo.p1">Casa di Nonna Iolanda è un rifugio nel cuore dell’Umbria, a Torri, un piccolo borgo di Gualdo Cattaneo. Qui il paesaggio è rimasto intatto. Poche case, pochissime persone, silenzio reale.</p>
+          <p><span data-i18n="luogo.p2">È un borgo fermo nel tempo, lontano dai flussi turistici. Ed è proprio questa la sua unicità.</span></p>
         </div>
       </div>
       <div class="two-col-offset">
         <div class="reveal reveal-delay-3">
-          <p>Casa di Nonna Iolanda non è un resort. Non è un agriturismo tradizionale. È una casa privata immersa in un contesto autentico, dove il vero lusso non è ostentato: è il tempo che si dilata.</p>
-          <div class="philosophy-highlight">Qui trovi il lusso che non si può comprare altrove: il tempo che sembra fermarsi, rallentare, ampliarsi.</div>
+          <p data-i18n="luogo.p3">Casa di Nonna Iolanda non è un resort. Non è un agriturismo tradizionale. È una casa privata immersa in un contesto autentico, dove il vero lusso non è ostentato: è il tempo che si dilata.</p>
+          <div class="philosophy-highlight" data-i18n="luogo.highlight">Qui trovi il lusso che non si può comprare altrove: il tempo che sembra fermarsi, rallentare, ampliarsi.</div>
         </div>
       </div>
     </div>
@@ -821,29 +882,29 @@
 <div class="parallax-strip parallax-fade-in">
   <div class="parallax-strip-inner ip-court" data-parallax="0.15"></div>
   <div class="parallax-overlay"></div>
-  <div class="parallax-strip-text"><p>Ogni esperienza si vive con intensità. Anche il semplice tragitto dalla casa al campo da tennis diventa un momento di presenza.</p></div>
+  <div class="parallax-strip-text"><p data-i18n="luogo.p4">Ogni esperienza si vive con intensità. Anche il semplice tragitto dalla casa al campo da tennis diventa un momento di presenza.</p></div>
 </div>
 
 <section>
   <div class="section-narrow">
-    <div class="reveal"><p>Il silenzio non è costruito. È naturale. La quiete non è un servizio. È parte del luogo.</p></div>
-    <div class="reveal reveal-delay-1"><p>Eppure, pur immersa nella lentezza, la vacanza può essere dinamica. Il campo da tennis privato, la piscina salata, l’idromassaggio panoramico, i sentieri tra gli ulivi, le attività nella natura e le esperienze personalizzate permettono di alternare energia e rilascio.</p></div>
+    <div class="reveal"><p data-i18n="luogo.p5">Il silenzio non è costruito. È naturale. La quiete non è un servizio. È parte del luogo.</p></div>
+    <div class="reveal reveal-delay-1"><p data-i18n="luogo.p6">Eppure, pur immersa nella lentezza, la vacanza può essere dinamica. Il campo da tennis privato, la piscina salata, l’idromassaggio panoramico, i sentieri tra gli ulivi, le attività nella natura e le esperienze personalizzate permettono di alternare energia e rilascio.</p></div>
     <div class="reveal reveal-delay-2">
-      <div class="philosophy-highlight">Questa è la nostra filosofia: offrire un’esperienza esclusiva non perché lussuosa nel senso convenzionale, ma perché rara.</div>
+      <div class="philosophy-highlight" data-i18n="luogo.filosofia">Questa è la nostra filosofia: offrire un’esperienza esclusiva non perché lussuosa nel senso convenzionale, ma perché rara.</div>
     </div>
-    <div class="reveal reveal-delay-3"><p>Una casa unica nel suo genere, situata in un borgo che ha scelto di restare autentico. Qui l’esclusività non è isolamento. È autenticità. E questo è il vero privilegio.</p></div>
+    <div class="reveal reveal-delay-3"><p data-i18n="luogo.p7">Una casa unica nel suo genere, situata in un borgo che ha scelto di restare autentico. Qui l’esclusività non è isolamento. È autenticità. E questo è il vero privilegio.</p></div>
   </div>
 </section>
 
 <!-- ESPERIENZE -->
 <section class="section-dark" id="esperienze">
   <div class="section-wide">
-    <div class="reveal"><div class="section-label"><span class="section-number">02</span> Esperienze</div></div>
-    <div class="reveal reveal-delay-1"><h2>Ogni attività non è solo qualcosa da fare, ma un modo diverso di vivere il tempo.</h2></div>
-    <div class="reveal reveal-delay-2"><p>Puoi scegliere di muoverti, rallentare, respirare. Qui ogni esperienza ha spazio per essere vissuta davvero.</p></div>
+    <div class="reveal"><div class="section-label"><span class="section-number">02</span> <span data-i18n="exp.label">Esperienze</span></div></div>
+    <div class="reveal reveal-delay-1"><h2 data-i18n="exp.intro">Ogni attività non è solo qualcosa da fare, ma un modo diverso di vivere il tempo.</h2></div>
+    <div class="reveal reveal-delay-2"><p data-i18n="exp.intro2">Puoi scegliere di muoverti, rallentare, respirare. Qui ogni esperienza ha spazio per essere vissuta davvero.</p></div>
 
     <div style="margin-top:4rem">
-      <div class="reveal"><h3 style="color:rgba(255,255,255,0.4); font-family:var(--sans); font-size:0.7rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:2rem;">Incluso nel soggiorno</h3></div>
+      <div class="reveal"><h3 style="color:rgba(255,255,255,0.4); font-family:var(--sans); font-size:0.7rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:2rem;" data-i18n="exp.incluso">Incluso nel soggiorno</h3></div>
     </div>
 
     <div class="exp-grid">
@@ -851,38 +912,38 @@
         <span class="exp-card-tag">Uso esclusivo</span>
         <img src="court.jpg" alt="Campo da tennis" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Campo da tennis privato</h3>
-          <p>Gioca su un campo in erba sintetica di ultima generazione, progettata per un gioco costante e costruita per sembrare il prato che la circonda. Il campo è a uso esclusivo degli ospiti, disponibile in ogni momento del soggiorno. Se hai bisogno di un compagno di gioco, chiedici disponibilità in anticipo.</p>
+          <h3 data-i18n="exp.tennis.title">Campo da tennis privato</h3>
+          <p data-i18n="exp.tennis.text">Gioca su un campo in erba sintetica di ultima generazione, progettata per un gioco costante e costruita per sembrare il prato che la circonda. Il campo è a uso esclusivo degli ospiti, disponibile in ogni momento del soggiorno. Se hai bisogno di un compagno di gioco, chiedici disponibilità in anticipo.</p>
         </div>
       </div>
       <div class="exp-card reveal reveal-delay-1">
         <span class="exp-card-tag">Uso esclusivo</span>
         <img src="jacuzzi.jpg" alt="Idromassaggio panoramico" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Idromassaggio panoramico</h3>
-          <p>Idromassaggio panoramico da 5 posti, con vista sul campo da tennis. Uno spazio dedicato al rilascio e al recupero, per distendere il corpo e alleggerire la mente in un contesto di silenzio autentico.</p>
+          <h3 data-i18n="exp.jacuzzi.title">Idromassaggio panoramico</h3>
+          <p data-i18n="exp.jacuzzi.text">Idromassaggio panoramico da 5 posti, con vista sul campo da tennis. Uno spazio dedicato al rilascio e al recupero, per distendere il corpo e alleggerire la mente in un contesto di silenzio autentico.</p>
         </div>
       </div>
       <div class="exp-card reveal reveal-delay-2">
         <span class="exp-card-tag">Accesso gratuito</span>
         <img src="pool2.jpg" alt="Piscina salata" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Piscina salata del Castello di Barattano</h3>
-          <p>A 900 metri dalla casa. Nuotare qui significa godere della vista sulle colline umbre e di un’atmosfera riservata, lontana da ambienti affollati. Un’esperienza semplice, ma profondamente rigenerante.</p>
+          <h3 data-i18n="exp.piscina.title">Piscina salata del Castello di Barattano</h3>
+          <p data-i18n="exp.piscina.text">A 900 metri dalla casa. Nuotare qui significa godere della vista sulle colline umbre e di un’atmosfera riservata, lontana da ambienti affollati. Un’esperienza semplice, ma profondamente rigenerante.</p>
         </div>
       </div>
       <div class="exp-card reveal reveal-delay-3">
         <span class="exp-card-tag">Incluso</span>
         <img src="trekking.jpg" alt="Trekking nella natura" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Trekking ed escursioni nella natura</h3>
-          <p>Qui il trekking diventa un modo per entrare in contatto con il territorio e vivere il vero lusso del luogo: il tempo che rallenta e si dilata. Camminare qui non è solo movimento, ma presenza.</p>
+          <h3 data-i18n="exp.trekking.title">Trekking ed escursioni nella natura</h3>
+          <p data-i18n="exp.trekking.text">Qui il trekking diventa un modo per entrare in contatto con il territorio e vivere il vero lusso del luogo: il tempo che rallenta e si dilata. Camminare qui non è solo movimento, ma presenza.</p>
         </div>
       </div>
     </div>
 
     <div style="margin-top:5rem">
-      <div class="reveal"><h3 style="color:rgba(255,255,255,0.4); font-family:var(--sans); font-size:0.7rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:2rem;">Su richiesta / Extra</h3></div>
+      <div class="reveal"><h3 style="color:rgba(255,255,255,0.4); font-family:var(--sans); font-size:0.7rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:2rem;" data-i18n="exp.extra">Su richiesta / Extra</h3></div>
     </div>
 
     <div class="exp-grid">
@@ -890,32 +951,32 @@
         <span class="exp-card-tag">Su richiesta</span>
         <img src="extra_tennis.jpg" alt="Lezioni tennis" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Lezioni con Maestro FIT Nazionale</h3>
-          <p>Se vuoi migliorare la tecnica, un Maestro Nazionale FIT è disponibile su richiesta. Una partita leggera o un allenamento strutturato. Qui il tennis si adatta al tuo ritmo.</p>
+          <h3 data-i18n="exp.fit.title">Lezioni con Maestro FIT Nazionale</h3>
+          <p data-i18n="exp.fit.text">Se vuoi migliorare la tecnica, un Maestro Nazionale FIT è disponibile su richiesta. Una partita leggera o un allenamento strutturato. Qui il tennis si adatta al tuo ritmo.</p>
         </div>
       </div>
       <div class="exp-card exp-card-dark reveal reveal-delay-1">
         <span class="exp-card-tag">Su richiesta</span>
         <img src="extra_equitazione.jpg" alt="Equitazione" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Equitazione e passeggiate a cavallo</h3>
-          <p>Escursioni guidate nella campagna circostante per una connessione profonda con la natura.</p>
+          <h3 data-i18n="exp.equitazione.title">Equitazione e passeggiate a cavallo</h3>
+          <p data-i18n="exp.equitazione.text">Escursioni guidate nella campagna circostante per una connessione profonda con la natura.</p>
         </div>
       </div>
       <div class="exp-card exp-card-dark reveal reveal-delay-2">
         <span class="exp-card-tag">Su richiesta</span>
         <img src="vespa.jpg" alt="Noleggio e-bike" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Noleggio e-bike / Vespa</h3>
-          <p>Esplora i dintorni con libertà e senza fatica, vivendo un’esperienza immersiva nel paesaggio umbro.</p>
+          <h3 data-i18n="exp.ebike.title">Noleggio e-bike / Vespa</h3>
+          <p data-i18n="exp.ebike.text">Esplora i dintorni con libertà e senza fatica, vivendo un’esperienza immersiva nel paesaggio umbro.</p>
         </div>
       </div>
       <div class="exp-card exp-card-dark reveal reveal-delay-3">
         <span class="exp-card-tag">Su richiesta</span>
         <img src="extra_spa.jpg" alt="Spa e massaggi" class="exp-card-img">
         <div class="exp-card-body">
-          <h3>Servizio spa e massaggi</h3>
-          <p>Trattamenti esclusivi a circa 400 m dalla casa, per il massimo del relax e del benessere.</p>
+          <h3 data-i18n="exp.spa.title">Servizio spa e massaggi</h3>
+          <p data-i18n="exp.spa.text">Trattamenti esclusivi a circa 400 m dalla casa, per il massimo del relax e del benessere.</p>
         </div>
       </div>
     </div>
@@ -925,41 +986,41 @@
 <!-- LA CASA -->
 <section id="casa">
   <div class="section-wide">
-    <div class="reveal"><div class="section-label"><span class="section-number">03</span> La Casa</div></div>
-    <div class="reveal reveal-delay-1"><h2>Pietra, legno, luce.</h2></div>
-    <div class="reveal reveal-delay-2"><p style="max-width:700px">Benvenuti in una splendida casa di pietra umbra, 110 metri quadrati di spazio perfetto per il relax e la convivialità. Restaurata con cura, questa struttura mantiene il suo fascino originale, offrendo un rifugio ideale per chi cerca tranquillità e autenticità.</p></div>
+    <div class="reveal"><div class="section-label"><span class="section-number">03</span> <span data-i18n="casa.label">La Casa</span></div></div>
+    <div class="reveal reveal-delay-1"><h2 data-i18n="casa.subtitle">Pietra, legno, luce.</h2></div>
+    <div class="reveal reveal-delay-2"><p style="max-width:700px" data-i18n="casa.intro">Benvenuti in una splendida casa di pietra umbra, 110 metri quadrati di spazio perfetto per il relax e la convivialità. Restaurata con cura, questa struttura mantiene il suo fascino originale, offrendo un rifugio ideale per chi cerca tranquillità e autenticità.</p></div>
 
     <div class="house-gallery">
-      <div class="house-gallery-item wide reveal reveal-delay-1" onclick="openLightbox(0)"><img src="foto1_cortile.jpg" alt="Cortile"><div class="house-gallery-caption">Cortile</div></div>
-      <div class="house-gallery-item reveal reveal-delay-2" onclick="openLightbox(1)"><img src="foto2_soggiorno.jpg" alt="Soggiorno"><div class="house-gallery-caption">Soggiorno</div></div>
-      <div class="house-gallery-item reveal reveal-delay-3" onclick="openLightbox(2)"><img src="foto3_cucina.jpg" alt="Cucina"><div class="house-gallery-caption">Cucina</div></div>
-      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(3)"><img src="foto4_camera.jpg" alt="Seconda camera"><div class="house-gallery-caption">Seconda camera</div></div>
-      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(4)"><img src="foto5_soppalco.jpg" alt="Camera matrimoniale"><div class="house-gallery-caption">Camera matrimoniale — Soppalco</div></div>
-      <div class="house-gallery-item reveal reveal-delay-5" onclick="openLightbox(5)"><img src="foto6_bagno.jpg" alt="Bagno"><div class="house-gallery-caption">Bagno</div></div>
-      <div class="house-gallery-item reveal reveal-delay-5" onclick="openLightbox(6)"><img src="foto7_doccia.jpg" alt="Doccia"><div class="house-gallery-caption">Doccia</div></div>
+      <div class="house-gallery-item wide reveal reveal-delay-1" onclick="openLightbox(0)"><img src="foto1_cortile.jpg" alt="Cortile"><div class="house-gallery-caption" data-i18n="casa.cortile">Cortile</div></div>
+      <div class="house-gallery-item reveal reveal-delay-2" onclick="openLightbox(1)"><img src="foto2_soggiorno.jpg" alt="Soggiorno"><div class="house-gallery-caption" data-i18n="casa.soggiorno">Soggiorno</div></div>
+      <div class="house-gallery-item reveal reveal-delay-3" onclick="openLightbox(2)"><img src="foto3_cucina.jpg" alt="Cucina"><div class="house-gallery-caption" data-i18n="casa.cucina">Cucina</div></div>
+      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(3)"><img src="foto4_camera.jpg" alt="Seconda camera"><div class="house-gallery-caption" data-i18n="casa.camera2">Seconda camera</div></div>
+      <div class="house-gallery-item reveal reveal-delay-4" onclick="openLightbox(4)"><img src="foto5_soppalco.jpg" alt="Camera matrimoniale"><div class="house-gallery-caption" data-i18n="casa.matrimoniale">Camera matrimoniale — Soppalco</div></div>
+      <div class="house-gallery-item reveal reveal-delay-5" onclick="openLightbox(5)"><img src="foto6_bagno.jpg" alt="Bagno"><div class="house-gallery-caption" data-i18n="casa.bagno">Bagno</div></div>
+      <div class="house-gallery-item reveal reveal-delay-5" onclick="openLightbox(6)"><img src="foto7_doccia.jpg" alt="Doccia"><div class="house-gallery-caption" data-i18n="casa.doccia">Doccia</div></div>
     </div>
 
     <div class="house-details">
       <div class="house-detail-item reveal">
-        <h4>Camere</h4>
-        <p>La camera matrimoniale è situata nel soppalco, dotata di un ampio letto matrimoniale e un letto singolo. È possibile richiedere anche una culla e un passeggino. La seconda camera dispone di un letto a castello.</p>
+        <h4 data-i18n="casa.camere.title">Camere</h4>
+        <p data-i18n="casa.camere.text">La camera matrimoniale è situata nel soppalco, dotata di un ampio letto matrimoniale e un letto singolo. È possibile richiedere anche una culla e un passeggino. La seconda camera dispone di un letto a castello.</p>
       </div>
       <div class="house-detail-item reveal reveal-delay-1">
-        <h4>Cucina</h4>
-        <p>Cucina completamente attrezzata con piano cottura a induzione, ideale per preparare i tuoi pasti in autonomia.</p>
+        <h4 data-i18n="casa.cucina.title">Cucina</h4>
+        <p data-i18n="casa.cucina.text">Cucina completamente attrezzata con piano cottura a induzione, ideale per preparare i tuoi pasti in autonomia.</p>
       </div>
       <div class="house-detail-item reveal reveal-delay-2">
-        <h4>Bagni</h4>
-        <p>Due bagni completi, entrambi con doccia.</p>
+        <h4 data-i18n="casa.bagni.title">Bagni</h4>
+        <p data-i18n="casa.bagni.text">Due bagni completi, entrambi con doccia.</p>
       </div>
       <div class="house-detail-item reveal reveal-delay-3">
-        <h4>Spazi comuni</h4>
-        <p>Ampio soggiorno con spazi accoglienti e luminosi. Parcheggio disponibile a pochi metri dalla casa, sulla piazzetta principale.</p>
+        <h4 data-i18n="casa.spazi.title">Spazi comuni</h4>
+        <p data-i18n="casa.spazi.text">Ampio soggiorno con spazi accoglienti e luminosi. Parcheggio disponibile a pochi metri dalla casa, sulla piazzetta principale.</p>
       </div>
     </div>
 
-    <div class="reveal"><p style="margin-top:2rem;font-size:0.9rem;color:var(--text-light)">La casa è caratterizzata da soffitti a travi e pavimenti in parquet chiaro, creando un ambiente caldo e accogliente. Ogni dettaglio è pensato per garantire un soggiorno indimenticabile, dove il tempo sembra fermarsi.</p></div>
-    <div class="house-note reveal">Non è consentito l'accesso agli animali domestici.</div>
+    <div class="reveal"><p style="margin-top:2rem;font-size:0.9rem;color:var(--text-light)" data-i18n="casa.note1">La casa è caratterizzata da soffitti a travi e pavimenti in parquet chiaro, creando un ambiente caldo e accogliente. Ogni dettaglio è pensato per garantire un soggiorno indimenticabile, dove il tempo sembra fermarsi.</p></div>
+    <div class="house-note reveal" data-i18n="casa.nopets">Non è consentito l'accesso agli animali domestici.</div>
   </div>
 </section>
 
@@ -967,53 +1028,53 @@
 <div class="parallax-strip parallax-strip-tall parallax-fade-in">
   <div class="parallax-strip-inner ip-jacuzzi" data-parallax="0.12"></div>
   <div class="parallax-overlay"></div>
-  <div class="parallax-strip-text"><p>Acqua calda. Aria aperta. La vista non finisce.</p></div>
+  <div class="parallax-strip-text"><p data-i18n="casa.parallax">Acqua calda. Aria aperta. La vista non finisce.</p></div>
 </div>
 
 <!-- TARIFFE -->
 <section id="tariffe">
   <div class="section-wide">
-    <div class="reveal"><div class="section-label"><span class="section-number">04</span> Tariffe</div></div>
+    <div class="reveal"><div class="section-label"><span class="section-number">04</span> <span data-i18n="tariffe.label">Tariffe</span></div></div>
     <div class="rates-philosophy">
-      <div class="reveal reveal-delay-1"><h2>Tariffe &amp; filosofia del soggiorno</h2></div>
+      <div class="reveal reveal-delay-1"><h2 data-i18n="tariffe.title">Tariffe &amp; filosofia del soggiorno</h2></div>
       <div class="reveal reveal-delay-2">
-        <p>Nella Casa di Nonna Iolanda accogliamo persone che desiderano rallentare, muoversi nella natura e vivere l’Umbria con calma. Per questo motivo chiediamo soggiorni minimi e applichiamo tariffe che riflettono l’unicità del luogo, i servizi inclusi e la tranquillità che offriamo.</p>
+        <p data-i18n="tariffe.intro">Nella Casa di Nonna Iolanda accogliamo persone che desiderano rallentare, muoversi nella natura e vivere l’Umbria con calma. Per questo motivo chiediamo soggiorni minimi e applichiamo tariffe che riflettono l’unicità del luogo, i servizi inclusi e la tranquillità che offriamo.</p>
       </div>
     </div>
     <div class="rates-included">
       <div class="rates-included-col reveal reveal-left">
-        <h4>Cos'è incluso</h4>
+        <h4 data-i18n="tariffe.incluso">Cos'è incluso</h4>
         <ul class="rates-included-list">
-          <li>Uso esclusivo del campo da tennis privato</li>
-          <li>Uso esclusivo dell’idromassaggio panoramico per 5 persone</li>
-          <li>Uso gratuito della piscina salata del Castello di Barattano a circa 900 m (stagionale)</li>
-          <li>Momenti di gioco o palleggio con sparring partner</li>
+          <li data-i18n="tariffe.i1">Uso esclusivo del campo da tennis privato</li>
+          <li data-i18n="tariffe.i2">Uso esclusivo dell’idromassaggio panoramico per 5 persone</li>
+          <li data-i18n="tariffe.i3">Uso gratuito della piscina salata del Castello di Barattano a circa 900 m (stagionale)</li>
+          <li data-i18n="tariffe.i4">Momenti di gioco o palleggio con sparring partner</li>
         </ul>
       </div>
       <div class="rates-included-col reveal reveal-right reveal-delay-1">
-        <h4>Servizi esterni su richiesta e a pagamento</h4>
+        <h4 data-i18n="tariffe.extra.title">Servizi esterni su richiesta e a pagamento</h4>
         <ul class="rates-included-list">
-          <li>Lezioni con Maestro FIT Nazionale</li>
-          <li>Esperienza di equitazione / passeggiate nel maneggio della zona</li>
-          <li>Escursioni e percorsi di trekking immersi nella natura</li>
-          <li>Noleggio e-bike per esplorare i dintorni</li>
-          <li>Servizio spa esclusivo e massaggi su prenotazione a circa 400 m dall’abitazione</li>
+          <li data-i18n="tariffe.e1">Lezioni con Maestro FIT Nazionale</li>
+          <li data-i18n="tariffe.e2">Esperienza di equitazione / passeggiate nel maneggio della zona</li>
+          <li data-i18n="tariffe.e3">Escursioni e percorsi di trekking immersi nella natura</li>
+          <li data-i18n="tariffe.e4">Noleggio e-bike per esplorare i dintorni</li>
+          <li data-i18n="tariffe.e5">Servizio spa esclusivo e massaggi su prenotazione a circa 400 m dall’abitazione</li>
         </ul>
       </div>
     </div>
 
-    <div class="reveal"><h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:0.5rem">Tariffe 2026</h3></div>
-    <div class="reveal" style="margin-bottom:0.5rem"><p style="font-size:0.85rem;color:var(--text-muted)">Soggiorni settimanali (7 notti): sconto 12%</p></div>
+    <div class="reveal"><h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:0.5rem" data-i18n="tariffe.2026">Tariffe 2026</h3></div>
+    <div class="reveal" style="margin-bottom:0.5rem"><p style="font-size:0.85rem;color:var(--text-muted)" data-i18n="tariffe.sconto">Soggiorni settimanali (7 notti): sconto 12%</p></div>
     
     <div class="rates-table-wrap reveal">
       <table class="rates-table">
         <thead>
           <tr>
-            <th>Periodo</th>
-            <th>2 persone</th>
-            <th>3–4 persone</th>
-            <th>Pers. agg.</th>
-            <th>Soggiorno min.</th>
+            <th data-i18n="tariffe.th.periodo">Periodo</th>
+            <th data-i18n="tariffe.th.2pers">2 persone</th>
+            <th data-i18n="tariffe.th.34pers">3–4 persone</th>
+            <th data-i18n="tariffe.th.extra">Pers. agg.</th>
+            <th data-i18n="tariffe.th.min">Soggiorno min.</th>
           </tr>
         </thead>
         <tbody>
@@ -1076,36 +1137,97 @@
     </div>
 
     <div class="rates-note reveal reveal-fade" style="margin-top:4rem">
-      <h4>Una nota importante</h4>
-      <p>La nostra casa vacanze è pensata per chi ama:</p>
+      <h4 data-i18n="tariffe.nota.title">Una nota importante</h4>
+      <p data-i18n="tariffe.nota.intro">La nostra casa vacanze è pensata per chi ama:</p>
       <ul class="rates-note-list">
-        <li>il silenzio</li>
-        <li>il tempo lento</li>
-        <li>lo sport vissuto senza fretta</li>
+        <li data-i18n="tariffe.nota.1">il silenzio</li>
+        <li data-i18n="tariffe.nota.2">il tempo lento</li>
+        <li data-i18n="tariffe.nota.3">lo sport vissuto senza fretta</li>
       </ul>
-      <p>Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto per te.</p>
+      <p data-i18n="tariffe.nota.outro">Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto per te.</p>
     </div>
+  </div>
+</section>
+
+<!-- DISPONIBILITÀ -->
+<section class="cal-section" id="disponibilita">
+  <div class="cal-wrap">
+    <div class="reveal"><div class="section-label"><span class="section-number">05</span> <span data-i18n="cal.label">Disponibilità</span></div></div>
+    <div class="reveal reveal-delay-1" style="margin-bottom:2rem"><p style="max-width:600px;margin:0 auto;text-align:center;color:var(--text-light)" data-i18n="cal.intro">Controlla le date disponibili e contattaci per prenotare il tuo soggiorno.</p></div>
+    <div class="cal-header reveal reveal-delay-2">
+      <button class="cal-nav" id="calPrev" aria-label="Mese precedente">&#8249;</button>
+      <div class="cal-month-label" id="calMonthLabel"></div>
+      <button class="cal-nav" id="calNext" aria-label="Mese successivo">&#8250;</button>
+    </div>
+    <div class="cal-grid-wrap reveal reveal-delay-2" id="calGrids"></div>
+    <div class="cal-legend reveal">
+      <div class="cal-legend-item"><div class="cal-legend-dot avail"></div><span data-i18n="cal.available">Disponibile</span></div>
+      <div class="cal-legend-item"><div class="cal-legend-dot booked"></div><span data-i18n="cal.booked">Occupato</span></div>
+    </div>
+    <div class="cal-note reveal" data-i18n="cal.note">Il calendario viene aggiornato regolarmente. Per conferma, contattaci direttamente.</div>
+    <div class="cal-selection-info" id="calSelectionInfo"></div>
+
+    <!-- BOOKING FORM - appears after date selection -->
+    <div class="cal-booking-form" id="calBookingForm">
+      <h3 data-i18n="cal.form.title">Richiedi prenotazione</h3>
+      <div class="cal-booking-dates" id="calBookingDates"></div>
+      <form action="https://formsubmit.co/info@lacasadinonnaiolanda.com" method="POST" class="cal-form">
+        <input type="hidden" name="_subject" value="Nuova richiesta di prenotazione dal sito">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+        <input type="hidden" name="Check-in" id="calFormCheckin">
+        <input type="hidden" name="Check-out" id="calFormCheckout">
+        <input type="hidden" name="Notti" id="calFormNights">
+        <div class="cal-form-row">
+          <input type="text" name="Nome" placeholder="Nome e cognome" required>
+          <input type="email" name="Email" placeholder="Email" required>
+        </div>
+        <div class="cal-form-row">
+          <input type="tel" name="Telefono" placeholder="Telefono">
+          <select name="Ospiti" required>
+            <option value="" disabled selected data-i18n-placeholder="cal.form.guests">Numero ospiti</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5+">5+</option>
+          </select>
+        </div>
+        <textarea name="Messaggio" placeholder="Note o richieste particolari" rows="3"></textarea>
+        <button type="submit" class="cal-form-submit" data-i18n="cal.form.submit">Invia richiesta di prenotazione</button>
+      </form>
+      <div class="cal-form-alt">
+        <span data-i18n="cal.form.alt">Oppure contattaci direttamente:</span>
+        <a id="calCtaLink" href="https://wa.me/393487655756?text=Ciao,%20vorrei%20verificare%20la%20disponibilit%C3%A0%20per%20un%20soggiorno%20alla%20Casa%20di%20Nonna%20Iolanda." target="_blank" rel="noopener" class="cal-wa-link">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Before date selection, show simple prompt -->
+    <div class="cal-cta reveal" id="calPrompt"><p style="text-align:center;color:var(--text-muted);font-size:0.85rem" data-i18n="cal.prompt">Seleziona le date sul calendario per richiedere una prenotazione</p></div>
   </div>
 </section>
 
 <!-- UMBRIA -->
 <section>
   <div class="section-narrow">
-    <div class="reveal"><div class="umbria-quote">L’Umbria ha il suo ritmo. Il cibo è diretto. Il vino è locale. Le persone non spiegano il luogo. Ci vivono.</div></div>
-    <div class="reveal reveal-delay-1"><p>La Casa di Nonna Iolanda si trova a Torri di Barattano, lungo la strada del Sagrantino, tra i borghi senza tempo di Todi, Montefalco e Bevagna. Un tratto d’Umbria dove il paesaggio è ininterrotto. Uliveti. Muri a secco. Campi aperti. Nessuna segnaletica. Nessun vicino in vista.</p></div>
+    <div class="reveal"><div class="umbria-quote" data-i18n="umbria.quote">L’Umbria ha il suo ritmo. Il cibo è diretto. Il vino è locale. Le persone non spiegano il luogo. Ci vivono.</div></div>
+    <div class="reveal reveal-delay-1"><p data-i18n="umbria.text">La Casa di Nonna Iolanda si trova a Torri di Barattano, lungo la strada del Sagrantino, tra i borghi senza tempo di Todi, Montefalco e Bevagna. Un tratto d’Umbria dove il paesaggio è ininterrotto. Uliveti. Muri a secco. Campi aperti. Nessuna segnaletica. Nessun vicino in vista.</p></div>
     <div class="logistics reveal reveal-delay-2">
       <div class="logistics-item"><div class="logistics-label">Perugia</div><div class="logistics-value">30 min</div></div>
       <div class="logistics-item"><div class="logistics-label">Spoleto</div><div class="logistics-value">30 min</div></div>
       <div class="logistics-item"><div class="logistics-label">Roma — Fiumicino</div><div class="logistics-value">90 min</div></div>
     </div>
-    <div class="reveal reveal-delay-3" style="margin-top:2rem"><p style="font-size:0.85rem;color:var(--text-muted)">Aeroporti più vicini: Perugia (PEG), Roma Fiumicino (FCO), Firenze (FLR).<br>Transfer privati organizzabili su richiesta.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).</p></div>
+    <div class="reveal reveal-delay-3" style="margin-top:2rem"><p style="font-size:0.85rem;color:var(--text-muted)" data-i18n="umbria.aeroporti">Aeroporti più vicini: Perugia (PEG), Roma Fiumicino (FCO), Firenze (FLR).<br>Transfer privati organizzabili su richiesta.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).</p></div>
   </div>
 </section>
 
 <!-- CONTATTI -->
 <section class="contact-section" id="contatti">
   <div class="contact-header reveal">
-    <h2 class="contact-title">Contatti</h2>
+    <h2 class="contact-title" data-i18n="contatti.title">Contatti</h2>
   </div>
 
   <div class="contact-top reveal">
@@ -1153,7 +1275,7 @@
   </div>
 
   <div class="contact-form-wrap reveal reveal-delay-1">
-    <h3 class="contact-form-title">Richiedi informazioni</h3>
+    <h3 class="contact-form-title" data-i18n="contatti.form.title">Richiedi informazioni</h3>
     <form class="contact-form" action="https://formsubmit.co/info@lacasadinonnaiolanda.com" method="POST">
       <input type="hidden" name="_subject" value="Nuova richiesta dal sito">
       <input type="hidden" name="_captcha" value="false">
@@ -1168,7 +1290,7 @@
         <input type="text" name="ospiti" placeholder="Numero ospiti">
       </div>
       <textarea name="messaggio" placeholder="Il tuo messaggio" rows="4"></textarea>
-      <button type="submit" class="contact-submit">Invia richiesta</button>
+      <button type="submit" class="contact-submit" data-i18n="contatti.form.submit">Invia richiesta</button>
     </form>
   </div>
 </section>
@@ -1178,17 +1300,17 @@
   <div class="footer-main">
     <div class="footer-brand">
       <div class="footer-name">La Casa di Nonna Iolanda</div>
-      <p class="footer-tagline">Casa vacanze con campo da tennis privato nel cuore dell'Umbria. Un rifugio in pietra dove il tempo rallenta e il paesaggio non finisce.</p>
+      <p class="footer-tagline" data-i18n="footer.desc">Casa vacanze con campo da tennis privato nel cuore dell'Umbria. Un rifugio in pietra dove il tempo rallenta e il paesaggio non finisce.</p>
     </div>
     <div class="footer-nav">
-      <h4>Esplora</h4>
-      <a href="#luogo">Il Luogo</a>
-      <a href="#esperienze">Esperienze</a>
-      <a href="#casa">La Casa</a>
-      <a href="#tariffe">Tariffe</a>
+      <h4 data-i18n="footer.esplora">Esplora</h4>
+      <a href="#luogo" data-i18n="nav.luogo">Il Luogo</a>
+      <a href="#esperienze" data-i18n="nav.esperienze">Esperienze</a>
+      <a href="#casa" data-i18n="nav.casa">La Casa</a>
+      <a href="#tariffe" data-i18n="nav.tariffe">Tariffe</a>
     </div>
     <div class="footer-contact">
-      <h4>Contatti</h4>
+      <h4 data-i18n="nav.contatti">Contatti</h4>
       <a href="tel:+393487655756">+39 348 765 5756</a>
       <a href="mailto:info@lacasadinonnaiolanda.com">info@lacasadinonnaiolanda.com</a>
       <a href="https://instagram.com/casavacanzedinonnaiolanda" target="_blank" rel="noopener">@casavacanzedinonnaiolanda</a>
@@ -1201,16 +1323,16 @@
       <a href="privacy.html">Privacy Policy</a>
       <a href="cookie.html">Cookie Policy</a>
     </div>
-    <div class="footer-payoff">Natura, Sport e Silenzio.</div>
+    <div class="footer-payoff" data-i18n="footer.payoff">Natura, Sport e Silenzio.</div>
   </div>
 </footer>
 
 <!-- COOKIE BANNER -->
 <div class="cookie-banner" id="cookieBanner">
-  <p>Utilizziamo cookie tecnici per garantire il corretto funzionamento del sito. <a href="cookie.html">Scopri di pi&ugrave;</a></p>
+  <p data-i18n="cookie.text">Utilizziamo cookie tecnici per garantire il corretto funzionamento del sito. <a href="cookie.html" data-i18n="cookie.more">Scopri di pi&ugrave;</a></p>
   <div class="cookie-buttons">
-    <button class="cookie-btn cookie-btn-reject" onclick="rejectCookies()">Rifiuta</button>
-    <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Accetta</button>
+    <button class="cookie-btn cookie-btn-reject" onclick="rejectCookies()" data-i18n="cookie.reject">Rifiuta</button>
+    <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()" data-i18n="cookie.accept">Accetta</button>
   </div>
 </div>
 
@@ -1258,15 +1380,469 @@ document.addEventListener('click', e => {
     mc.classList.remove('maps-choice-visible');
   }
 });
+// === TRANSLATION ENGINE ===
+const T={
+"nav.luogo":{it:"Il Luogo",en:"The Place",fr:"Le Lieu",de:"Der Ort"},
+"nav.esperienze":{it:"Esperienze",en:"Experiences",fr:"Expériences",de:"Erlebnisse"},
+"nav.casa":{it:"La Casa",en:"The House",fr:"La Maison",de:"Das Haus"},
+"nav.tariffe":{it:"Tariffe",en:"Rates",fr:"Tarifs",de:"Preise"},
+"nav.prenota":{it:"Verifica disponibilità",en:"Check availability",fr:"Vérifier disponibilité",de:"Verfügbarkeit prüfen"},
+"nav.contatti":{it:"Contatti",en:"Contact",fr:"Contact",de:"Kontakt"},
+"hero.pre":{it:"Natura, Sport e Silenzio",en:"Nature, Sport and Silence",fr:"Nature, Sport et Silence",de:"Natur, Sport und Stille"},
+"hero.title1":{it:"Il tuo rifugio<br>in <em>Umbria.</em>",en:"Your retreat<br>in <em>Umbria.</em>",fr:"Votre refuge<br>en <em>Ombrie.</em>",de:"Ihr Rückzugsort<br>in <em>Umbrien.</em>"},
+"hero.tagline":{it:"Casa vacanze con campo da tennis privato e benessere panoramico.",en:"Holiday home with private tennis court and panoramic wellness.",fr:"Maison de vacances avec court de tennis privé et bien-être panoramique.",de:"Ferienhaus mit privatem Tennisplatz und Panorama-Wellness."},
+"hero.scroll":{it:"Scorri",en:"Scroll",fr:"Défiler",de:"Scrollen"},
+"luogo.label":{it:"Il Luogo e la Filosofia",en:"The Place and Philosophy",fr:"Le Lieu et la Philosophie",de:"Der Ort und die Philosophie"},
+"luogo.title":{it:"Un rifugio nel cuore dell\u2019Umbria.",en:"A retreat in the heart of Umbria.",fr:"Un refuge au c\u0153ur de l\u2019Ombrie.",de:"Ein Rückzugsort im Herzen Umbriens."},
+"luogo.p1":{it:"Casa di Nonna Iolanda è un rifugio nel cuore dell\u2019Umbria, a Torri, un piccolo borgo di Gualdo Cattaneo. Qui il paesaggio è rimasto intatto. Poche case, pochissime persone, silenzio reale.",en:"Casa di Nonna Iolanda is a retreat in the heart of Umbria, in Torri, a small hamlet of Gualdo Cattaneo. Here the landscape has remained untouched. Few houses, very few people, real silence.",fr:"Casa di Nonna Iolanda est un refuge au c\u0153ur de l\u2019Ombrie, à Torri, un petit bourg de Gualdo Cattaneo. Ici le paysage est resté intact. Peu de maisons, très peu de monde, un silence réel.",de:"Casa di Nonna Iolanda ist ein Rückzugsort im Herzen Umbriens, in Torri, einem kleinen Weiler von Gualdo Cattaneo. Hier ist die Landschaft unberührt geblieben. Wenige Häuser, sehr wenige Menschen, echte Stille."},
+"luogo.p2":{it:"È un borgo fermo nel tempo, lontano dai flussi turistici. Ed è proprio questa la sua unicità.",en:"It is a village frozen in time, far from tourist flows. And that is precisely its uniqueness.",fr:"C\u2019est un village figé dans le temps, loin des flux touristiques. Et c\u2019est précisément cela qui fait son unicité.",de:"Es ist ein in der Zeit stehengebliebenes Dorf, fernab touristischer Ströme. Und genau das macht seine Einzigartigkeit aus."},
+"luogo.p3":{it:"Casa di Nonna Iolanda non è un resort. Non è un agriturismo tradizionale. È una casa privata immersa in un contesto autentico, dove il vero lusso non è ostentato: è il tempo che si dilata.",en:"Casa di Nonna Iolanda is not a resort. It is not a traditional farmhouse. It is a private home immersed in an authentic setting, where true luxury is not ostentatious: it is time that expands.",fr:"Casa di Nonna Iolanda n\u2019est pas un resort. Ce n\u2019est pas un agritourisme traditionnel. C\u2019est une maison privée immergée dans un contexte authentique, où le vrai luxe n\u2019est pas ostentatoire : c\u2019est le temps qui se dilate.",de:"Casa di Nonna Iolanda ist kein Resort. Es ist kein traditioneller Agriturismo. Es ist ein privates Haus in authentischer Umgebung, wo wahrer Luxus nicht zur Schau gestellt wird: Es ist die Zeit, die sich ausdehnt."},
+"luogo.highlight":{it:"Qui trovi il lusso che non si può comprare altrove: il tempo che sembra fermarsi, rallentare, ampliarsi.",en:"Here you find a luxury that cannot be bought elsewhere: time that seems to stop, slow down, expand.",fr:"Ici vous trouvez le luxe qu\u2019on ne peut acheter ailleurs : le temps qui semble s\u2019arrêter, ralentir, s\u2019amplifier.",de:"Hier finden Sie einen Luxus, den man anderswo nicht kaufen kann: Zeit, die stillzustehen, sich zu verlangsamen, sich auszudehnen scheint."},
+"luogo.p4":{it:"Ogni esperienza si vive con intensità. Anche il semplice tragitto dalla casa al campo da tennis diventa un momento di presenza.",en:"Every experience is lived with intensity. Even the simple walk from the house to the tennis court becomes a moment of presence.",fr:"Chaque expérience se vit avec intensité. Même le simple trajet de la maison au court de tennis devient un moment de présence.",de:"Jedes Erlebnis wird mit Intensität gelebt. Selbst der einfache Weg vom Haus zum Tennisplatz wird zu einem Moment der Präsenz."},
+"luogo.p5":{it:"Il silenzio non è costruito. È naturale. La quiete non è un servizio. È parte del luogo.",en:"The silence is not manufactured. It is natural. Tranquility is not a service. It is part of the place.",fr:"Le silence n\u2019est pas fabriqué. Il est naturel. La quiétude n\u2019est pas un service. Elle fait partie du lieu.",de:"Die Stille ist nicht künstlich. Sie ist natürlich. Die Ruhe ist keine Dienstleistung. Sie ist Teil des Ortes."},
+"luogo.p6":{it:"Eppure, pur immersa nella lentezza, la vacanza può essere dinamica. Il campo da tennis privato, la piscina salata, l\u2019idromassaggio panoramico, i sentieri tra gli ulivi, le attività nella natura e le esperienze personalizzate permettono di alternare energia e rilascio.",en:"Yet, while immersed in slowness, the holiday can be dynamic. The private tennis court, the salt pool, the panoramic hot tub, the trails through olive groves, outdoor activities and personalised experiences allow you to alternate between energy and release.",fr:"Pourtant, tout en étant immergé dans la lenteur, les vacances peuvent être dynamiques. Le court de tennis privé, la piscine salée, le jacuzzi panoramique, les sentiers à travers les oliviers, les activités en plein air et les expériences personnalisées permettent d\u2019alterner énergie et détente.",de:"Und doch kann der Urlaub, obwohl in Langsamkeit eingetaucht, dynamisch sein. Der private Tennisplatz, der Salzwasserpool, der Panorama-Whirlpool, die Wege durch Olivenhaine, Outdoor-Aktivitäten und individuelle Erlebnisse ermöglichen es, zwischen Energie und Entspannung zu wechseln."},
+"luogo.filosofia":{it:"Questa è la nostra filosofia: offrire un\u2019esperienza esclusiva non perché lussuosa nel senso convenzionale, ma perché rara.",en:"This is our philosophy: to offer an exclusive experience not because it is luxurious in the conventional sense, but because it is rare.",fr:"Telle est notre philosophie : offrir une expérience exclusive non pas parce que luxueuse au sens conventionnel, mais parce que rare.",de:"Das ist unsere Philosophie: ein exklusives Erlebnis zu bieten \u2013 nicht weil es im herkömmlichen Sinne luxuriös ist, sondern weil es selten ist."},
+"luogo.p7":{it:"Una casa unica nel suo genere, situata in un borgo che ha scelto di restare autentico. Qui l\u2019esclusività non è isolamento. È autenticità. E questo è il vero privilegio.",en:"A one-of-a-kind house, set in a village that has chosen to remain authentic. Here exclusivity is not isolation. It is authenticity. And that is the true privilege.",fr:"Une maison unique en son genre, située dans un bourg qui a choisi de rester authentique. Ici l\u2019exclusivité n\u2019est pas l\u2019isolement. C\u2019est l\u2019authenticité. Et c\u2019est le vrai privilège.",de:"Ein einzigartiges Haus in einem Dorf, das sich entschieden hat, authentisch zu bleiben. Hier ist Exklusivität keine Isolation. Es ist Authentizität. Und das ist das wahre Privileg."},
+"exp.label":{it:"Esperienze",en:"Experiences",fr:"Expériences",de:"Erlebnisse"},
+"exp.intro":{it:"Ogni attività non è solo qualcosa da fare, ma un modo diverso di vivere il tempo.",en:"Each activity is not just something to do, but a different way of experiencing time.",fr:"Chaque activité n\u2019est pas seulement quelque chose à faire, mais une façon différente de vivre le temps.",de:"Jede Aktivität ist nicht nur etwas zu tun, sondern eine andere Art, die Zeit zu erleben."},
+"exp.intro2":{it:"Puoi scegliere di muoverti, rallentare, respirare. Qui ogni esperienza ha spazio per essere vissuta davvero.",en:"You can choose to move, slow down, breathe. Here every experience has space to be truly lived.",fr:"Vous pouvez choisir de bouger, ralentir, respirer. Ici chaque expérience a l\u2019espace pour être vraiment vécue.",de:"Sie können sich bewegen, verlangsamen, atmen. Hier hat jedes Erlebnis Raum, wirklich gelebt zu werden."},
+"exp.incluso":{it:"Incluso nel soggiorno",en:"Included in your stay",fr:"Inclus dans le séjour",de:"Im Aufenthalt enthalten"},
+"exp.tennis.title":{it:"Campo da tennis privato",en:"Private tennis court",fr:"Court de tennis privé",de:"Privater Tennisplatz"},
+"exp.tennis.text":{it:"Gioca su un campo in erba sintetica di ultima generazione, progettata per un gioco costante e costruita per sembrare il prato che la circonda. Il campo è a uso esclusivo degli ospiti, disponibile in ogni momento del soggiorno. Se hai bisogno di un compagno di gioco, chiedici disponibilità in anticipo.",en:"Play on a state-of-the-art synthetic grass court, designed for consistent play and built to blend with the surrounding lawn. The court is for exclusive use of guests, available at any time during your stay. If you need a playing partner, ask us in advance.",fr:"Jouez sur un court en gazon synthétique de dernière génération, conçu pour un jeu constant et construit pour se fondre dans la pelouse environnante. Le court est à usage exclusif des hôtes, disponible à tout moment du séjour. Si vous avez besoin d\u2019un partenaire de jeu, demandez-nous à l\u2019avance.",de:"Spielen Sie auf einem hochmodernen Kunstrasenplatz, der für beständiges Spiel konzipiert und so gebaut wurde, dass er sich in den umgebenden Rasen einfügt. Der Platz steht den Gästen exklusiv zur Verfügung, jederzeit während Ihres Aufenthalts. Wenn Sie einen Spielpartner benötigen, fragen Sie uns im Voraus."},
+"exp.jacuzzi.title":{it:"Idromassaggio panoramico",en:"Panoramic hot tub",fr:"Jacuzzi panoramique",de:"Panorama-Whirlpool"},
+"exp.jacuzzi.text":{it:"Idromassaggio panoramico da 5 posti, con vista sul campo da tennis. Uno spazio dedicato al rilascio e al recupero, per distendere il corpo e alleggerire la mente in un contesto di silenzio autentico.",en:"Panoramic 5-seat hot tub with views over the tennis court. A space dedicated to release and recovery, to relax the body and lighten the mind in a setting of authentic silence.",fr:"Jacuzzi panoramique de 5 places, avec vue sur le court de tennis. Un espace dédié à la détente et à la récupération, pour relâcher le corps et alléger l\u2019esprit dans un contexte de silence authentique.",de:"Panorama-Whirlpool mit 5 Plätzen und Blick auf den Tennisplatz. Ein Raum für Entspannung und Erholung, um den Körper zu lockern und den Geist zu befreien \u2013 in echter Stille."},
+"exp.piscina.title":{it:"Piscina salata del Castello di Barattano",en:"Saltwater pool at Castello di Barattano",fr:"Piscine salée du Castello di Barattano",de:"Salzwasserpool am Castello di Barattano"},
+"exp.piscina.text":{it:"A 900 metri dalla casa. Nuotare qui significa godere della vista sulle colline umbre e di un\u2019atmosfera riservata, lontana da ambienti affollati. Un\u2019esperienza semplice, ma profondamente rigenerante.",en:"900 metres from the house. Swimming here means enjoying views of the Umbrian hills and a reserved atmosphere, far from crowded settings. A simple yet deeply rejuvenating experience.",fr:"À 900 mètres de la maison. Nager ici signifie profiter de la vue sur les collines ombriennes et d\u2019une atmosphère réservée, loin des lieux bondés. Une expérience simple mais profondément régénérante.",de:"900 Meter vom Haus entfernt. Hier schwimmen bedeutet, den Blick auf die umbrischen Hügel und eine ruhige Atmosphäre zu genießen, fernab von überfüllten Orten. Ein einfaches, aber zutiefst erholsames Erlebnis."},
+"exp.trekking.title":{it:"Trekking ed escursioni nella natura",en:"Trekking and nature hikes",fr:"Trekking et randonnées dans la nature",de:"Trekking und Naturwanderungen"},
+"exp.trekking.text":{it:"Qui il trekking diventa un modo per entrare in contatto con il territorio e vivere il vero lusso del luogo: il tempo che rallenta e si dilata. Camminare qui non è solo movimento, ma presenza.",en:"Here trekking becomes a way to connect with the land and experience the true luxury of the place: time slowing down and expanding. Walking here is not just movement, but presence.",fr:"Ici le trekking devient un moyen d\u2019entrer en contact avec le territoire et de vivre le vrai luxe du lieu : le temps qui ralentit et se dilate. Marcher ici n\u2019est pas seulement du mouvement, mais de la présence.",de:"Hier wird Trekking zu einer Möglichkeit, mit dem Land in Kontakt zu treten und den wahren Luxus des Ortes zu erleben: Zeit, die sich verlangsamt und ausdehnt. Hier zu wandern ist nicht nur Bewegung, sondern Präsenz."},
+"exp.extra":{it:"Su richiesta / Extra",en:"On request / Extras",fr:"Sur demande / Extras",de:"Auf Anfrage / Extras"},
+"exp.fit.title":{it:"Lezioni con Maestro FIT Nazionale",en:"Lessons with National FIT Coach",fr:"Leçons avec Maître FIT National",de:"Unterricht mit nationalem FIT-Trainer"},
+"exp.fit.text":{it:"Se vuoi migliorare la tecnica, un Maestro Nazionale FIT è disponibile su richiesta. Una partita leggera o un allenamento strutturato. Qui il tennis si adatta al tuo ritmo.",en:"If you want to improve your technique, a National FIT Coach is available on request. A light match or a structured workout. Here tennis adapts to your rhythm.",fr:"Si vous souhaitez améliorer votre technique, un Maître National FIT est disponible sur demande. Un match léger ou un entraînement structuré. Ici le tennis s\u2019adapte à votre rythme.",de:"Wenn Sie Ihre Technik verbessern möchten, steht ein nationaler FIT-Trainer auf Anfrage zur Verfügung. Ein lockeres Match oder ein strukturiertes Training. Hier passt sich Tennis Ihrem Rhythmus an."},
+"exp.equitazione.title":{it:"Equitazione e passeggiate a cavallo",en:"Horse riding and countryside rides",fr:"Équitation et promenades à cheval",de:"Reiten und Ausritte auf dem Land"},
+"exp.equitazione.text":{it:"Escursioni guidate nella campagna circostante per una connessione profonda con la natura.",en:"Guided excursions through the surrounding countryside for a deep connection with nature.",fr:"Excursions guidées dans la campagne environnante pour une connexion profonde avec la nature.",de:"Geführte Ausritte durch die umliegende Landschaft für eine tiefe Verbindung mit der Natur."},
+"exp.ebike.title":{it:"Noleggio e-bike / Vespa",en:"E-bike / Vespa rental",fr:"Location e-bike / Vespa",de:"E-Bike / Vespa Verleih"},
+"exp.ebike.text":{it:"Esplora i dintorni con libertà e senza fatica, vivendo un\u2019esperienza immersiva nel paesaggio umbro.",en:"Explore the surroundings freely and effortlessly, living an immersive experience in the Umbrian landscape.",fr:"Explorez les environs avec liberté et sans effort, en vivant une expérience immersive dans le paysage ombrien.",de:"Erkunden Sie die Umgebung frei und mühelos und erleben Sie das umbrische Landschaftsbild hautnah."},
+"exp.spa.title":{it:"Servizio spa e massaggi",en:"Spa and massage service",fr:"Service spa et massages",de:"Spa- und Massageservice"},
+"exp.spa.text":{it:"Trattamenti esclusivi a circa 400 m dalla casa, per il massimo del relax e del benessere.",en:"Exclusive treatments approximately 400 m from the house, for ultimate relaxation and wellness.",fr:"Soins exclusifs à environ 400 m de la maison, pour un maximum de détente et de bien-être.",de:"Exklusive Behandlungen ca. 400 m vom Haus entfernt, für maximale Entspannung und Wohlbefinden."},
+"casa.label":{it:"La Casa",en:"The House",fr:"La Maison",de:"Das Haus"},
+"casa.subtitle":{it:"Pietra, legno, luce.",en:"Stone, wood, light.",fr:"Pierre, bois, lumière.",de:"Stein, Holz, Licht."},
+"casa.intro":{it:"Benvenuti in una splendida casa di pietra umbra, 110 metri quadrati di spazio perfetto per il relax e la convivialità. Restaurata con cura, questa struttura mantiene il suo fascino originale, offrendo un rifugio ideale per chi cerca tranquillità e autenticità.",en:"Welcome to a splendid Umbrian stone house, 110 square metres of space perfect for relaxation and conviviality. Carefully restored, this property retains its original charm, offering an ideal retreat for those seeking tranquility and authenticity.",fr:"Bienvenue dans une splendide maison de pierre ombrienne, 110 mètres carrés d\u2019espace parfait pour la détente et la convivialité. Soigneusement restaurée, cette structure conserve son charme d\u2019origine, offrant un refuge idéal pour ceux qui recherchent tranquillité et authenticité.",de:"Willkommen in einem wunderschönen umbrischen Steinhaus, 110 Quadratmeter perfekt für Entspannung und Geselligkeit. Sorgfältig restauriert, behält dieses Anwesen seinen ursprünglichen Charme und bietet einen idealen Rückzugsort für alle, die Ruhe und Authentizität suchen."},
+"casa.cortile":{it:"Cortile",en:"Courtyard",fr:"Cour",de:"Innenhof"},
+"casa.soggiorno":{it:"Soggiorno",en:"Living room",fr:"Salon",de:"Wohnzimmer"},
+"casa.cucina":{it:"Cucina",en:"Kitchen",fr:"Cuisine",de:"Küche"},
+"casa.camera2":{it:"Seconda camera",en:"Second bedroom",fr:"Deuxième chambre",de:"Zweites Schlafzimmer"},
+"casa.matrimoniale":{it:"Camera matrimoniale — Soppalco",en:"Master bedroom — Loft",fr:"Chambre double — Mezzanine",de:"Doppelzimmer — Galerie"},
+"casa.bagno":{it:"Bagno",en:"Bathroom",fr:"Salle de bain",de:"Bad"},
+"casa.doccia":{it:"Doccia",en:"Shower",fr:"Douche",de:"Dusche"},
+"casa.camere.title":{it:"Camere",en:"Bedrooms",fr:"Chambres",de:"Schlafzimmer"},
+"casa.camere.text":{it:"La camera matrimoniale è situata nel soppalco, dotata di un ampio letto matrimoniale e un letto singolo. È possibile richiedere anche una culla e un passeggino. La seconda camera dispone di un letto a castello.",en:"The master bedroom is located in the loft, with a double bed and a single bed. A cot and stroller can also be requested. The second bedroom has a bunk bed.",fr:"La chambre principale est située dans la mezzanine, dotée d\u2019un grand lit double et d\u2019un lit simple. Il est possible de demander un lit bébé et une poussette. La deuxième chambre dispose d\u2019un lit superposé.",de:"Das Hauptschlafzimmer befindet sich auf der Galerie mit einem Doppelbett und einem Einzelbett. Ein Kinderbett und Kinderwagen können angefordert werden. Das zweite Schlafzimmer hat ein Etagenbett."},
+"casa.cucina.title":{it:"Cucina",en:"Kitchen",fr:"Cuisine",de:"Küche"},
+"casa.cucina.text":{it:"Cucina completamente attrezzata con piano cottura a induzione, ideale per preparare i tuoi pasti in autonomia.",en:"Fully equipped kitchen with induction hob, ideal for preparing your meals independently.",fr:"Cuisine entièrement équipée avec plaque à induction, idéale pour préparer vos repas en toute autonomie.",de:"Voll ausgestattete Küche mit Induktionskochfeld, ideal für die selbstständige Zubereitung Ihrer Mahlzeiten."},
+"casa.bagni.title":{it:"Bagni",en:"Bathrooms",fr:"Salles de bain",de:"Bäder"},
+"casa.bagni.text":{it:"Due bagni completi, entrambi con doccia.",en:"Two full bathrooms, both with shower.",fr:"Deux salles de bain complètes, toutes deux avec douche.",de:"Zwei komplette Badezimmer, beide mit Dusche."},
+"casa.spazi.title":{it:"Spazi comuni",en:"Common areas",fr:"Espaces communs",de:"Gemeinschaftsräume"},
+"casa.spazi.text":{it:"Ampio soggiorno con spazi accoglienti e luminosi. Parcheggio disponibile a pochi metri dalla casa, sulla piazzetta principale.",en:"Spacious living room with welcoming, bright spaces. Parking available a few metres from the house, on the main square.",fr:"Grand salon avec des espaces accueillants et lumineux. Parking disponible à quelques mètres de la maison, sur la placette principale.",de:"Geräumiges Wohnzimmer mit einladenden, hellen Räumen. Parkplatz wenige Meter vom Haus entfernt am Hauptplatz."},
+"casa.note1":{it:"La casa è caratterizzata da soffitti a travi e pavimenti in parquet chiaro, creando un ambiente caldo e accogliente. Ogni dettaglio è pensato per garantire un soggiorno indimenticabile, dove il tempo sembra fermarsi.",en:"The house features exposed beam ceilings and light parquet floors, creating a warm and welcoming atmosphere. Every detail is designed to ensure an unforgettable stay where time seems to stand still.",fr:"La maison se caractérise par des plafonds à poutres apparentes et des sols en parquet clair, créant une ambiance chaleureuse et accueillante. Chaque détail est pensé pour garantir un séjour inoubliable, où le temps semble s\u2019arrêter.",de:"Das Haus zeichnet sich durch sichtbare Holzbalkendecken und hellen Parkettboden aus und schafft eine warme, einladende Atmosphäre. Jedes Detail ist darauf ausgelegt, einen unvergesslichen Aufenthalt zu gewährleisten, bei dem die Zeit stillzustehen scheint."},
+"casa.nopets":{it:"Non è consentito l\u2019accesso agli animali domestici.",en:"Pets are not allowed.",fr:"Les animaux domestiques ne sont pas admis.",de:"Haustiere sind nicht gestattet."},
+"casa.parallax":{it:"Acqua calda. Aria aperta. La vista non finisce.",en:"Hot water. Open air. The view never ends.",fr:"Eau chaude. Plein air. La vue ne finit jamais.",de:"Heißes Wasser. Frische Luft. Der Blick endet nie."},
+"tariffe.label":{it:"Tariffe",en:"Rates",fr:"Tarifs",de:"Preise"},
+"tariffe.title":{it:"Tariffe & filosofia del soggiorno",en:"Rates & stay philosophy",fr:"Tarifs & philosophie du séjour",de:"Preise & Aufenthaltsphilosophie"},
+"tariffe.intro":{it:"Nella Casa di Nonna Iolanda accogliamo persone che desiderano rallentare, muoversi nella natura e vivere l\u2019Umbria con calma. Per questo motivo chiediamo soggiorni minimi e applichiamo tariffe che riflettono l\u2019unicità del luogo, i servizi inclusi e la tranquillità che offriamo.",en:"At Casa di Nonna Iolanda we welcome people who wish to slow down, move in nature and experience Umbria at a calm pace. For this reason we require minimum stays and apply rates that reflect the uniqueness of the place, the included services and the tranquility we offer.",fr:"À la Casa di Nonna Iolanda, nous accueillons des personnes qui souhaitent ralentir, se mouvoir dans la nature et vivre l\u2019Ombrie en toute sérénité. C\u2019est pourquoi nous demandons des séjours minimum et appliquons des tarifs qui reflètent l\u2019unicité du lieu, les services inclus et la tranquillité que nous offrons.",de:"In der Casa di Nonna Iolanda empfangen wir Menschen, die entschleunigen, sich in der Natur bewegen und Umbrien in Ruhe erleben möchten. Deshalb verlangen wir Mindestaufenthalte und berechnen Preise, die die Einzigartigkeit des Ortes, die enthaltenen Leistungen und die Ruhe widerspiegeln, die wir bieten."},
+"tariffe.incluso":{it:"Cos\u2019è incluso",en:"What\u2019s included",fr:"Ce qui est inclus",de:"Was enthalten ist"},
+"tariffe.i1":{it:"Uso esclusivo del campo da tennis privato",en:"Exclusive use of the private tennis court",fr:"Usage exclusif du court de tennis privé",de:"Exklusivnutzung des privaten Tennisplatzes"},
+"tariffe.i2":{it:"Uso esclusivo dell\u2019idromassaggio panoramico per 5 persone",en:"Exclusive use of the panoramic hot tub for 5 people",fr:"Usage exclusif du jacuzzi panoramique pour 5 personnes",de:"Exklusivnutzung des Panorama-Whirlpools für 5 Personen"},
+"tariffe.i3":{it:"Uso gratuito della piscina salata del Castello di Barattano a circa 900 m (stagionale)",en:"Free use of Castello di Barattano saltwater pool approx. 900 m away (seasonal)",fr:"Accès gratuit à la piscine salée du Castello di Barattano à environ 900 m (saisonnier)",de:"Kostenloser Zugang zum Salzwasserpool des Castello di Barattano ca. 900 m entfernt (saisonal)"},
+"tariffe.i4":{it:"Momenti di gioco o palleggio con sparring partner",en:"Play sessions or hitting with a sparring partner",fr:"Moments de jeu ou échange avec un partenaire d\u2019entraînement",de:"Spieleinheiten oder Ballwechsel mit Sparring-Partner"},
+"tariffe.extra.title":{it:"Servizi esterni su richiesta e a pagamento",en:"External services on request and at extra cost",fr:"Services externes sur demande et payants",de:"Externe Leistungen auf Anfrage und gegen Aufpreis"},
+"tariffe.e1":{it:"Lezioni con Maestro FIT Nazionale",en:"Lessons with National FIT Coach",fr:"Leçons avec Maître FIT National",de:"Unterricht mit nationalem FIT-Trainer"},
+"tariffe.e2":{it:"Esperienza di equitazione / passeggiate nel maneggio della zona",en:"Horse riding experience / rides at the local stables",fr:"Expérience d\u2019équitation / promenades au manège de la zone",de:"Reiterlebnis / Ausritte in der örtlichen Reitanlage"},
+"tariffe.e3":{it:"Escursioni e percorsi di trekking immersi nella natura",en:"Hikes and trekking trails immersed in nature",fr:"Excursions et sentiers de trekking en pleine nature",de:"Wanderungen und Trekking-Pfade in der Natur"},
+"tariffe.e4":{it:"Noleggio e-bike per esplorare i dintorni",en:"E-bike rental to explore the surroundings",fr:"Location d\u2019e-bike pour explorer les environs",de:"E-Bike-Verleih zur Erkundung der Umgebung"},
+"tariffe.e5":{it:"Servizio spa esclusivo e massaggi su prenotazione a circa 400 m dall\u2019abitazione",en:"Exclusive spa service and massages by reservation approx. 400 m from the house",fr:"Service spa exclusif et massages sur réservation à environ 400 m de la maison",de:"Exklusiver Spa-Service und Massagen auf Reservierung ca. 400 m vom Haus"},
+"tariffe.2026":{it:"Tariffe 2026",en:"2026 Rates",fr:"Tarifs 2026",de:"Preise 2026"},
+"tariffe.sconto":{it:"Soggiorni settimanali (7 notti): sconto 12%",en:"Weekly stays (7 nights): 12% discount",fr:"Séjours hebdomadaires (7 nuits) : réduction 12%",de:"Wochenaufenthalte (7 Nächte): 12% Rabatt"},
+"tariffe.th.periodo":{it:"Periodo",en:"Period",fr:"Période",de:"Zeitraum"},
+"tariffe.th.2pers":{it:"2 persone",en:"2 people",fr:"2 personnes",de:"2 Personen"},
+"tariffe.th.34pers":{it:"3–4 persone",en:"3–4 people",fr:"3–4 personnes",de:"3–4 Personen"},
+"tariffe.th.extra":{it:"Pers. agg.",en:"Extra pers.",fr:"Pers. suppl.",de:"Zus. Pers."},
+"tariffe.th.min":{it:"Soggiorno min.",en:"Min. stay",fr:"Séjour min.",de:"Mindestaufenthalt"},
+"tariffe.nota.title":{it:"Una nota importante",en:"An important note",fr:"Une note importante",de:"Ein wichtiger Hinweis"},
+"tariffe.nota.intro":{it:"La nostra casa vacanze è pensata per chi ama:",en:"Our holiday home is designed for those who love:",fr:"Notre maison de vacances est pensée pour ceux qui aiment :",de:"Unser Ferienhaus ist für diejenigen gedacht, die Folgendes lieben:"},
+"tariffe.nota.1":{it:"il silenzio",en:"silence",fr:"le silence",de:"Stille"},
+"tariffe.nota.2":{it:"il tempo lento",en:"slow time",fr:"le temps lent",de:"langsame Zeit"},
+"tariffe.nota.3":{it:"lo sport vissuto senza fretta",en:"sport lived without haste",fr:"le sport vécu sans hâte",de:"Sport ohne Hast"},
+"tariffe.nota.outro":{it:"Se cerchi animazione, rumore o vacanze mordi e fuggi, probabilmente non siamo il posto giusto per te.",en:"If you\u2019re looking for entertainment, noise or quick getaways, we\u2019re probably not the right place for you.",fr:"Si vous cherchez de l\u2019animation, du bruit ou des vacances éclair, nous ne sommes probablement pas le bon endroit pour vous.",de:"Wenn Sie Unterhaltung, Lärm oder Kurzurlaube suchen, sind wir wahrscheinlich nicht der richtige Ort für Sie."},
+"umbria.quote":{it:"L\u2019Umbria ha il suo ritmo. Il cibo è diretto. Il vino è locale. Le persone non spiegano il luogo. Ci vivono.",en:"Umbria has its own rhythm. The food is honest. The wine is local. People don\u2019t explain the place. They live it.",fr:"L\u2019Ombrie a son propre rythme. La cuisine est directe. Le vin est local. Les gens n\u2019expliquent pas le lieu. Ils y vivent.",de:"Umbrien hat seinen eigenen Rhythmus. Das Essen ist ehrlich. Der Wein ist lokal. Die Menschen erklären den Ort nicht. Sie leben ihn."},
+"umbria.text":{it:"La Casa di Nonna Iolanda si trova a Torri di Barattano, lungo la strada del Sagrantino, tra i borghi senza tempo di Todi, Montefalco e Bevagna. Un tratto d\u2019Umbria dove il paesaggio è ininterrotto. Uliveti. Muri a secco. Campi aperti. Nessuna segnaletica. Nessun vicino in vista.",en:"Casa di Nonna Iolanda is located in Torri di Barattano, along the Sagrantino road, between the timeless villages of Todi, Montefalco and Bevagna. A stretch of Umbria where the landscape is unbroken. Olive groves. Dry stone walls. Open fields. No signage. No neighbour in sight.",fr:"La Casa di Nonna Iolanda se trouve à Torri di Barattano, le long de la route du Sagrantino, entre les bourgs intemporels de Todi, Montefalco et Bevagna. Un morceau d\u2019Ombrie où le paysage est ininterrompu. Oliveraies. Murs en pierre sèche. Champs ouverts. Aucune signalisation. Aucun voisin en vue.",de:"Casa di Nonna Iolanda liegt in Torri di Barattano, entlang der Sagrantino-Straße, zwischen den zeitlosen Dörfern Todi, Montefalco und Bevagna. Ein Stück Umbrien, wo die Landschaft ununterbrochen ist. Olivenhaine. Trockensteinmauern. Offene Felder. Keine Beschilderung. Kein Nachbar in Sicht."},
+"umbria.aeroporti":{it:"Aeroporti più vicini: Perugia (PEG), Roma Fiumicino (FCO), Firenze (FLR).<br>Transfer privati organizzabili su richiesta.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",en:"Nearest airports: Perugia (PEG), Rome Fiumicino (FCO), Florence (FLR).<br>Private transfers can be arranged on request.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",fr:"Aéroports les plus proches : Pérouse (PEG), Rome Fiumicino (FCO), Florence (FLR).<br>Transferts privés organisables sur demande.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG).",de:"Nächste Flughäfen: Perugia (PEG), Rom Fiumicino (FCO), Florenz (FLR).<br>Private Transfers auf Anfrage organisierbar.<br>Via Matteotti 26, Torri — Gualdo Cattaneo (PG)."},
+"contatti.title":{it:"Contatti",en:"Contact",fr:"Contact",de:"Kontakt"},
+"contatti.form.title":{it:"Richiedi informazioni",en:"Request information",fr:"Demander des informations",de:"Informationen anfordern"},
+"contatti.form.submit":{it:"Invia richiesta",en:"Send request",fr:"Envoyer la demande",de:"Anfrage senden"},
+"footer.desc":{it:"Casa vacanze con campo da tennis privato nel cuore dell\u2019Umbria. Un rifugio in pietra dove il tempo rallenta e il paesaggio non finisce.",en:"Holiday home with private tennis court in the heart of Umbria. A stone retreat where time slows down and the landscape never ends.",fr:"Maison de vacances avec court de tennis privé au c\u0153ur de l\u2019Ombrie. Un refuge en pierre où le temps ralentit et le paysage ne finit jamais.",de:"Ferienhaus mit privatem Tennisplatz im Herzen Umbriens. Ein Rückzugsort aus Stein, wo die Zeit verlangsamt und die Landschaft nie endet."},
+"footer.esplora":{it:"Esplora",en:"Explore",fr:"Explorer",de:"Entdecken"},
+"footer.payoff":{it:"Natura, Sport e Silenzio.",en:"Nature, Sport and Silence.",fr:"Nature, Sport et Silence.",de:"Natur, Sport und Stille."},
+"cookie.text":{it:"Utilizziamo cookie tecnici per garantire il corretto funzionamento del sito.",en:"We use technical cookies to ensure the proper functioning of the site.",fr:"Nous utilisons des cookies techniques pour garantir le bon fonctionnement du site.",de:"Wir verwenden technische Cookies, um das ordnungsgemäße Funktionieren der Website zu gewährleisten."},
+"cookie.more":{it:"Scopri di più",en:"Learn more",fr:"En savoir plus",de:"Mehr erfahren"},
+"cookie.reject":{it:"Rifiuta",en:"Reject",fr:"Refuser",de:"Ablehnen"},
+"cookie.accept":{it:"Accetta",en:"Accept",fr:"Accepter",de:"Akzeptieren"},
+"cal.label":{it:"Disponibilità",en:"Availability",fr:"Disponibilité",de:"Verfügbarkeit"},
+"cal.intro":{it:"Controlla le date disponibili e contattaci per prenotare il tuo soggiorno.",en:"Check available dates and contact us to book your stay.",fr:"Consultez les dates disponibles et contactez-nous pour réserver votre séjour.",de:"Prüfen Sie die verfügbaren Daten und kontaktieren Sie uns, um Ihren Aufenthalt zu buchen."},
+"cal.available":{it:"Disponibile",en:"Available",fr:"Disponible",de:"Verfügbar"},
+"cal.booked":{it:"Occupato",en:"Booked",fr:"Occupé",de:"Belegt"},
+"cal.note":{it:"Il calendario viene aggiornato regolarmente. Per conferma, contattaci direttamente.",en:"The calendar is updated regularly. For confirmation, contact us directly.",fr:"Le calendrier est mis à jour régulièrement. Pour confirmation, contactez-nous directement.",de:"Der Kalender wird regelmäßig aktualisiert. Zur Bestätigung kontaktieren Sie uns direkt."},
+"cal.cta":{it:"Verifica e prenota su WhatsApp",en:"Check & book on WhatsApp",fr:"Vérifiez et réservez sur WhatsApp",de:"Prüfen & buchen auf WhatsApp"},
+"cal.prompt":{it:"Seleziona le date sul calendario per richiedere una prenotazione",en:"Select dates on the calendar to request a booking",fr:"Sélectionnez les dates sur le calendrier pour demander une réservation",de:"Wählen Sie Daten im Kalender, um eine Buchung anzufragen"},
+"cal.form.title":{it:"Richiedi prenotazione",en:"Request booking",fr:"Demander une réservation",de:"Buchung anfragen"},
+"cal.form.submit":{it:"Invia richiesta di prenotazione",en:"Send booking request",fr:"Envoyer la demande de réservation",de:"Buchungsanfrage senden"},
+"cal.form.alt":{it:"Oppure contattaci direttamente:",en:"Or contact us directly:",fr:"Ou contactez-nous directement :",de:"Oder kontaktieren Sie uns direkt:"}
+};
+
+// Card tags and table /notte translations
+const tagT = {
+  "Uso esclusivo":{en:"Exclusive use",fr:"Usage exclusif",de:"Exklusivnutzung"},
+  "Accesso gratuito":{en:"Free access",fr:"Accès gratuit",de:"Freier Zugang"},
+  "Incluso":{en:"Included",fr:"Inclus",de:"Inklusive"},
+  "Su richiesta":{en:"On request",fr:"Sur demande",de:"Auf Anfrage"}
+};
+const nightT = {it:"/notte",en:"/night",fr:"/nuit",de:"/Nacht"};
+const nightsT = {it:"notti",en:"nights",fr:"nuits",de:"Nächte"};
+const rateUnicaT = {it:"(tariffa unica)",en:"(flat rate)",fr:"(tarif unique)",de:"(Einheitspreis)"};
+const nataleT = {it:"Natale & Capodanno",en:"Christmas & New Year",fr:"Noël & Nouvel An",de:"Weihnachten & Neujahr"};
+const copyT = {it:"Tutti i diritti riservati.",en:"All rights reserved.",fr:"Tous droits réservés.",de:"Alle Rechte vorbehalten."};
+
+// Placeholders
+const placeholderT = {
+  nome:{it:"Nome",en:"Name",fr:"Nom",de:"Name"},
+  email:{it:"Email",en:"Email",fr:"E-mail",de:"E-Mail"},
+  date:{it:"Date preferite",en:"Preferred dates",fr:"Dates souhaitées",de:"Bevorzugte Daten"},
+  ospiti:{it:"Numero ospiti",en:"Number of guests",fr:"Nombre d'hôtes",de:"Anzahl Gäste"},
+  messaggio:{it:"Il tuo messaggio",en:"Your message",fr:"Votre message",de:"Ihre Nachricht"},
+  Nome:{it:"Nome e cognome",en:"Full name",fr:"Nom et prénom",de:"Vollständiger Name"},
+  Email:{it:"Email",en:"Email",fr:"E-mail",de:"E-Mail"},
+  Telefono:{it:"Telefono",en:"Phone",fr:"Téléphone",de:"Telefon"},
+  Messaggio:{it:"Note o richieste particolari",en:"Notes or special requests",fr:"Notes ou demandes particulières",de:"Hinweise oder besondere Wünsche"}
+};
+
+let currentLang = 'it';
+
 function switchLang(lang) {
+  currentLang = lang;
   document.getElementById('langLabel').textContent = lang.toUpperCase();
   document.querySelectorAll('.lang-option').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
   document.querySelectorAll('.mobile-lang button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   langSwitcher.classList.remove('open');
+  document.documentElement.lang = lang;
+
+  // Translate data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[key] && T[key][lang]) {
+      if (key === 'hero.title1' || key === 'umbria.aeroporti') {
+        el.innerHTML = T[key][lang];
+      } else {
+        el.textContent = T[key][lang];
+      }
+    }
+  });
+
+  // Translate card tags
+  document.querySelectorAll('.exp-card-tag').forEach(tag => {
+    const itText = tag.getAttribute('data-it') || tag.textContent;
+    if (!tag.getAttribute('data-it')) tag.setAttribute('data-it', tag.textContent);
+    if (lang === 'it') { tag.textContent = itText; }
+    else if (tagT[itText] && tagT[itText][lang]) { tag.textContent = tagT[itText][lang]; }
+  });
+
+  // Translate /notte
+  document.querySelectorAll('.per-night').forEach(el => { el.textContent = nightT[lang] || nightT.it; });
+
+  // Translate notti
+  document.querySelectorAll('.min-nights').forEach(el => {
+    const num = el.textContent.match(/\d+/);
+    if (num) el.textContent = num[0] + ' ' + (nightsT[lang] || nightsT.it);
+  });
+
+  // Translate tariffa unica
+  document.querySelectorAll('.highlight-row small').forEach(el => {
+    if (el.textContent.includes('tariffa') || el.textContent.includes('rate') || el.textContent.includes('tarif') || el.textContent.includes('Einheits')) {
+      el.textContent = rateUnicaT[lang] || rateUnicaT.it;
+    }
+  });
+
+  // Natale & Capodanno
+  document.querySelectorAll('.period-name').forEach(el => {
+    if (el.innerHTML.includes('Natale') || el.innerHTML.includes('Christmas') || el.innerHTML.includes('Noël') || el.innerHTML.includes('Weihnachten')) {
+      const small = el.querySelector('small');
+      el.innerHTML = (nataleT[lang] || nataleT.it) + (small ? small.outerHTML : '<small>22/12 – 02/01</small>');
+    }
+  });
+
+  // Copyright
+  document.querySelectorAll('.footer-copy').forEach(el => {
+    el.innerHTML = '© 2026 La Casa di Nonna Iolanda. ' + (copyT[lang] || copyT.it);
+  });
+
+  // Form placeholders (contact + booking forms)
+  document.querySelectorAll('.contact-form input, .contact-form textarea, .cal-form input, .cal-form textarea').forEach(el => {
+    const n = el.name;
+    if (placeholderT[n]) el.placeholder = placeholderT[n][lang] || placeholderT[n].it;
+  });
+
+  // Booking form select
+  const guestSelect = document.querySelector('.cal-form select[name="Ospiti"]');
+  if (guestSelect) {
+    const guestLabels = {it:"Numero ospiti",en:"Number of guests",fr:"Nombre d'hôtes",de:"Anzahl Gäste"};
+    const firstOpt = guestSelect.querySelector('option[disabled]');
+    if (firstOpt) firstOpt.textContent = guestLabels[lang] || guestLabels.it;
+  }
+
+  // Re-render calendar in new language
+  if (typeof renderCalendar === 'function') renderCalendar();
 }
 document.querySelectorAll('.lang-option').forEach(o => {
   o.addEventListener('click', () => switchLang(o.dataset.lang));
 });
+
+// ═══ AVAILABILITY CALENDAR ═══
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUQqeZvYC2NS8aK5Z_zBN8EdJDFRV0KpX2cSOSPJV5h9jjEuSf-iP9_zQPe2ZG1_MZjxV8ex_hX7s6/pub?gid=0&single=true&output=csv'; // <- INSERT GOOGLE SHEET CSV URL HERE
+const calMonths = {
+  it:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+  en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+  fr:['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+  de:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']
+};
+const calDays = {
+  it:['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+  en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+  fr:['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
+  de:['Mo','Di','Mi','Do','Fr','Sa','So']
+};
+
+let calOffset = 0;
+let bookedDates = new Set();
+let calSelection = { start: null, end: null };
+
+const calSelectMsg = {
+  it: { pick: 'Seleziona la data di check-in', pickEnd: 'Ora seleziona il check-out', range: '{n} notti: {s} → {e}', reset: 'Clicca su una data per cambiare' },
+  en: { pick: 'Select your check-in date', pickEnd: 'Now select your check-out', range: '{n} nights: {s} → {e}', reset: 'Click a date to change' },
+  fr: { pick: 'Sélectionnez la date d\u2019arrivée', pickEnd: 'Sélectionnez maintenant le départ', range: '{n} nuits : {s} → {e}', reset: 'Cliquez sur une date pour modifier' },
+  de: { pick: 'Wählen Sie Ihr Anreisedatum', pickEnd: 'Wählen Sie jetzt das Abreisedatum', range: '{n} Nächte: {s} → {e}', reset: 'Klicken Sie auf ein Datum zum Ändern' }
+};
+
+async function loadBookedDates() {
+  if (!SHEET_URL) return;
+  try {
+    const r = await fetch(SHEET_URL);
+    const csv = await r.text();
+    bookedDates = parseCSVDates(csv);
+    renderCalendar();
+  } catch(e) { console.log('Calendar data not available'); }
+}
+
+function parseCSVDates(csv) {
+  const lines = csv.trim().split('\n');
+  const dates = new Set();
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(',');
+    if (cols.length >= 2) {
+      const checkin = parseDateStr(cols[0].trim().replace(/"/g,''));
+      const checkout = parseDateStr(cols[1].trim().replace(/"/g,''));
+      if (checkin && checkout) {
+        let d = new Date(checkin);
+        while (d <= checkout) {
+          dates.add(d.toISOString().slice(0,10));
+          d.setDate(d.getDate() + 1);
+        }
+      }
+    }
+  }
+  return dates;
+}
+
+function parseDateStr(s) {
+  if (!s) return null;
+  if (s.includes('/')) {
+    const p = s.split('/');
+    if (p.length === 3) return new Date(p[2], p[1]-1, p[0]);
+  }
+  const d = new Date(s);
+  return isNaN(d) ? null : d;
+}
+
+function formatDateLocal(dateStr, lang) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const day = d.getDate();
+  const months = calMonths[lang] || calMonths.it;
+  return day + ' ' + months[d.getMonth()];
+}
+
+function onDayClick(dateStr) {
+  if (bookedDates.has(dateStr)) return;
+  const d = new Date(dateStr + 'T00:00:00');
+  const today = new Date(); today.setHours(0,0,0,0);
+  if (d < today) return;
+
+  if (!calSelection.start || calSelection.end) {
+    // First click or reset
+    calSelection = { start: dateStr, end: null };
+  } else {
+    // Second click
+    if (dateStr <= calSelection.start) {
+      calSelection = { start: dateStr, end: null };
+    } else {
+      // Check if any booked date in range
+      let hasBooked = false;
+      let check = new Date(calSelection.start + 'T00:00:00');
+      const endD = new Date(dateStr + 'T00:00:00');
+      while (check <= endD) {
+        if (bookedDates.has(check.toISOString().slice(0,10))) { hasBooked = true; break; }
+        check.setDate(check.getDate() + 1);
+      }
+      if (hasBooked) {
+        calSelection = { start: dateStr, end: null };
+      } else {
+        calSelection.end = dateStr;
+      }
+    }
+  }
+  renderCalendar();
+  updateSelectionInfo();
+}
+
+function updateSelectionInfo() {
+  const lang = currentLang || 'it';
+  const info = document.getElementById('calSelectionInfo');
+  const bookingForm = document.getElementById('calBookingForm');
+  const bookingDates = document.getElementById('calBookingDates');
+  const prompt = document.getElementById('calPrompt');
+  const cta = document.getElementById('calCtaLink');
+  const msgs = calSelectMsg[lang] || calSelectMsg.it;
+
+  if (!calSelection.start) {
+    info.textContent = msgs.pick;
+    info.classList.add('visible');
+    bookingForm.classList.remove('visible');
+    prompt.style.display = 'block';
+    return;
+  }
+  if (!calSelection.end) {
+    info.textContent = msgs.pickEnd;
+    info.classList.add('visible');
+    bookingForm.classList.remove('visible');
+    prompt.style.display = 'none';
+    return;
+  }
+
+  // Both selected — show booking form
+  const s = formatDateLocal(calSelection.start, lang);
+  const e = formatDateLocal(calSelection.end, lang);
+  const d1 = new Date(calSelection.start + 'T00:00:00');
+  const d2 = new Date(calSelection.end + 'T00:00:00');
+  const nights = Math.round((d2 - d1) / 86400000);
+  info.innerHTML = msgs.range.replace('{n}', nights).replace('{s}', '<strong>' + s + '</strong>').replace('{e}', '<strong>' + e + '</strong>') + ' &nbsp; <span style="opacity:0.5;font-size:0.75rem;cursor:pointer" onclick="calSelection={start:null,end:null};renderCalendar();updateSelectionInfo();">(' + msgs.reset + ')</span>';
+  info.classList.add('visible');
+  prompt.style.display = 'none';
+
+  // Show form and fill dates
+  bookingForm.classList.add('visible');
+  const d1Fmt = d1.getDate() + '/' + (d1.getMonth()+1) + '/' + d1.getFullYear();
+  const d2Fmt = d2.getDate() + '/' + (d2.getMonth()+1) + '/' + d2.getFullYear();
+  bookingDates.innerHTML = s + ' → ' + e + ' &nbsp;·&nbsp; <strong>' + nights + ' ' + (calSelectMsg[lang]||calSelectMsg.it).range.split(':')[0].split('{n}').pop().trim().split(' ')[0] + '</strong>';
+  bookingDates.innerHTML = '<strong>' + nights + '</strong> ' + (lang==='it'?'notti':lang==='en'?'nights':lang==='fr'?'nuits':'Nächte') + ' &nbsp;·&nbsp; ' + s + ' → ' + e;
+
+  document.getElementById('calFormCheckin').value = d1Fmt;
+  document.getElementById('calFormCheckout').value = d2Fmt;
+  document.getElementById('calFormNights').value = nights;
+
+  // Update WhatsApp link with dates
+  const waMsg = encodeURIComponent('Ciao, vorrei prenotare alla Casa di Nonna Iolanda dal ' + d1Fmt + ' al ' + d2Fmt + ' (' + nights + ' notti).');
+  cta.href = 'https://wa.me/393487655756?text=' + waMsg;
+
+  // Scroll to form
+  setTimeout(function(){ bookingForm.scrollIntoView({ behavior:'smooth', block:'center' }); }, 300);
+}
+
+function renderCalendar() {
+  const lang = currentLang || 'it';
+  const now = new Date();
+  const m1 = new Date(now.getFullYear(), now.getMonth() + calOffset, 1);
+  const m2 = new Date(now.getFullYear(), now.getMonth() + calOffset + 1, 1);
+  
+  const label = document.getElementById('calMonthLabel');
+  const months = calMonths[lang] || calMonths.it;
+  label.textContent = months[m1.getMonth()] + ' ' + m1.getFullYear() + '  \u2014  ' + months[m2.getMonth()] + ' ' + m2.getFullYear();
+  
+  const container = document.getElementById('calGrids');
+  container.innerHTML = renderMonth(m1, lang) + renderMonth(m2, lang);
+}
+
+function renderMonth(date, lang) {
+  const months = calMonths[lang] || calMonths.it;
+  const days = calDays[lang] || calDays.it;
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  
+  let html = '<div class="cal-month">';
+  html += '<div class="cal-month-title">' + months[month] + ' ' + year + '</div>';
+  html += '<div class="cal-grid">';
+  
+  days.forEach(d => { html += '<div class="cal-day-name">' + d + '</div>'; });
+  
+  let firstDay = new Date(year, month, 1).getDay();
+  firstDay = firstDay === 0 ? 6 : firstDay - 1;
+  
+  for (let i = 0; i < firstDay; i++) { html += '<div class="cal-day empty"></div>'; }
+  
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateObj = new Date(year, month, d);
+    const dateStr = dateObj.toISOString().slice(0,10);
+    const isPast = dateObj < today;
+    const isToday = dateObj.getTime() === today.getTime();
+    const isBooked = bookedDates.has(dateStr);
+    
+    let cls = 'cal-day';
+    if (isPast) cls += ' past';
+    else if (isBooked) cls += ' booked';
+    else cls += ' available';
+    if (isToday) cls += ' today';
+
+    // Selection highlights
+    if (calSelection.start === dateStr) cls += ' selected-start';
+    else if (calSelection.end === dateStr) cls += ' selected-end';
+    else if (calSelection.start && calSelection.end && dateStr > calSelection.start && dateStr < calSelection.end) cls += ' in-range';
+
+    const clickable = !isPast && !isBooked;
+    html += '<div class="' + cls + '"' + (clickable ? ' data-date="' + dateStr + '"' : '') + '>' + d + '</div>';
+  }
+  
+  html += '</div></div>';
+  return html;
+}
+
+function calNav(dir) {
+  calOffset += dir;
+  if (calOffset < 0) calOffset = 0;
+  renderCalendar();
+}
+
+// Initialize calendar
+renderCalendar();
+loadBookedDates();
+
+// Event delegation for calendar day clicks (mobile-friendly)
+document.getElementById('calGrids').addEventListener('click', function(e) {
+  const day = e.target.closest('[data-date]');
+  if (day) onDayClick(day.getAttribute('data-date'));
+});
+
+// Calendar nav buttons
+document.getElementById('calPrev').addEventListener('click', function() { calNav(-1); });
+document.getElementById('calNext').addEventListener('click', function() { calNav(1); });
+// Show initial hint
+setTimeout(function(){ updateSelectionInfo(); }, 500);
 
 // Reveal on scroll
 const revealEls = document.querySelectorAll('.reveal, .parallax-fade-in');
