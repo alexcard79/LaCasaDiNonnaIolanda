@@ -1186,7 +1186,7 @@
           <input type="email" name="Email" placeholder="Email" required>
         </div>
         <div class="cal-form-row">
-          <input type="tel" name="Telefono" placeholder="Telefono">
+          <input type="tel" name="Telefono" placeholder="Telefono" required>
           <select name="Ospiti" required>
             <option value="" disabled selected data-i18n-placeholder="cal.form.guests">Numero ospiti</option>
             <option value="2">2</option>
@@ -1195,7 +1195,7 @@
             <option value="5+">5+</option>
           </select>
         </div>
-        <textarea name="Messaggio" placeholder="Note o richieste particolari" rows="3"></textarea>
+        <textarea name="Messaggio" placeholder="Note o richieste particolari" required rows="3"></textarea>
         <button type="submit" class="cal-form-submit" data-i18n="cal.form.submit">Invia richiesta di prenotazione</button>
       </form>
       <div class="cal-form-alt">
@@ -1288,10 +1288,10 @@
         <input type="email" name="email" placeholder="Email" required>
       </div>
       <div class="form-row">
-        <input type="text" name="date" placeholder="Date preferite">
-        <input type="text" name="ospiti" placeholder="Numero ospiti">
+        <input type="text" name="date" placeholder="Date preferite" required>
+        <input type="text" name="ospiti" placeholder="Numero ospiti" required>
       </div>
-      <textarea name="messaggio" placeholder="Il tuo messaggio" rows="4"></textarea>
+      <textarea name="messaggio" placeholder="Il tuo messaggio" required rows="4"></textarea>
       <button type="submit" class="contact-submit" data-i18n="contatti.form.submit">Invia richiesta</button>
     </form>
   </div>
